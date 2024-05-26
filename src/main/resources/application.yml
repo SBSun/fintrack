@@ -16,6 +16,14 @@ spring:
         show_sql: true
     database: postgresql
 
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+
   messages:
     basename: messages/exception
     encoding: UTF-8
@@ -26,7 +34,7 @@ oauth2:
   kakao:
     client-id: 5e7ce3d83dc7c861fe2ea3a1daa2dacf
     client-secret: QfRo0xCyPyK7WNx43A3YePurJH7DvnNz
-    redirect-uri: http://localhost:8080/oauth2/kakao
+    redirect-uri: http://localhost:8080/auth/kakao
     scope: profile_nickname,account_email
     authorize-uri: https://kauth.kakao.com/oauth/authorize
     token-uri: https://kauth.kakao.com/oauth/token
