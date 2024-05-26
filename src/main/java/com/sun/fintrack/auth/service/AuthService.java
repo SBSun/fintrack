@@ -4,7 +4,6 @@ import com.sun.fintrack.auth.domain.client.SocialMemberClientComposite;
 import com.sun.fintrack.auth.domain.enums.SocialType;
 import com.sun.fintrack.auth.domain.provider.AuthCodeRequestUrlProviderComposite;
 import com.sun.fintrack.auth.kakao.response.KakaoMemberResponse;
-import com.sun.fintrack.auth.request.AuthLoginRequest;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.repository.MemberRepository;
 
@@ -43,11 +42,11 @@ public class AuthService {
    * 소셜 로그인, 가입 전이라면 강제 회원가입
    *
    * @param socialType 소셜 타입
-   * @param param      요청 파라미터
+   * @param code       인가 코드
    */
   @Transactional
-  public void login(SocialType socialType, AuthLoginRequest param) {
-    KakaoMemberResponse memberInfo = socialUserClient.fetch(socialType, param.getAuthCode());
+  public void login(SocialType socialType, String code) {
+    KakaoMemberResponse memberInfo = socialUserClient.fetch(socialType, code);
 
     Optional<Member> member = memberRepository.findByEmail(memberInfo.email());
     if (member.isEmpty()) {

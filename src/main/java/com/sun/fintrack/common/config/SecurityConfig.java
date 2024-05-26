@@ -27,12 +27,13 @@ public class SecurityConfig {
         .httpBasic(AbstractHttpConfigurer::disable)
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/static/**", "/error", "/health", "/", "/test")
-                                                       .permitAll()
-                                                       .requestMatchers("/auth/**")
-                                                       .anonymous()
-                                                       .anyRequest()
-                                                       .denyAll())
+        .authorizeHttpRequests(
+            (authorize) -> authorize.requestMatchers("/images/**", "/static/**", "/error", "/health", "/test")
+                                    .permitAll()
+                                    .requestMatchers("/", "/login", "/auth/**")
+                                    .anonymous()
+                                    .anyRequest()
+                                    .denyAll())
         .securityContext((securityContext) -> securityContext.requireExplicitSave(false));
 
     return http.build();
