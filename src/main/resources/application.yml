@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sun
+    username: sun
+    password: sun0216
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
