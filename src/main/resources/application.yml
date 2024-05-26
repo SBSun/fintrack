@@ -9,6 +9,26 @@ spring:
     password: sun0216
 
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
+    database: postgresql
+
+  messages:
+    basename: messages/exception
+    encoding: UTF-8
+    fallbackToSystemLocale: false
+    alwaysUseMessageFormat: true
+
+oauth2:
+  kakao:
+    client-id: 5e7ce3d83dc7c861fe2ea3a1daa2dacf
+    client-secret: QfRo0xCyPyK7WNx43A3YePurJH7DvnNz
+    redirect-uri: http://localhost:8080/oauth2/kakao
+    scope: profile_nickname,account_email
+    authorize-uri: https://kauth.kakao.com/oauth/authorize
+    token-uri: https://kauth.kakao.com/oauth/token
+    user-info-uri: https://kapi.kakao.com/v2/user/me
+    authorization-prefix: 'Bearer '
