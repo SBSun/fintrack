@@ -44,7 +44,6 @@ public class AuthController {
   @SneakyThrows
   @GetMapping(value = "/login/url")
   public void doGetLoginUrl(HttpServletResponse response) {
-
     response.sendRedirect(authService.getAuthCodeRequestUrl(SocialType.KAKAO));
   }
 }

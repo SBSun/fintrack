@@ -30,7 +30,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             (authorize) -> authorize.requestMatchers("/images/**", "/static/**", "/error", "/health", "/test")
                                     .permitAll()
-                                    .requestMatchers("/", "/login", "/auth/**")
+                                    .requestMatchers("/", "/auth/**")
                                     .anonymous()
                                     .anyRequest()
                                     .denyAll())
