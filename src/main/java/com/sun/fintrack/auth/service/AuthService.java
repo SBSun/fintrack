@@ -26,6 +26,8 @@ public class AuthService {
   private final AuthCodeRequestUrlProviderComposite authCodeRequestUrlProvider;
   private final SocialMemberClientComposite socialUserClient;
 
+  private final JwtService jwtService;
+
   private final MemberRepository memberRepository;
 
   /**
@@ -45,12 +47,14 @@ public class AuthService {
    * @param code       인가 코드
    */
   @Transactional
-  public void login(SocialType socialType, String code) {
+  public String login(SocialType socialType, String code) {
     KakaoMemberResponse memberInfo = socialUserClient.fetch(socialType, code);
 
     Optional<Member> member = memberRepository.findByEmail(memberInfo.email());
     if (member.isEmpty()) {
-      memberRepository.save(new Member(memberInfo));
+      member = Optional.of(memberRepository.save(new Member(memberInfo)));
     }
+
+    return jwtService.generateToken(member.get());
   }
 }

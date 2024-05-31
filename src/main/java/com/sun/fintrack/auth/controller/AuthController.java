@@ -4,7 +4,9 @@ package com.sun.fintrack.auth.controller;
 import com.sun.fintrack.auth.domain.enums.SocialType;
 import com.sun.fintrack.auth.service.AuthService;
 import com.sun.fintrack.auth.validation.AuthValidator;
+import com.sun.fintrack.common.config.jwt.JwtProperties;
 import com.sun.fintrack.common.response.SuccessResponse;
+import com.sun.fintrack.common.utils.CookieUtils;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthController {
 
   private final AuthService authService;
+  private final JwtProperties jwtProperties;
 
   /**
    * 로그인
@@ -31,10 +34,11 @@ public class AuthController {
    * @param code 인가 코드
    */
   @GetMapping(value = "/kakao")
-  public ResponseEntity<?> doGetAuthKakao(@RequestParam(required = false) String code) {
+  public ResponseEntity<?> doGetAuthKakao(@RequestParam(required = false) String code, HttpServletResponse response) {
     AuthValidator.validate(code);
 
-    authService.login(SocialType.KAKAO, code);
+    CookieUtils.setCookie(jwtProperties.cookieName(), authService.login(SocialType.KAKAO, code), 24 * 60 * 60,
+        response);
     return ResponseEntity.ok(new SuccessResponse());
   }
 
