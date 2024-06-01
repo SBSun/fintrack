@@ -3,6 +3,7 @@ package com.sun.fintrack.auth.service;
 import com.sun.fintrack.common.config.jwt.JwtProperties;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.domain.MemberDetail;
+import com.sun.fintrack.member.service.MemberOneService;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class JwtService {
 
   private Key key;
   private final JwtProperties jwtProperties;
+  private final MemberOneService memberOneService;
 
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);

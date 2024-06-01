@@ -2,7 +2,7 @@ package com.sun.fintrack.common.domain.converter;
 
 import com.sun.fintrack.common.domain.enums.Codable;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import jakarta.persistence.AttributeConverter;
 
@@ -25,7 +25,7 @@ public abstract class AbstractEnumCodeConverter<E extends Enum<E> & Codable> imp
   }
 
   public E toEntityAttribute(Class<E> cls, String code) {
-    return !StringUtils.hasText(code) ? null : Codable.fromCode(cls, code);
+    return StringUtils.isBlank(code) ? null : Codable.fromCode(cls, code);
   }
 
   private String toDatabaseColumn(E attr) {

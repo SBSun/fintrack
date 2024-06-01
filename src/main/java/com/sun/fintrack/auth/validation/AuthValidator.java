@@ -2,7 +2,7 @@ package com.sun.fintrack.auth.validation;
 
 import com.sun.fintrack.common.exception.ValidationException;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import lombok.experimental.UtilityClass;
 
@@ -18,7 +18,7 @@ public class AuthValidator {
    * @param code 인가 코드
    */
   public void validate(String code) {
-    if (!StringUtils.hasText(code)) {
+    if (StringUtils.isBlank(code)) {
       throw new ValidationException("auth.param_auth_code_empty");
     }
   }

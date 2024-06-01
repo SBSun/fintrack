@@ -45,12 +45,12 @@ public class CookieUtils {
    *
    * @param name     쿠키 이름
    * @param value    쿠키 값
-   * @param age      저장 기간
+   * @param maxAge   저장 기간
    * @param response 응답
    */
-  public void setCookie(String name, String value, Integer age, HttpServletResponse response) {
+  public void setCookie(String name, String value, Integer maxAge, HttpServletResponse response) {
     ResponseCookie cookie =
-        ResponseCookie.from(name, value).path("/").sameSite("None").httpOnly(true).secure(true).maxAge(age).build();
+        ResponseCookie.from(name, value).path("/").sameSite("None").httpOnly(true).secure(true).maxAge(maxAge).build();
 
     response.addHeader("Set-Cookie", cookie.toString());
   }
