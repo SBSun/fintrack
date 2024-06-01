@@ -1,12 +1,12 @@
-package com.sun.fintrack.auth.controller;
+package com.sun.fintrack.controller;
 
 
 import com.sun.fintrack.auth.domain.enums.SocialType;
 import com.sun.fintrack.auth.service.AuthService;
-import com.sun.fintrack.auth.validation.AuthValidator;
 import com.sun.fintrack.common.config.jwt.JwtProperties;
 import com.sun.fintrack.common.response.SuccessResponse;
 import com.sun.fintrack.common.utils.CookieUtils;
+import com.sun.fintrack.validation.AuthValidator;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

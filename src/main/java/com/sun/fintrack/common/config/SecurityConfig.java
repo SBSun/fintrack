@@ -29,7 +29,7 @@ public class SecurityConfig {
   private final JwtService jwtService;
   private final JwtProperties jwtProperties;
   private final MemberOneService memberOneService;
-  
+
   private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
   private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
@@ -47,6 +47,8 @@ public class SecurityConfig {
                                     .permitAll()
                                     .requestMatchers("/", "/auth/**")
                                     .anonymous()
+                                    .requestMatchers("/payments/**")
+                                    .authenticated()
                                     .anyRequest()
                                     .denyAll())
         .addFilterBefore(new JwtAuthenticationFilter(jwtService, jwtProperties, memberOneService),

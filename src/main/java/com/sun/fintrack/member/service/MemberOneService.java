@@ -22,4 +22,9 @@ public class MemberOneService {
   public Member getOne(Long memberSeq) {
     return memberRepository.findById(memberSeq).orElseThrow(() -> new ValidationException("member.not_found"));
   }
+
+  @Transactional(readOnly = true)
+  public Member getReferenceOne(Long memberSeq) {
+    return memberRepository.getReferenceById(memberSeq);
+  }
 }

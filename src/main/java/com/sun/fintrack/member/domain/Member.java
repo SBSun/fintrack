@@ -10,21 +10,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * 회원 엔티티
- *
- * @author 송병선
  */
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "MEMBER")
 public class Member extends BaseTimeEntity {
 
   /**
-   * 회원 ID
+   * 회원 일련번호
    */
   @Id
   @Column(name = "MB_SEQ", nullable = false)
@@ -38,7 +38,7 @@ public class Member extends BaseTimeEntity {
   /**
    * 닉네임
    */
-  @Column(name = "MB_NAME", nullable = false)
+  @Column(name = "MB_NM", nullable = false)
   private String name;
   /**
    * 회원 역할
