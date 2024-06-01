@@ -1,4 +1,4 @@
-package com.sun.fintrack.auth.validation;
+package com.sun.fintrack.validation;
 
 import com.sun.fintrack.common.exception.ValidationException;
 

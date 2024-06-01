@@ -9,8 +9,6 @@ spring:
     password: sun0216
 
   jpa:
-    hibernate:
-      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
