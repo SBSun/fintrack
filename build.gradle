@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'nu.studer.jooq' version '9.0'
 }
 
 group = 'com.sun'
@@ -25,10 +26,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.4'
 	implementation 'org.springframework.boot:spring-boot-configuration-processor:3.2.4'
-	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
-
+	implementation 'org.postgresql:postgresql:42.7.3'
+	jooqGenerator 'org.postgresql:postgresql:42.7.3'
 	// Jwt
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
@@ -47,4 +49,54 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jooq {
+	version = dependencyManagement.importedProperties['jooq.version']
+	edition = nu.studer.gradle.jooq.JooqEdition.OSS  // default (can be omitted)
+
+	configurations {
+		main {  // name of the jOOQ configuration
+			generateSchemaSourceOnCompilation = false  // default (can be omitted)
+
+			generationTool {
+				jdbc {
+					driver = 'org.postgresql.Driver'
+					url = 'jdbc:postgresql://localhost:5432/sun'
+					user = 'sun'
+					password = 'sun0216'
+				}
+				generator {
+					name = 'org.jooq.codegen.DefaultGenerator'
+					database {
+						name = 'org.jooq.meta.postgres.PostgresDatabase'
+						inputSchema = 'sun'
+						forcedTypes {
+							forcedType {
+								name = 'varchar'
+								includeExpression = '.*'
+								includeTypes = 'JSONB?'
+							}
+							forcedType {
+								name = 'varchar'
+								includeExpression = '.*'
+								includeTypes = 'INET'
+							}
+						}
+					}
+					generate {
+						deprecated = false
+						records = true
+						immutablePojos = true
+						fluentSetters = true
+					}
+					target {
+						packageName = 'sun'
+						directory = 'src/main/java/com/sun/fintrack/common/domain/jooq'  // default (can be omitted)
+					}
+					strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+				}
+			}
+		}
+	}
 }
