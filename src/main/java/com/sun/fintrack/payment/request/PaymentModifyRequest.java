@@ -3,11 +3,15 @@ package com.sun.fintrack.payment.request;
 import lombok.Getter;
 
 /**
- * 결제 등록 요청
+ * 결제 수정 요청
  */
 @Getter
-public class PaymentEntryRequest {
-  
+public class PaymentModifyRequest {
+
+  /**
+   * 결제 일련번호
+   */
+  private Long paymentSeq;
   /**
    * 결제 내용
    */

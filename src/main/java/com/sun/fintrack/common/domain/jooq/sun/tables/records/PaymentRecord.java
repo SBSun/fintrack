@@ -109,6 +109,21 @@ public class PaymentRecord extends TableRecordImpl<PaymentRecord> {
         return (Long) get(5);
     }
 
+    /**
+     * Setter for <code>sun.payment.upd_dt</code>. 수정일시
+     */
+    public PaymentRecord setUpdDt(LocalDateTime value) {
+        set(6, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>sun.payment.upd_dt</code>. 수정일시
+     */
+    public LocalDateTime getUpdDt() {
+        return (LocalDateTime) get(6);
+    }
+
     // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
@@ -123,7 +138,7 @@ public class PaymentRecord extends TableRecordImpl<PaymentRecord> {
     /**
      * Create a detached, initialised PaymentRecord
      */
-    public PaymentRecord(Long pmSeq, String pmCtt, Long pmPrc, Long mbSeq, LocalDateTime creDt, Long pmCtgId) {
+    public PaymentRecord(Long pmSeq, String pmCtt, Long pmPrc, Long mbSeq, LocalDateTime creDt, Long pmCtgId, LocalDateTime updDt) {
         super(Payment.PAYMENT);
 
         setPmSeq(pmSeq);
@@ -132,6 +147,7 @@ public class PaymentRecord extends TableRecordImpl<PaymentRecord> {
         setMbSeq(mbSeq);
         setCreDt(creDt);
         setPmCtgId(pmCtgId);
+        setUpdDt(updDt);
         resetChangedOnNotNull();
     }
 
@@ -148,6 +164,7 @@ public class PaymentRecord extends TableRecordImpl<PaymentRecord> {
             setMbSeq(value.getMbSeq());
             setCreDt(value.getCreDt());
             setPmCtgId(value.getPmCtgId());
+            setUpdDt(value.getUpdDt());
             resetChangedOnNotNull();
         }
     }
