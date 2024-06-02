@@ -1,5 +1,6 @@
 package com.sun.fintrack.payment.command.service;
 
+import com.sun.fintrack.common.exception.ValidationException;
 import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.service.MemberOneService;
@@ -35,7 +36,9 @@ public class PaymentEntryService {
   @Transactional
   public void entry(PaymentEntryRequest param) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
-    PaymentCategory category = paymentCategoryRepository.getReferenceById(param.getCategoryId());
+    PaymentCategory category = paymentCategoryRepository.findById(param.getCategoryId())
+                                                        .orElseThrow(() -> new ValidationException(
+                                                            "payment.category.not_found"));
 
     paymentRepository.save(new Payment(param.getContent(), param.getPrice(), member, category));
   }

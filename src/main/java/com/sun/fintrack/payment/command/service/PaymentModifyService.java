@@ -1,5 +1,6 @@
 package com.sun.fintrack.payment.command.service;
 
+import com.sun.fintrack.common.exception.ValidationException;
 import com.sun.fintrack.payment.domain.Payment;
 import com.sun.fintrack.payment.domain.PaymentCategory;
 import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
@@ -32,7 +33,8 @@ public class PaymentModifyService {
     Payment payment = paymentOneService.getOne(param.getPaymentSeq());
     PaymentCategory category = payment.getCategory();
     if (!category.getCategoryId().equals(param.getCategoryId())) {
-      category = paymentCategoryRepository.getReferenceById(param.getCategoryId());
+      category = paymentCategoryRepository.findById(param.getCategoryId())
+                                          .orElseThrow(() -> new ValidationException("payment.category.not_found"));
     }
 
     payment.modify(param.getContent(), param.getPrice(), category);

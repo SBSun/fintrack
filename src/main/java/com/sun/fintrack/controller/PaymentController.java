@@ -1,11 +1,13 @@
 package com.sun.fintrack.controller;
 
+import com.sun.fintrack.common.response.DataResponse;
 import com.sun.fintrack.common.response.ListResponse;
 import com.sun.fintrack.common.response.SuccessResponse;
 import com.sun.fintrack.payment.command.service.PaymentDeleteService;
 import com.sun.fintrack.payment.command.service.PaymentEntryService;
 import com.sun.fintrack.payment.command.service.PaymentModifyService;
 import com.sun.fintrack.payment.query.service.PaymentListService;
+import com.sun.fintrack.payment.query.service.PaymentOneService;
 import com.sun.fintrack.payment.request.PaymentEntryRequest;
 import com.sun.fintrack.payment.request.PaymentModifyRequest;
 import com.sun.fintrack.validation.PaymentValidator;
@@ -32,6 +34,8 @@ public class PaymentController {
   private final PaymentEntryService paymentEntryService;
   private final PaymentModifyService paymentModifyService;
   private final PaymentDeleteService paymentDeleteService;
+
+  private final PaymentOneService paymentOneService;
   private final PaymentListService paymentListService;
 
   /**
@@ -49,6 +53,18 @@ public class PaymentController {
   }
 
   /**
+   * 결제 단일 상세 조회
+   *
+   * @return 요청 결과
+   */
+  @GetMapping("/{paymentSeq}")
+  public ResponseEntity<?> doGet(@PathVariable("paymentSeq") Long paymentSeq) {
+    PaymentValidator.validate(paymentSeq);
+
+    return ResponseEntity.ok(new DataResponse(paymentOneService.getDetail(paymentSeq)));
+  }
+
+  /**
    * 결제 카테고리 목록 조회
    *
    * @return 요청 결과
@@ -56,6 +72,16 @@ public class PaymentController {
   @GetMapping("/categories")
   public ResponseEntity<?> doGetCategories() {
     return ResponseEntity.ok(new ListResponse(paymentListService.getCategoryList()));
+  }
+
+  /**
+   * 일일 결제 목록 조회
+   *
+   * @return 요청 결과
+   */
+  @GetMapping("/daily")
+  public ResponseEntity<?> doGetDaily() {
+    return ResponseEntity.ok(new ListResponse(paymentListService.getDailyList()));
   }
 
   /**
