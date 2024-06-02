@@ -1,8 +1,7 @@
 package com.sun.fintrack.payment.domain;
 
+import com.sun.fintrack.common.domain.BaseTimeEntity;
 import com.sun.fintrack.member.domain.Member;
-
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Table(name = "PAYMENT")
-public class Payment {
+public class Payment extends BaseTimeEntity {
 
   /**
    * 결제 일련번호
@@ -42,18 +41,13 @@ public class Payment {
   @Column(name = "PM_PRC", nullable = false)
   private Long price;
   /**
-   * 생성일시
-   */
-  @Column(name = "CRE_DT", updatable = false, nullable = false)
-  private LocalDateTime createdDt = LocalDateTime.now();
-  /**
    * 회원
    */
   @ManyToOne
   @JoinColumn(name = "MB_SEQ", nullable = false)
   private Member member;
   /**
-   * 회원
+   * 카테고리
    */
   @ManyToOne
   @JoinColumn(name = "PM_CTG_ID", nullable = false)
@@ -63,6 +57,19 @@ public class Payment {
     this.content = content;
     this.price = price;
     this.member = member;
+    this.category = category;
+  }
+
+  /**
+   * 결제 정보 수정
+   *
+   * @param content  결제 내용
+   * @param price    결제 금액
+   * @param category 카테고리
+   */
+  public void modify(String content, Long price, PaymentCategory category) {
+    this.content = content;
+    this.price = price;
     this.category = category;
   }
 }

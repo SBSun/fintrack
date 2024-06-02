@@ -22,6 +22,7 @@ public class Payment implements Serializable {
     private final Long mbSeq;
     private final LocalDateTime creDt;
     private final Long pmCtgId;
+    private final LocalDateTime updDt;
 
     public Payment(Payment value) {
         this.pmSeq = value.pmSeq;
@@ -30,6 +31,7 @@ public class Payment implements Serializable {
         this.mbSeq = value.mbSeq;
         this.creDt = value.creDt;
         this.pmCtgId = value.pmCtgId;
+        this.updDt = value.updDt;
     }
 
     public Payment(
@@ -38,7 +40,8 @@ public class Payment implements Serializable {
         Long pmPrc,
         Long mbSeq,
         LocalDateTime creDt,
-        Long pmCtgId
+        Long pmCtgId,
+        LocalDateTime updDt
     ) {
         this.pmSeq = pmSeq;
         this.pmCtt = pmCtt;
@@ -46,6 +49,7 @@ public class Payment implements Serializable {
         this.mbSeq = mbSeq;
         this.creDt = creDt;
         this.pmCtgId = pmCtgId;
+        this.updDt = updDt;
     }
 
     /**
@@ -88,6 +92,13 @@ public class Payment implements Serializable {
      */
     public Long getPmCtgId() {
         return this.pmCtgId;
+    }
+
+    /**
+     * Getter for <code>sun.payment.upd_dt</code>. 수정일시
+     */
+    public LocalDateTime getUpdDt() {
+        return this.updDt;
     }
 
     @Override
@@ -135,6 +146,12 @@ public class Payment implements Serializable {
         }
         else if (!this.pmCtgId.equals(other.pmCtgId))
             return false;
+        if (this.updDt == null) {
+            if (other.updDt != null)
+                return false;
+        }
+        else if (!this.updDt.equals(other.updDt))
+            return false;
         return true;
     }
 
@@ -148,6 +165,7 @@ public class Payment implements Serializable {
         result = prime * result + ((this.mbSeq == null) ? 0 : this.mbSeq.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
         result = prime * result + ((this.pmCtgId == null) ? 0 : this.pmCtgId.hashCode());
+        result = prime * result + ((this.updDt == null) ? 0 : this.updDt.hashCode());
         return result;
     }
 
@@ -161,6 +179,7 @@ public class Payment implements Serializable {
         sb.append(", ").append(mbSeq);
         sb.append(", ").append(creDt);
         sb.append(", ").append(pmCtgId);
+        sb.append(", ").append(updDt);
 
         sb.append(")");
         return sb.toString();

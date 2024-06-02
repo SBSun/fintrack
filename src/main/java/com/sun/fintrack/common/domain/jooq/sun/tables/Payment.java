@@ -74,6 +74,11 @@ public class Payment extends TableImpl<PaymentRecord> {
      */
     public final TableField<PaymentRecord, Long> PM_CTG_ID = createField(DSL.name("pm_ctg_id"), SQLDataType.BIGINT.nullable(false), this, "카테고리 아이디");
 
+    /**
+     * The column <code>sun.payment.upd_dt</code>. 수정일시
+     */
+    public final TableField<PaymentRecord, LocalDateTime> UPD_DT = createField(DSL.name("upd_dt"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+
     private Payment(Name alias, Table<PaymentRecord> aliased) {
         this(alias, aliased, null);
     }
