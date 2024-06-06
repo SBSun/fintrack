@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class PaymentController {
    */
   @DeleteMapping("/{paymentSeq}")
   public ResponseEntity<?> doDelete(@PathVariable("paymentSeq") Long paymentSeq) {
-    PaymentValidator.validate(paymentSeq);
+    PaymentValidator.validateSeq(paymentSeq);
 
     paymentDeleteService.delete(paymentSeq);
     return ResponseEntity.ok(new SuccessResponse());
@@ -59,7 +60,7 @@ public class PaymentController {
    */
   @GetMapping("/{paymentSeq}")
   public ResponseEntity<?> doGet(@PathVariable("paymentSeq") Long paymentSeq) {
-    PaymentValidator.validate(paymentSeq);
+    PaymentValidator.validateSeq(paymentSeq);
 
     return ResponseEntity.ok(new DataResponse(paymentOneService.getDetail(paymentSeq)));
   }
@@ -75,13 +76,28 @@ public class PaymentController {
   }
 
   /**
-   * 일일 결제 목록 조회
+   * 일일 결제 내역 목록 조회
    *
    * @return 요청 결과
    */
   @GetMapping("/daily")
-  public ResponseEntity<?> doGetDaily() {
-    return ResponseEntity.ok(new ListResponse(paymentListService.getDailyList()));
+  public ResponseEntity<?> doGetDaily(@RequestParam(required = false) String date) {
+    PaymentValidator.validateDaily(date);
+
+    return ResponseEntity.ok(new ListResponse(paymentListService.getDailyList(date)));
+  }
+
+  /**
+   * 월별 결제 내역 목록 조회
+   *
+   * @return 요청 결과
+   */
+  @GetMapping("/monthly")
+  public ResponseEntity<?> doGetMonthly(@RequestParam(required = false) Integer year,
+      @RequestParam(required = false) Integer month) {
+    PaymentValidator.validateMonthly(year, month);
+
+    return ResponseEntity.ok(new ListResponse(paymentListService.getMonthlyList(year, month)));
   }
 
   /**
