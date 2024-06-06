@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 
 /**
- * 일일 결제 내역 목록 조회 반환 형식
+ * 월별 결제 내역 목록 조회 반환 형식
  */
 @Getter
-public class PaymentDailyListResponse {
+public class PaymentMonthlyListResponse {
 
   /**
    * 결제 일련번호
@@ -37,8 +37,8 @@ public class PaymentDailyListResponse {
    */
   private String categoryName;
 
-  public PaymentDailyListResponse(Long paymentSeq, String content, Long price, LocalDateTime paymentDt, Long categoryId,
-      String categoryName) {
+  public PaymentMonthlyListResponse(Long paymentSeq, String content, Long price, LocalDateTime paymentDt,
+      Long categoryId, String categoryName) {
     this.paymentSeq = paymentSeq;
     this.content = content;
     this.price = price;
