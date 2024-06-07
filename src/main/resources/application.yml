@@ -2,11 +2,17 @@ spring:
   profiles:
     active: local
 
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/sun
+#    username: sun
+#    password: sun0216
+
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sun
+    url: jdbc:postgresql://fintrack-db.cn20uwoke2ya.ap-northeast-2.rds.amazonaws.com:5432/fintrack
     username: sun
-    password: sun0216
+    password: sun0216!
 
   jpa:
     properties:
