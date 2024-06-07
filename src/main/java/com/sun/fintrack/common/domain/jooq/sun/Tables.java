@@ -10,23 +10,23 @@ import sun.tables.PaymentCategory;
 
 
 /**
- * Convenience access to all tables in sun.
+ * Convenience access to all tables in fintrack.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
 
     /**
-     * 회원 테이블
+     * The table <code>fintrack.MEMBER</code>.
      */
     public static final Member MEMBER = Member.MEMBER;
 
     /**
-     * 결제 테이블
+     * The table <code>fintrack.PAYMENT</code>.
      */
     public static final Payment PAYMENT = Payment.PAYMENT;
 
     /**
-     * 결제 카테고리 테이블
+     * The table <code>fintrack.PAYMENT_CATEGORY</code>.
      */
     public static final PaymentCategory PAYMENT_CATEGORY = PaymentCategory.PAYMENT_CATEGORY;
 }
