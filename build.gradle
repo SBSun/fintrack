@@ -35,6 +35,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-configuration-processor:3.2.4'
 
 	jooqGenerator 'com.mysql:mysql-connector-j'
+
+	// Slack
+	implementation 'com.slack.api:slack-api-client:1.39.3'
+
 	// Jwt
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
