@@ -13,7 +13,7 @@ oauth2:
   kakao:
     client-id: 5e7ce3d83dc7c861fe2ea3a1daa2dacf
     client-secret: QfRo0xCyPyK7WNx43A3YePurJH7DvnNz
-    redirect-uri: http://3.39.251.20:8080/auth/kakao
+    redirect-uri: https://fintrack.site/auth/kakao
     scope: profile_nickname,account_email
     authorize-uri: https://kauth.kakao.com/oauth/authorize
     token-uri: https://kauth.kakao.com/oauth/token
