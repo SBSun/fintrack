@@ -26,9 +26,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>sun</code>.
+     * The schema <code>fintrack</code>.
      */
-    public final Sun SUN = Sun.SUN;
+    public final Fintrack FINTRACK = Fintrack.FINTRACK;
 
     /**
      * No further instances allowed
@@ -40,7 +40,7 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            Sun.SUN
+            Fintrack.FINTRACK
         );
     }
 

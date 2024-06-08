@@ -8,4 +8,4 @@ COPY build/libs/*.jar app.jar
 ENV TZ=Asia/Seoul
 
 # 실행 명령어
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
