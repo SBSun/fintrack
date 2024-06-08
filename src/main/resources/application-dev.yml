@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://fintrack-db.cn20uwoke2ya.ap-northeast-2.rds.amazonaws.com:3306/fintrack
+    username: sun
+    password: sun0216!
