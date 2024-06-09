@@ -69,6 +69,17 @@ public class PaymentValidator {
   }
 
   /**
+   * 문자열 공백 체크
+   *
+   * @param str 문자열
+   */
+  public void validateEmpty(String str, String exception) {
+    if (StringUtils.isBlank(str)) {
+      throw new ValidationException(exception);
+    }
+  }
+
+  /**
    * 월별 결제 내역 목록 조회 유효성 체크
    *
    * @param year  연도

@@ -101,6 +101,16 @@ public class PaymentController {
   }
 
   /**
+   * 결제 내용 검색 목록 조회
+   *
+   * @return 요청 결과
+   */
+  @GetMapping("/search")
+  public ResponseEntity<?> doGetSearch(@RequestParam(required = false) String keyword) {
+    return ResponseEntity.ok(new ListResponse(paymentListService.getSearchList(keyword)));
+  }
+
+  /**
    * 결제 정보 등록
    *
    * @param param 요청 파라미터
