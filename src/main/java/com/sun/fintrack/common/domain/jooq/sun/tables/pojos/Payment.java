@@ -17,39 +17,47 @@ public class Payment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final Long pmSeq;
+    private final Long mbSeq;
     private final String pmCtt;
     private final Long pmPrc;
-    private final Long mbSeq;
+    private final LocalDateTime pmDt;
     private final Long pmCtgId;
     private final LocalDateTime creDt;
     private final LocalDateTime updDt;
+    private final Integer columnName;
 
     public Payment(Payment value) {
         this.pmSeq = value.pmSeq;
+        this.mbSeq = value.mbSeq;
         this.pmCtt = value.pmCtt;
         this.pmPrc = value.pmPrc;
-        this.mbSeq = value.mbSeq;
+        this.pmDt = value.pmDt;
         this.pmCtgId = value.pmCtgId;
         this.creDt = value.creDt;
         this.updDt = value.updDt;
+        this.columnName = value.columnName;
     }
 
     public Payment(
         Long pmSeq,
+        Long mbSeq,
         String pmCtt,
         Long pmPrc,
-        Long mbSeq,
+        LocalDateTime pmDt,
         Long pmCtgId,
         LocalDateTime creDt,
-        LocalDateTime updDt
+        LocalDateTime updDt,
+        Integer columnName
     ) {
         this.pmSeq = pmSeq;
+        this.mbSeq = mbSeq;
         this.pmCtt = pmCtt;
         this.pmPrc = pmPrc;
-        this.mbSeq = mbSeq;
+        this.pmDt = pmDt;
         this.pmCtgId = pmCtgId;
         this.creDt = creDt;
         this.updDt = updDt;
+        this.columnName = columnName;
     }
 
     /**
@@ -57,6 +65,13 @@ public class Payment implements Serializable {
      */
     public Long getPmSeq() {
         return this.pmSeq;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
+     */
+    public Long getMbSeq() {
+        return this.mbSeq;
     }
 
     /**
@@ -74,10 +89,10 @@ public class Payment implements Serializable {
     }
 
     /**
-     * Getter for <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
+     * Getter for <code>fintrack.PAYMENT.PM_DT</code>. 결제일시
      */
-    public Long getMbSeq() {
-        return this.mbSeq;
+    public LocalDateTime getPmDt() {
+        return this.pmDt;
     }
 
     /**
@@ -101,6 +116,13 @@ public class Payment implements Serializable {
         return this.updDt;
     }
 
+    /**
+     * Getter for <code>fintrack.PAYMENT.column_name</code>.
+     */
+    public Integer getColumnName() {
+        return this.columnName;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -116,6 +138,12 @@ public class Payment implements Serializable {
         }
         else if (!this.pmSeq.equals(other.pmSeq))
             return false;
+        if (this.mbSeq == null) {
+            if (other.mbSeq != null)
+                return false;
+        }
+        else if (!this.mbSeq.equals(other.mbSeq))
+            return false;
         if (this.pmCtt == null) {
             if (other.pmCtt != null)
                 return false;
@@ -128,11 +156,11 @@ public class Payment implements Serializable {
         }
         else if (!this.pmPrc.equals(other.pmPrc))
             return false;
-        if (this.mbSeq == null) {
-            if (other.mbSeq != null)
+        if (this.pmDt == null) {
+            if (other.pmDt != null)
                 return false;
         }
-        else if (!this.mbSeq.equals(other.mbSeq))
+        else if (!this.pmDt.equals(other.pmDt))
             return false;
         if (this.pmCtgId == null) {
             if (other.pmCtgId != null)
@@ -152,6 +180,12 @@ public class Payment implements Serializable {
         }
         else if (!this.updDt.equals(other.updDt))
             return false;
+        if (this.columnName == null) {
+            if (other.columnName != null)
+                return false;
+        }
+        else if (!this.columnName.equals(other.columnName))
+            return false;
         return true;
     }
 
@@ -160,12 +194,14 @@ public class Payment implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.pmSeq == null) ? 0 : this.pmSeq.hashCode());
+        result = prime * result + ((this.mbSeq == null) ? 0 : this.mbSeq.hashCode());
         result = prime * result + ((this.pmCtt == null) ? 0 : this.pmCtt.hashCode());
         result = prime * result + ((this.pmPrc == null) ? 0 : this.pmPrc.hashCode());
-        result = prime * result + ((this.mbSeq == null) ? 0 : this.mbSeq.hashCode());
+        result = prime * result + ((this.pmDt == null) ? 0 : this.pmDt.hashCode());
         result = prime * result + ((this.pmCtgId == null) ? 0 : this.pmCtgId.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
         result = prime * result + ((this.updDt == null) ? 0 : this.updDt.hashCode());
+        result = prime * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
         return result;
     }
 
@@ -174,12 +210,14 @@ public class Payment implements Serializable {
         StringBuilder sb = new StringBuilder("Payment (");
 
         sb.append(pmSeq);
+        sb.append(", ").append(mbSeq);
         sb.append(", ").append(pmCtt);
         sb.append(", ").append(pmPrc);
-        sb.append(", ").append(mbSeq);
+        sb.append(", ").append(pmDt);
         sb.append(", ").append(pmCtgId);
         sb.append(", ").append(creDt);
         sb.append(", ").append(updDt);
+        sb.append(", ").append(columnName);
 
         sb.append(")");
         return sb.toString();

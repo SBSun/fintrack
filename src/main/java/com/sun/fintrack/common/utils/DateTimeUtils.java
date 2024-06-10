@@ -33,6 +33,14 @@ public class DateTimeUtils {
   }
 
   /**
+   * yyyy-MM-dd HH:mm:ss 문자열 -> LocalDateTime
+   */
+  public LocalDateTime convertToDateTime(String dateString) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATETIME, Locale.KOREA);
+    return LocalDateTime.parse(dateString, formatter);
+  }
+
+  /**
    * LocalDateTime -> yyyy-MM-dd HH:mm:ss 문자열 변환
    */
   public String convertToString(LocalDateTime dateTime, String pattern) {

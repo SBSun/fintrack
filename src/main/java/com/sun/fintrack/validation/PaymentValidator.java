@@ -23,12 +23,18 @@ public class PaymentValidator {
    * @param param 요청 파라미터
    */
   public void validate(PaymentEntryRequest param) {
-    if (StringUtils.isBlank(param.getContent())) {
-      throw new ValidationException("payment.param_content_empty");
-    }
+    // 결제 내용
+    validateEmpty(param.getContent(), "payment.param_content_empty");
+    // 결제 금액
     if (Objects.isNull(param.getPrice())) {
       throw new ValidationException("payment.param_price_empty");
     }
+    // 결제일시
+    validateEmpty(param.getPaymentDt(), "payment.param_payment_dt_empty");
+    if (!DateTimeUtils.validFormat(param.getPaymentDt(), DateTimeUtils.DEFAULT_DATETIME)) {
+      throw new ValidationException("date.param_date_time_invalid");
+    }
+    // 결제 카테고리 ID
     if (Objects.isNull(param.getCategoryId())) {
       throw new ValidationException("payment.param_category_empty");
     }
@@ -40,15 +46,22 @@ public class PaymentValidator {
    * @param param 요청 파라미터
    */
   public void validate(PaymentModifyRequest param) {
+    // 결제 일련번호
     if (Objects.isNull(param.getPaymentSeq())) {
       throw new ValidationException("payment.param_payment_seq_empty");
     }
-    if (StringUtils.isBlank(param.getContent())) {
-      throw new ValidationException("payment.param_content_empty");
-    }
+    // 결제 내용
+    validateEmpty(param.getContent(), "payment.param_content_empty");
+    // 결제 금액
     if (Objects.isNull(param.getPrice())) {
       throw new ValidationException("payment.param_price_empty");
     }
+    // 결제일시
+    validateEmpty(param.getPaymentDt(), "payment.param_payment_dt_empty");
+    if (!DateTimeUtils.validFormat(param.getPaymentDt(), DateTimeUtils.DEFAULT_DATETIME)) {
+      throw new ValidationException("date.param_date_time_invalid");
+    }
+    // 결제 카테고리 ID
     if (Objects.isNull(param.getCategoryId())) {
       throw new ValidationException("payment.param_category_empty");
     }
@@ -60,11 +73,9 @@ public class PaymentValidator {
    * @param date 날짜
    */
   public void validateDaily(String date) {
-    if (StringUtils.isBlank(date)) {
-      throw new ValidationException("payment.param_date_empty");
-    }
+    validateEmpty(date, "payment.param_date_empty");
     if (!DateTimeUtils.validFormat(date, DateTimeUtils.DEFAULT_DATE)) {
-      throw new ValidationException("payment.param_date_invalid");
+      throw new ValidationException("date.param_date_invalid");
     }
   }
 

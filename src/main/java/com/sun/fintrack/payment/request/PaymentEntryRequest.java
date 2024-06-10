@@ -7,7 +7,7 @@ import lombok.Getter;
  */
 @Getter
 public class PaymentEntryRequest {
-  
+
   /**
    * 결제 내용
    */
@@ -16,6 +16,10 @@ public class PaymentEntryRequest {
    * 결제 금액
    */
   private Long price;
+  /**
+   * 결제일시
+   */
+  private String paymentDt;
   /**
    * 카테고리 아이디
    */
