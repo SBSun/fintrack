@@ -1,6 +1,7 @@
 package com.sun.fintrack.payment.command.service;
 
 import com.sun.fintrack.common.exception.ValidationException;
+import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.payment.domain.Payment;
 import com.sun.fintrack.payment.domain.PaymentCategory;
 import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
@@ -37,6 +38,7 @@ public class PaymentModifyService {
                                           .orElseThrow(() -> new ValidationException("payment.category.not_found"));
     }
 
-    payment.modify(param.getContent(), param.getPrice(), category);
+    payment.modify(param.getContent(), param.getPrice(), DateTimeUtils.convertToDateTime(param.getPaymentDt()),
+        category);
   }
 }

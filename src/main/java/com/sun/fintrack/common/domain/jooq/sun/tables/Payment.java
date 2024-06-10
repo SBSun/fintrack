@@ -52,6 +52,11 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, Long> PM_SEQ = createField(DSL.name("PM_SEQ"), SQLDataType.BIGINT.nullable(false).identity(true), this, "결제 일련번호");
 
     /**
+     * The column <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
+     */
+    public final TableField<PaymentRecord, Long> MB_SEQ = createField(DSL.name("MB_SEQ"), SQLDataType.BIGINT.nullable(false), this, "회원 일련번호");
+
+    /**
      * The column <code>fintrack.PAYMENT.PM_CTT</code>. 결제 내용
      */
     public final TableField<PaymentRecord, String> PM_CTT = createField(DSL.name("PM_CTT"), SQLDataType.VARCHAR(255).nullable(false), this, "결제 내용");
@@ -62,9 +67,9 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, Long> PM_PRC = createField(DSL.name("PM_PRC"), SQLDataType.BIGINT.nullable(false), this, "결제 금액");
 
     /**
-     * The column <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
+     * The column <code>fintrack.PAYMENT.PM_DT</code>. 결제일시
      */
-    public final TableField<PaymentRecord, Long> MB_SEQ = createField(DSL.name("MB_SEQ"), SQLDataType.BIGINT.nullable(false), this, "회원 일련번호");
+    public final TableField<PaymentRecord, LocalDateTime> PM_DT = createField(DSL.name("PM_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "결제일시");
 
     /**
      * The column <code>fintrack.PAYMENT.PM_CTG_ID</code>. 카테고리 아이디
@@ -80,6 +85,11 @@ public class Payment extends TableImpl<PaymentRecord> {
      * The column <code>fintrack.PAYMENT.UPD_DT</code>. 수정일시
      */
     public final TableField<PaymentRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+
+    /**
+     * The column <code>fintrack.PAYMENT.column_name</code>.
+     */
+    public final TableField<PaymentRecord, Integer> COLUMN_NAME = createField(DSL.name("column_name"), SQLDataType.INTEGER, this, "");
 
     private Payment(Name alias, Table<PaymentRecord> aliased) {
         this(alias, aliased, null);

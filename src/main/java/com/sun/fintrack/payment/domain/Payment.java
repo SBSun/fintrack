@@ -3,6 +3,8 @@ package com.sun.fintrack.payment.domain;
 import com.sun.fintrack.common.domain.BaseTimeEntity;
 import com.sun.fintrack.member.domain.Member;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +43,11 @@ public class Payment extends BaseTimeEntity {
   @Column(name = "PM_PRC", nullable = false)
   private Long price;
   /**
+   * 결제일시
+   */
+  @Column(name = "PM_DT", nullable = false)
+  private LocalDateTime paymentDt;
+  /**
    * 회원
    */
   @ManyToOne
@@ -53,9 +60,10 @@ public class Payment extends BaseTimeEntity {
   @JoinColumn(name = "PM_CTG_ID", nullable = false)
   private PaymentCategory category;
 
-  public Payment(String content, Long price, Member member, PaymentCategory category) {
+  public Payment(String content, Long price, LocalDateTime paymentDt, Member member, PaymentCategory category) {
     this.content = content;
     this.price = price;
+    this.paymentDt = paymentDt;
     this.member = member;
     this.category = category;
   }
@@ -67,9 +75,10 @@ public class Payment extends BaseTimeEntity {
    * @param price    결제 금액
    * @param category 카테고리
    */
-  public void modify(String content, Long price, PaymentCategory category) {
+  public void modify(String content, Long price, LocalDateTime paymentDt, PaymentCategory category) {
     this.content = content;
     this.price = price;
+    this.paymentDt = paymentDt;
     this.category = category;
   }
 }

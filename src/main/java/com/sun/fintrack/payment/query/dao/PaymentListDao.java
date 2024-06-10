@@ -31,14 +31,14 @@ public class PaymentListDao {
    * @param date 날짜
    */
   public List<PaymentListResponse> getDailyList(String date) {
-    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.CRE_DT, PAYMENT_CATEGORY.PM_CTG_ID,
+    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_DT, PAYMENT_CATEGORY.PM_CTG_ID,
                   PAYMENT_CATEGORY.PM_CTG_NM)
               .from(PAYMENT)
               .join(PAYMENT_CATEGORY)
               .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-              .and(PAYMENT.CRE_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
-              .orderBy(PAYMENT.CRE_DT.desc())
+              .and(PAYMENT.PM_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
+              .orderBy(PAYMENT.PM_DT.desc())
               .fetchInto(PaymentListResponse.class);
   }
 
@@ -49,15 +49,15 @@ public class PaymentListDao {
    * @param month 월
    */
   public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
-    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.CRE_DT, PAYMENT_CATEGORY.PM_CTG_ID,
+    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_DT, PAYMENT_CATEGORY.PM_CTG_ID,
                   PAYMENT_CATEGORY.PM_CTG_NM)
               .from(PAYMENT)
               .join(PAYMENT_CATEGORY)
               .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-              .and(DSL.year(PAYMENT.CRE_DT).eq(year))
-              .and(DSL.month(PAYMENT.CRE_DT).eq(month))
-              .orderBy(PAYMENT.CRE_DT.desc())
+              .and(DSL.year(PAYMENT.PM_DT).eq(year))
+              .and(DSL.month(PAYMENT.PM_DT).eq(month))
+              .orderBy(PAYMENT.PM_DT.desc())
               .fetchInto(PaymentListResponse.class);
   }
 
@@ -67,13 +67,13 @@ public class PaymentListDao {
    * @param keyword 검색 키워드
    */
   public List<PaymentListResponse> getSearchList(String keyword) {
-    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.CRE_DT, PAYMENT_CATEGORY.PM_CTG_ID,
+    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_DT, PAYMENT_CATEGORY.PM_CTG_ID,
                   PAYMENT_CATEGORY.PM_CTG_NM)
               .from(PAYMENT)
               .join(PAYMENT_CATEGORY)
               .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
               .where(getSearchConditionList(keyword))
-              .orderBy(PAYMENT.CRE_DT.desc())
+              .orderBy(PAYMENT.PM_DT.desc())
               .fetchInto(PaymentListResponse.class);
   }
 

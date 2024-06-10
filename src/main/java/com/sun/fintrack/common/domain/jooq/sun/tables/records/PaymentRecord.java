@@ -36,40 +36,10 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
     }
 
     /**
-     * Setter for <code>fintrack.PAYMENT.PM_CTT</code>. 결제 내용
-     */
-    public PaymentRecord setPmCtt(String value) {
-        set(1, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>fintrack.PAYMENT.PM_CTT</code>. 결제 내용
-     */
-    public String getPmCtt() {
-        return (String) get(1);
-    }
-
-    /**
-     * Setter for <code>fintrack.PAYMENT.PM_PRC</code>. 결제 금액
-     */
-    public PaymentRecord setPmPrc(Long value) {
-        set(2, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>fintrack.PAYMENT.PM_PRC</code>. 결제 금액
-     */
-    public Long getPmPrc() {
-        return (Long) get(2);
-    }
-
-    /**
      * Setter for <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
      */
     public PaymentRecord setMbSeq(Long value) {
-        set(3, value);
+        set(1, value);
         return this;
     }
 
@@ -77,14 +47,59 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
      * Getter for <code>fintrack.PAYMENT.MB_SEQ</code>. 회원 일련번호
      */
     public Long getMbSeq() {
+        return (Long) get(1);
+    }
+
+    /**
+     * Setter for <code>fintrack.PAYMENT.PM_CTT</code>. 결제 내용
+     */
+    public PaymentRecord setPmCtt(String value) {
+        set(2, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.PM_CTT</code>. 결제 내용
+     */
+    public String getPmCtt() {
+        return (String) get(2);
+    }
+
+    /**
+     * Setter for <code>fintrack.PAYMENT.PM_PRC</code>. 결제 금액
+     */
+    public PaymentRecord setPmPrc(Long value) {
+        set(3, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.PM_PRC</code>. 결제 금액
+     */
+    public Long getPmPrc() {
         return (Long) get(3);
+    }
+
+    /**
+     * Setter for <code>fintrack.PAYMENT.PM_DT</code>. 결제일시
+     */
+    public PaymentRecord setPmDt(LocalDateTime value) {
+        set(4, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.PM_DT</code>. 결제일시
+     */
+    public LocalDateTime getPmDt() {
+        return (LocalDateTime) get(4);
     }
 
     /**
      * Setter for <code>fintrack.PAYMENT.PM_CTG_ID</code>. 카테고리 아이디
      */
     public PaymentRecord setPmCtgId(Long value) {
-        set(4, value);
+        set(5, value);
         return this;
     }
 
@@ -92,14 +107,14 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
      * Getter for <code>fintrack.PAYMENT.PM_CTG_ID</code>. 카테고리 아이디
      */
     public Long getPmCtgId() {
-        return (Long) get(4);
+        return (Long) get(5);
     }
 
     /**
      * Setter for <code>fintrack.PAYMENT.CRE_DT</code>. 등록일시
      */
     public PaymentRecord setCreDt(LocalDateTime value) {
-        set(5, value);
+        set(6, value);
         return this;
     }
 
@@ -107,14 +122,14 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
      * Getter for <code>fintrack.PAYMENT.CRE_DT</code>. 등록일시
      */
     public LocalDateTime getCreDt() {
-        return (LocalDateTime) get(5);
+        return (LocalDateTime) get(6);
     }
 
     /**
      * Setter for <code>fintrack.PAYMENT.UPD_DT</code>. 수정일시
      */
     public PaymentRecord setUpdDt(LocalDateTime value) {
-        set(6, value);
+        set(7, value);
         return this;
     }
 
@@ -122,7 +137,22 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
      * Getter for <code>fintrack.PAYMENT.UPD_DT</code>. 수정일시
      */
     public LocalDateTime getUpdDt() {
-        return (LocalDateTime) get(6);
+        return (LocalDateTime) get(7);
+    }
+
+    /**
+     * Setter for <code>fintrack.PAYMENT.column_name</code>.
+     */
+    public PaymentRecord setColumnName(Integer value) {
+        set(8, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.column_name</code>.
+     */
+    public Integer getColumnName() {
+        return (Integer) get(8);
     }
 
     // -------------------------------------------------------------------------
@@ -148,16 +178,18 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
     /**
      * Create a detached, initialised PaymentRecord
      */
-    public PaymentRecord(Long pmSeq, String pmCtt, Long pmPrc, Long mbSeq, Long pmCtgId, LocalDateTime creDt, LocalDateTime updDt) {
+    public PaymentRecord(Long pmSeq, Long mbSeq, String pmCtt, Long pmPrc, LocalDateTime pmDt, Long pmCtgId, LocalDateTime creDt, LocalDateTime updDt, Integer columnName) {
         super(Payment.PAYMENT);
 
         setPmSeq(pmSeq);
+        setMbSeq(mbSeq);
         setPmCtt(pmCtt);
         setPmPrc(pmPrc);
-        setMbSeq(mbSeq);
+        setPmDt(pmDt);
         setPmCtgId(pmCtgId);
         setCreDt(creDt);
         setUpdDt(updDt);
+        setColumnName(columnName);
         resetChangedOnNotNull();
     }
 
@@ -169,12 +201,14 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
 
         if (value != null) {
             setPmSeq(value.getPmSeq());
+            setMbSeq(value.getMbSeq());
             setPmCtt(value.getPmCtt());
             setPmPrc(value.getPmPrc());
-            setMbSeq(value.getMbSeq());
+            setPmDt(value.getPmDt());
             setPmCtgId(value.getPmCtgId());
             setCreDt(value.getCreDt());
             setUpdDt(value.getUpdDt());
+            setColumnName(value.getColumnName());
             resetChangedOnNotNull();
         }
     }

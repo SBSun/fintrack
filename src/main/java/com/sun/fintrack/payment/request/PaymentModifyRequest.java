@@ -21,6 +21,10 @@ public class PaymentModifyRequest {
    */
   private Long price;
   /**
+   * 결제일시
+   */
+  private String paymentDt;
+  /**
    * 카테고리 아이디
    */
   private Long categoryId;
