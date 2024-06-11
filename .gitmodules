@@ -1,0 +1,3 @@
+[submodule "fintrack-back-config"]
+	path = fintrack-back-config
+	url = https://github.com/sun-fintrack/fintrack-back-config.git
