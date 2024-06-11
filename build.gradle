@@ -59,6 +59,14 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+task copyConfig(type: Copy) {
+	copy {
+		from './fintrack-back-config'
+		include "*.yml"
+		into 'src/main/resources'
+	}
+}
+
 jooq {
 	version = dependencyManagement.importedProperties['jooq.version']
 	edition = nu.studer.gradle.jooq.JooqEdition.OSS  // default (can be omitted)
