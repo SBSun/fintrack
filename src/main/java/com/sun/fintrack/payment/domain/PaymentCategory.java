@@ -15,7 +15,7 @@ import lombok.Getter;
 public class PaymentCategory {
 
   /**
-   * 결제 카테고리 아이디
+   * 결제 카테고리 ID
    */
   @Id
   @Column(name = "PM_CTG_ID", nullable = false)

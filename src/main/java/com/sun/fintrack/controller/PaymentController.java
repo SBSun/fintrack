@@ -10,11 +10,13 @@ import com.sun.fintrack.payment.query.service.PaymentListService;
 import com.sun.fintrack.payment.query.service.PaymentOneService;
 import com.sun.fintrack.payment.request.PaymentEntryRequest;
 import com.sun.fintrack.payment.request.PaymentModifyRequest;
+import com.sun.fintrack.payment.request.PaymentStatsRequest;
 import com.sun.fintrack.validation.PaymentValidator;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -108,6 +110,18 @@ public class PaymentController {
   @GetMapping("/search")
   public ResponseEntity<?> doGetSearch(@RequestParam(required = false) String keyword) {
     return ResponseEntity.ok(new ListResponse(paymentListService.getSearchList(keyword)));
+  }
+
+  /**
+   * 결제 내역 카테고리별 통계 조회
+   *
+   * @return 요청 결과
+   */
+  @GetMapping("/stats")
+  public ResponseEntity<?> doGetStats(@ModelAttribute PaymentStatsRequest param) {
+    PaymentValidator.validate(param);
+
+    return ResponseEntity.ok(new DataResponse(paymentListService.getList(param)));
   }
 
   /**

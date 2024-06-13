@@ -2,8 +2,10 @@ package com.sun.fintrack.payment.query.service;
 
 import com.sun.fintrack.payment.query.dao.PaymentListDao;
 import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
+import com.sun.fintrack.payment.request.PaymentStatsRequest;
 import com.sun.fintrack.payment.response.PaymentCategoryListResponse;
 import com.sun.fintrack.payment.response.PaymentListResponse;
+import com.sun.fintrack.payment.response.PaymentStatsResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +46,16 @@ public class PaymentListService {
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getDailyList(String date) {
     return paymentListDao.getDailyList(date);
+  }
+
+  /**
+   * 결제 내역 카테고리별 통계 조회
+   *
+   * @return 요청 결과
+   */
+  @Transactional(readOnly = true)
+  public PaymentStatsResponse getList(PaymentStatsRequest param) {
+    return paymentListDao.getList(param);
   }
 
   /**
