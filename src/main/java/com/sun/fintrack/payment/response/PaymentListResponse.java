@@ -25,6 +25,10 @@ public class PaymentListResponse {
    */
   private Long price;
   /**
+   * 내역 이미지
+   */
+  private String image;
+  /**
    * 결제일시
    */
   private String paymentDt;
@@ -37,13 +41,18 @@ public class PaymentListResponse {
    */
   private String categoryName;
 
-  public PaymentListResponse(Long paymentSeq, String content, Long price, LocalDateTime paymentDt, Long categoryId,
-      String categoryName) {
+  public PaymentListResponse(Long paymentSeq, String content, Long price, String image, LocalDateTime paymentDt,
+      Long categoryId, String categoryName) {
     this.paymentSeq = paymentSeq;
     this.content = content;
     this.price = price;
+    this.image = image;
     this.paymentDt = DateTimeUtils.convertToString(paymentDt, DateTimeUtils.DEFAULT_DATETIME);
     this.categoryId = categoryId;
     this.categoryName = categoryName;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 }

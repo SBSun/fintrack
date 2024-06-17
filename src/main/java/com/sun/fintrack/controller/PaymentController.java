@@ -23,14 +23,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/payments")
+@RequestMapping(value = "/payments")
 @RestController
 public class PaymentController {
 
@@ -131,10 +133,10 @@ public class PaymentController {
    * @return 요청 결과
    */
   @PostMapping
-  public ResponseEntity<?> doPost(@RequestBody PaymentEntryRequest param) {
+  public ResponseEntity<?> doPost(@RequestPart PaymentEntryRequest param, @RequestPart MultipartFile image) {
     PaymentValidator.validate(param);
 
-    paymentEntryService.entry(param);
+    paymentEntryService.entry(param, image);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

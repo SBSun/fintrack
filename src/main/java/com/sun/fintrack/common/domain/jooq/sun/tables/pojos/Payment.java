@@ -22,9 +22,9 @@ public class Payment implements Serializable {
     private final Long pmPrc;
     private final LocalDateTime pmDt;
     private final Long pmCtgId;
+    private final String pmImgPath;
     private final LocalDateTime creDt;
     private final LocalDateTime updDt;
-    private final Integer columnName;
 
     public Payment(Payment value) {
         this.pmSeq = value.pmSeq;
@@ -33,9 +33,9 @@ public class Payment implements Serializable {
         this.pmPrc = value.pmPrc;
         this.pmDt = value.pmDt;
         this.pmCtgId = value.pmCtgId;
+        this.pmImgPath = value.pmImgPath;
         this.creDt = value.creDt;
         this.updDt = value.updDt;
-        this.columnName = value.columnName;
     }
 
     public Payment(
@@ -45,9 +45,9 @@ public class Payment implements Serializable {
         Long pmPrc,
         LocalDateTime pmDt,
         Long pmCtgId,
+        String pmImgPath,
         LocalDateTime creDt,
-        LocalDateTime updDt,
-        Integer columnName
+        LocalDateTime updDt
     ) {
         this.pmSeq = pmSeq;
         this.mbSeq = mbSeq;
@@ -55,9 +55,9 @@ public class Payment implements Serializable {
         this.pmPrc = pmPrc;
         this.pmDt = pmDt;
         this.pmCtgId = pmCtgId;
+        this.pmImgPath = pmImgPath;
         this.creDt = creDt;
         this.updDt = updDt;
-        this.columnName = columnName;
     }
 
     /**
@@ -103,6 +103,13 @@ public class Payment implements Serializable {
     }
 
     /**
+     * Getter for <code>fintrack.PAYMENT.PM_IMG_PATH</code>. 이미지 경로
+     */
+    public String getPmImgPath() {
+        return this.pmImgPath;
+    }
+
+    /**
      * Getter for <code>fintrack.PAYMENT.CRE_DT</code>. 등록일시
      */
     public LocalDateTime getCreDt() {
@@ -114,13 +121,6 @@ public class Payment implements Serializable {
      */
     public LocalDateTime getUpdDt() {
         return this.updDt;
-    }
-
-    /**
-     * Getter for <code>fintrack.PAYMENT.column_name</code>.
-     */
-    public Integer getColumnName() {
-        return this.columnName;
     }
 
     @Override
@@ -168,6 +168,12 @@ public class Payment implements Serializable {
         }
         else if (!this.pmCtgId.equals(other.pmCtgId))
             return false;
+        if (this.pmImgPath == null) {
+            if (other.pmImgPath != null)
+                return false;
+        }
+        else if (!this.pmImgPath.equals(other.pmImgPath))
+            return false;
         if (this.creDt == null) {
             if (other.creDt != null)
                 return false;
@@ -179,12 +185,6 @@ public class Payment implements Serializable {
                 return false;
         }
         else if (!this.updDt.equals(other.updDt))
-            return false;
-        if (this.columnName == null) {
-            if (other.columnName != null)
-                return false;
-        }
-        else if (!this.columnName.equals(other.columnName))
             return false;
         return true;
     }
@@ -199,9 +199,9 @@ public class Payment implements Serializable {
         result = prime * result + ((this.pmPrc == null) ? 0 : this.pmPrc.hashCode());
         result = prime * result + ((this.pmDt == null) ? 0 : this.pmDt.hashCode());
         result = prime * result + ((this.pmCtgId == null) ? 0 : this.pmCtgId.hashCode());
+        result = prime * result + ((this.pmImgPath == null) ? 0 : this.pmImgPath.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
         result = prime * result + ((this.updDt == null) ? 0 : this.updDt.hashCode());
-        result = prime * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
         return result;
     }
 
@@ -215,9 +215,9 @@ public class Payment implements Serializable {
         sb.append(", ").append(pmPrc);
         sb.append(", ").append(pmDt);
         sb.append(", ").append(pmCtgId);
+        sb.append(", ").append(pmImgPath);
         sb.append(", ").append(creDt);
         sb.append(", ").append(updDt);
-        sb.append(", ").append(columnName);
 
         sb.append(")");
         return sb.toString();

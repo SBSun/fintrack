@@ -43,6 +43,11 @@ public class Payment extends BaseTimeEntity {
   @Column(name = "PM_PRC", nullable = false)
   private Long price;
   /**
+   * 내용 이미지
+   */
+  @Column(name = "PM_IMG_PATH")
+  private String imagePath;
+  /**
    * 결제일시
    */
   @Column(name = "PM_DT", nullable = false)
@@ -60,9 +65,11 @@ public class Payment extends BaseTimeEntity {
   @JoinColumn(name = "PM_CTG_ID", nullable = false)
   private PaymentCategory category;
 
-  public Payment(String content, Long price, LocalDateTime paymentDt, Member member, PaymentCategory category) {
+  public Payment(String content, Long price, String imagePath, LocalDateTime paymentDt, Member member,
+      PaymentCategory category) {
     this.content = content;
     this.price = price;
+    this.imagePath = imagePath;
     this.paymentDt = paymentDt;
     this.member = member;
     this.category = category;
