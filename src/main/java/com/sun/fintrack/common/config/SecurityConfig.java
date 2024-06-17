@@ -43,9 +43,10 @@ public class SecurityConfig {
         // 세션을 생성하지 않게 설정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
-            (authorize) -> authorize.requestMatchers("/images/**", "/static/**", "/error", "/health", "/test")
+            (authorize) -> authorize.requestMatchers("/images/**", "/static/**", "/error", "/health", "/test",
+                                        "/auth/status")
                                     .permitAll()
-                                    .requestMatchers("/", "/auth/**")
+                                    .requestMatchers("/", "/auth/kakao", "/auth/login/url")
                                     .anonymous()
                                     .requestMatchers("/payments/**")
                                     .authenticated()
