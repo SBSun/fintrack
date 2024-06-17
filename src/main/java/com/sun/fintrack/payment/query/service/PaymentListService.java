@@ -7,6 +7,8 @@ import com.sun.fintrack.payment.response.PaymentCategoryListResponse;
 import com.sun.fintrack.payment.response.PaymentListResponse;
 import com.sun.fintrack.payment.response.PaymentStatsResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +23,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PaymentListService {
 
-  private final PaymentCategoryRepository paymentCategoryRepository;
+  @Value("${cloud.aws.s3.url}")
+  private String s3ImageUrl;
 
+  private final PaymentCategoryRepository paymentCategoryRepository;
   private final PaymentListDao paymentListDao;
 
   /**
@@ -45,7 +49,10 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getDailyList(String date) {
-    return paymentListDao.getDailyList(date);
+    List<PaymentListResponse> list = paymentListDao.getDailyList(date);
+    setImageUrl(list);
+
+    return list;
   }
 
   /**
@@ -65,7 +72,10 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
-    return paymentListDao.getMonthlyList(year, month);
+    List<PaymentListResponse> list = paymentListDao.getMonthlyList(year, month);
+    setImageUrl(list);
+
+    return list;
   }
 
   /**
@@ -75,6 +85,17 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getSearchList(String keyword) {
-    return paymentListDao.getSearchList(keyword);
+    List<PaymentListResponse> list = paymentListDao.getSearchList(keyword);
+    setImageUrl(list);
+
+    return list;
+  }
+
+  private void setImageUrl(List<PaymentListResponse> list) {
+    list.forEach(it -> {
+      if (!StringUtils.isBlank(it.getImage())) {
+        it.setImage(s3ImageUrl + it.getImage());
+      }
+    });
   }
 }

@@ -77,6 +77,11 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, Long> PM_CTG_ID = createField(DSL.name("PM_CTG_ID"), SQLDataType.BIGINT.nullable(false), this, "카테고리 아이디");
 
     /**
+     * The column <code>fintrack.PAYMENT.PM_IMG_PATH</code>. 이미지 경로
+     */
+    public final TableField<PaymentRecord, String> PM_IMG_PATH = createField(DSL.name("PM_IMG_PATH"), SQLDataType.VARCHAR(255), this, "이미지 경로");
+
+    /**
      * The column <code>fintrack.PAYMENT.CRE_DT</code>. 등록일시
      */
     public final TableField<PaymentRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "등록일시");
@@ -85,11 +90,6 @@ public class Payment extends TableImpl<PaymentRecord> {
      * The column <code>fintrack.PAYMENT.UPD_DT</code>. 수정일시
      */
     public final TableField<PaymentRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
-
-    /**
-     * The column <code>fintrack.PAYMENT.column_name</code>.
-     */
-    public final TableField<PaymentRecord, Integer> COLUMN_NAME = createField(DSL.name("column_name"), SQLDataType.INTEGER, this, "");
 
     private Payment(Name alias, Table<PaymentRecord> aliased) {
         this(alias, aliased, null);

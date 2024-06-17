@@ -1,18 +1,21 @@
 package com.sun.fintrack.payment.command.service;
 
-import com.sun.fintrack.common.exception.ValidationException;
+import com.sun.fintrack.aws.service.AwsS3Service;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.service.MemberOneService;
 import com.sun.fintrack.payment.domain.Payment;
 import com.sun.fintrack.payment.domain.PaymentCategory;
-import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
 import com.sun.fintrack.payment.query.repository.PaymentRepository;
+import com.sun.fintrack.payment.query.service.PaymentOneService;
 import com.sun.fintrack.payment.request.PaymentEntryRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,11 +26,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PaymentEntryService {
 
+  private final AwsS3Service awsS3Service;
+
   private final PaymentRepository paymentRepository;
-  private final PaymentCategoryRepository paymentCategoryRepository;
+  private final PaymentOneService paymentOneService;
 
   private final MemberOneService memberOneService;
-
 
   /**
    * 결제 정보 등록
@@ -35,14 +39,14 @@ public class PaymentEntryService {
    * @param param 요청 파라미터
    */
   @Transactional
-  public void entry(PaymentEntryRequest param) {
+  public void entry(PaymentEntryRequest param, MultipartFile image) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
-    PaymentCategory category = paymentCategoryRepository.findById(param.getCategoryId())
-                                                        .orElseThrow(() -> new ValidationException(
-                                                            "payment.category.not_found"));
+    PaymentCategory category = paymentOneService.getCategory(param.getCategoryId());
+    String imagePath =
+        Objects.nonNull(image) && !image.isEmpty() ? awsS3Service.upload(MemberUtils.getMemberSeq(), "payment", image) :
+            null;
 
-    paymentRepository.save(
-        new Payment(param.getContent(), param.getPrice(), DateTimeUtils.convertToDateTime(param.getPaymentDt()), member,
-            category));
+    paymentRepository.save(new Payment(param.getContent(), param.getPrice(), imagePath,
+        DateTimeUtils.convertToDateTime(param.getPaymentDt()), member, category));
   }
 }
