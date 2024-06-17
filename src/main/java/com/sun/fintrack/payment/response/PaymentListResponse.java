@@ -47,7 +47,7 @@ public class PaymentListResponse {
     this.content = content;
     this.price = price;
     this.image = image;
-    this.paymentDt = DateTimeUtils.convertToString(paymentDt, DateTimeUtils.DEFAULT_DATETIME);
+    this.paymentDt = DateTimeUtils.formatLocalDateTime(paymentDt);
     this.categoryId = categoryId;
     this.categoryName = categoryName;
   }
