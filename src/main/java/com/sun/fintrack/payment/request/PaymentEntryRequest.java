@@ -23,6 +23,10 @@ public class PaymentEntryRequest {
    */
   private String paymentDt;
   /**
+   * 자산 일련번호
+   */
+  private Long assetSeq;
+  /**
    * 카테고리 아이디
    */
   private Long categoryId;

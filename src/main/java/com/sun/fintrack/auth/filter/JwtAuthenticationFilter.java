@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     String memberSeq = jwtService.extractUsername(accessToken);
-    if (!StringUtils.isBlank(memberSeq)) {
+    if (StringUtils.isNotBlank(memberSeq)) {
       MemberDetail memberDetail = new MemberDetail(memberOneService.getOne(Long.valueOf(memberSeq)));
       // 유효성 체크
       if (jwtService.isTokenValid(accessToken, memberDetail)) {

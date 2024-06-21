@@ -80,6 +80,10 @@ public class PaymentValidator {
     if (!DateTimeUtils.validFormat(param.getPaymentDt(), DateTimeUtils.DEFAULT_DATETIME)) {
       throw new ValidationException("date.param_date_time_invalid");
     }
+    // 자산 일련변호
+    if (Objects.isNull(param.getAssetSeq())) {
+      throw new ValidationException("asset.param_seq_empty");
+    }
     // 결제 카테고리 ID
     if (Objects.isNull(param.getCategoryId())) {
       throw new ValidationException("payment.param_category_empty");
@@ -106,6 +110,10 @@ public class PaymentValidator {
     validateEmpty(param.getPaymentDt(), "payment.param_payment_dt_empty");
     if (!DateTimeUtils.validFormat(param.getPaymentDt(), DateTimeUtils.DEFAULT_DATETIME)) {
       throw new ValidationException("date.param_date_time_invalid");
+    }
+    // 자산 일련변호
+    if (Objects.isNull(param.getAssetSeq())) {
+      throw new ValidationException("asset.param_seq_empty");
     }
     // 결제 카테고리 ID
     if (Objects.isNull(param.getCategoryId())) {

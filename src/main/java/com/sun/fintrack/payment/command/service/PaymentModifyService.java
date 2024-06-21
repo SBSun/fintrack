@@ -1,5 +1,7 @@
 package com.sun.fintrack.payment.command.service;
 
+import com.sun.fintrack.asset.domain.Asset;
+import com.sun.fintrack.asset.query.service.AssetOneService;
 import com.sun.fintrack.common.exception.ValidationException;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.payment.domain.Payment;
@@ -23,6 +25,7 @@ public class PaymentModifyService {
   private final PaymentOneService paymentOneService;
   private final PaymentCategoryRepository paymentCategoryRepository;
 
+  private final AssetOneService assetOneService;
 
   /**
    * 결제 정보 수정
@@ -32,13 +35,14 @@ public class PaymentModifyService {
   @Transactional
   public void modify(PaymentModifyRequest param) {
     Payment payment = paymentOneService.getOne(param.getPaymentSeq());
+    Asset asset = assetOneService.getOne(param.getAssetSeq());
     PaymentCategory category = payment.getCategory();
     if (!category.getCategoryId().equals(param.getCategoryId())) {
       category = paymentCategoryRepository.findById(param.getCategoryId())
                                           .orElseThrow(() -> new ValidationException("payment.category.not_found"));
     }
 
-    payment.modify(param.getContent(), param.getPrice(), DateTimeUtils.convertToDateTime(param.getPaymentDt()),
+    payment.modify(param.getContent(), param.getPrice(), DateTimeUtils.convertToDateTime(param.getPaymentDt()), asset,
         category);
   }
 }

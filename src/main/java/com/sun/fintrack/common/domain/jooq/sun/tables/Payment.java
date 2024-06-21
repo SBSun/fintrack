@@ -72,6 +72,11 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, LocalDateTime> PM_DT = createField(DSL.name("PM_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "결제일시");
 
     /**
+     * The column <code>fintrack.PAYMENT.AS_SEQ</code>. 자산 일련번호
+     */
+    public final TableField<PaymentRecord, Long> AS_SEQ = createField(DSL.name("AS_SEQ"), SQLDataType.BIGINT.nullable(false), this, "자산 일련번호");
+
+    /**
      * The column <code>fintrack.PAYMENT.PM_CTG_ID</code>. 카테고리 아이디
      */
     public final TableField<PaymentRecord, Long> PM_CTG_ID = createField(DSL.name("PM_CTG_ID"), SQLDataType.BIGINT.nullable(false), this, "카테고리 아이디");

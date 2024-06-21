@@ -11,6 +11,7 @@ import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
+import sun.tables.Asset;
 import sun.tables.Member;
 import sun.tables.Payment;
 import sun.tables.PaymentCategory;
@@ -28,6 +29,11 @@ public class Fintrack extends SchemaImpl {
      * The reference instance of <code>fintrack</code>
      */
     public static final Fintrack FINTRACK = new Fintrack();
+
+    /**
+     * 자산 테이블
+     */
+    public final Asset ASSET = Asset.ASSET;
 
     /**
      * The table <code>fintrack.MEMBER</code>.
@@ -60,6 +66,7 @@ public class Fintrack extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            Asset.ASSET,
             Member.MEMBER,
             Payment.PAYMENT,
             PaymentCategory.PAYMENT_CATEGORY

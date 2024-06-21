@@ -21,6 +21,7 @@ public class Payment implements Serializable {
     private final String pmCtt;
     private final Long pmPrc;
     private final LocalDateTime pmDt;
+    private final Long asSeq;
     private final Long pmCtgId;
     private final String pmImgPath;
     private final LocalDateTime creDt;
@@ -32,6 +33,7 @@ public class Payment implements Serializable {
         this.pmCtt = value.pmCtt;
         this.pmPrc = value.pmPrc;
         this.pmDt = value.pmDt;
+        this.asSeq = value.asSeq;
         this.pmCtgId = value.pmCtgId;
         this.pmImgPath = value.pmImgPath;
         this.creDt = value.creDt;
@@ -44,6 +46,7 @@ public class Payment implements Serializable {
         String pmCtt,
         Long pmPrc,
         LocalDateTime pmDt,
+        Long asSeq,
         Long pmCtgId,
         String pmImgPath,
         LocalDateTime creDt,
@@ -54,6 +57,7 @@ public class Payment implements Serializable {
         this.pmCtt = pmCtt;
         this.pmPrc = pmPrc;
         this.pmDt = pmDt;
+        this.asSeq = asSeq;
         this.pmCtgId = pmCtgId;
         this.pmImgPath = pmImgPath;
         this.creDt = creDt;
@@ -93,6 +97,13 @@ public class Payment implements Serializable {
      */
     public LocalDateTime getPmDt() {
         return this.pmDt;
+    }
+
+    /**
+     * Getter for <code>fintrack.PAYMENT.AS_SEQ</code>. 자산 일련번호
+     */
+    public Long getAsSeq() {
+        return this.asSeq;
     }
 
     /**
@@ -162,6 +173,12 @@ public class Payment implements Serializable {
         }
         else if (!this.pmDt.equals(other.pmDt))
             return false;
+        if (this.asSeq == null) {
+            if (other.asSeq != null)
+                return false;
+        }
+        else if (!this.asSeq.equals(other.asSeq))
+            return false;
         if (this.pmCtgId == null) {
             if (other.pmCtgId != null)
                 return false;
@@ -198,6 +215,7 @@ public class Payment implements Serializable {
         result = prime * result + ((this.pmCtt == null) ? 0 : this.pmCtt.hashCode());
         result = prime * result + ((this.pmPrc == null) ? 0 : this.pmPrc.hashCode());
         result = prime * result + ((this.pmDt == null) ? 0 : this.pmDt.hashCode());
+        result = prime * result + ((this.asSeq == null) ? 0 : this.asSeq.hashCode());
         result = prime * result + ((this.pmCtgId == null) ? 0 : this.pmCtgId.hashCode());
         result = prime * result + ((this.pmImgPath == null) ? 0 : this.pmImgPath.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
@@ -214,6 +232,7 @@ public class Payment implements Serializable {
         sb.append(", ").append(pmCtt);
         sb.append(", ").append(pmPrc);
         sb.append(", ").append(pmDt);
+        sb.append(", ").append(asSeq);
         sb.append(", ").append(pmCtgId);
         sb.append(", ").append(pmImgPath);
         sb.append(", ").append(creDt);
