@@ -1,5 +1,7 @@
 package com.sun.fintrack.payment.command.service;
 
+import com.sun.fintrack.asset.domain.Asset;
+import com.sun.fintrack.asset.query.service.AssetOneService;
 import com.sun.fintrack.aws.service.AwsS3Service;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.common.utils.MemberUtils;
@@ -31,6 +33,8 @@ public class PaymentEntryService {
   private final PaymentRepository paymentRepository;
   private final PaymentOneService paymentOneService;
 
+  private final AssetOneService assetOneService;
+
   private final MemberOneService memberOneService;
 
   /**
@@ -41,12 +45,13 @@ public class PaymentEntryService {
   @Transactional
   public void entry(PaymentEntryRequest param, MultipartFile image) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
+    Asset asset = assetOneService.getOne(param.getAssetSeq());
     PaymentCategory category = paymentOneService.getCategory(param.getCategoryId());
     String imagePath =
         Objects.nonNull(image) && !image.isEmpty() ? awsS3Service.upload(MemberUtils.getMemberSeq(), "payment", image) :
             null;
 
     paymentRepository.save(new Payment(param.getContent(), param.getPrice(), imagePath,
-        DateTimeUtils.convertToDateTime(param.getPaymentDt()), member, category));
+        DateTimeUtils.convertToDateTime(param.getPaymentDt()), member, asset, category));
   }
 }

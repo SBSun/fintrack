@@ -4,6 +4,7 @@
 package sun;
 
 
+import sun.tables.Asset;
 import sun.tables.Member;
 import sun.tables.Payment;
 import sun.tables.PaymentCategory;
@@ -14,6 +15,11 @@ import sun.tables.PaymentCategory;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
+
+    /**
+     * 자산 테이블
+     */
+    public static final Asset ASSET = Asset.ASSET;
 
     /**
      * The table <code>fintrack.MEMBER</code>.

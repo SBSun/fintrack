@@ -48,7 +48,7 @@ public class SecurityConfig {
                                     .permitAll()
                                     .requestMatchers("/", "/auth/kakao", "/auth/login/url")
                                     .anonymous()
-                                    .requestMatchers("/payments/**")
+                                    .requestMatchers("/payments/**", "/assets/**")
                                     .authenticated()
                                     .anyRequest()
                                     .denyAll())

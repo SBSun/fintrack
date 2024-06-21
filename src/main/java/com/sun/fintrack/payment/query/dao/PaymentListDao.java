@@ -152,7 +152,7 @@ public class PaymentListDao {
 
     conditionList.add(DSL.condition(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq())));
 
-    if (!StringUtils.isBlank(keyword)) {
+    if (StringUtils.isNotBlank(keyword)) {
       conditionList.add(PAYMENT.PM_CTT.like("%" + keyword + "%"));
     }
     return conditionList;

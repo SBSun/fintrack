@@ -93,7 +93,7 @@ public class PaymentListService {
 
   private void setImageUrl(List<PaymentListResponse> list) {
     list.forEach(it -> {
-      if (!StringUtils.isBlank(it.getImage())) {
+      if (StringUtils.isNotBlank(it.getImage())) {
         it.setImage(s3ImageUrl + it.getImage());
       }
     });
