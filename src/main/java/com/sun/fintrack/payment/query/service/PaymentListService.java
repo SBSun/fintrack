@@ -1,7 +1,7 @@
 package com.sun.fintrack.payment.query.service;
 
+import com.sun.fintrack.category.query.repository.CategoryRepository;
 import com.sun.fintrack.payment.query.dao.PaymentListDao;
-import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
 import com.sun.fintrack.payment.request.PaymentStatsRequest;
 import com.sun.fintrack.payment.response.PaymentCategoryListResponse;
 import com.sun.fintrack.payment.response.PaymentListResponse;
@@ -26,7 +26,7 @@ public class PaymentListService {
   @Value("${cloud.aws.s3.url}")
   private String s3ImageUrl;
 
-  private final PaymentCategoryRepository paymentCategoryRepository;
+  private final CategoryRepository categoryRepository;
   private final PaymentListDao paymentListDao;
 
   /**
@@ -36,10 +36,10 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentCategoryListResponse> getCategoryList() {
-    return paymentCategoryRepository.findAll()
-                                    .stream()
-                                    .map(c -> new PaymentCategoryListResponse(c.getCategoryId(), c.getName()))
-                                    .toList();
+    return categoryRepository.findAll()
+                             .stream()
+                             .map(c -> new PaymentCategoryListResponse(c.getCategoryId(), c.getName()))
+                             .toList();
   }
 
   /**

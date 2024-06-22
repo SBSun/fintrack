@@ -1,6 +1,7 @@
 package com.sun.fintrack.payment.domain;
 
 import com.sun.fintrack.asset.domain.Asset;
+import com.sun.fintrack.category.domain.Category;
 import com.sun.fintrack.common.domain.BaseTimeEntity;
 import com.sun.fintrack.member.domain.Member;
 
@@ -44,15 +45,15 @@ public class Payment extends BaseTimeEntity {
   @Column(name = "PM_PRC", nullable = false)
   private Long price;
   /**
-   * 내용 이미지
-   */
-  @Column(name = "PM_IMG_PATH")
-  private String imagePath;
-  /**
    * 결제일시
    */
   @Column(name = "PM_DT", nullable = false)
   private LocalDateTime paymentDt;
+  /**
+   * 내용 이미지
+   */
+  @Column(name = "PM_IMG_PATH")
+  private String imagePath;
   /**
    * 회원
    */
@@ -69,11 +70,11 @@ public class Payment extends BaseTimeEntity {
    * 카테고리
    */
   @ManyToOne
-  @JoinColumn(name = "PM_CTG_ID", nullable = false)
-  private PaymentCategory category;
+  @JoinColumn(name = "CTG_ID", nullable = false)
+  private Category category;
 
   public Payment(String content, Long price, String imagePath, LocalDateTime paymentDt, Member member, Asset asset,
-      PaymentCategory category) {
+      Category category) {
     this.content = content;
     this.price = price;
     this.imagePath = imagePath;
@@ -91,7 +92,7 @@ public class Payment extends BaseTimeEntity {
    * @param asset    자산
    * @param category 카테고리
    */
-  public void modify(String content, Long price, LocalDateTime paymentDt, Asset asset, PaymentCategory category) {
+  public void modify(String content, Long price, LocalDateTime paymentDt, Asset asset, Category category) {
     this.content = content;
     this.price = price;
     this.paymentDt = paymentDt;
