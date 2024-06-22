@@ -1,9 +1,7 @@
 package com.sun.fintrack.payment.query.service;
 
-import com.sun.fintrack.category.query.repository.CategoryRepository;
 import com.sun.fintrack.payment.query.dao.PaymentListDao;
 import com.sun.fintrack.payment.request.PaymentStatsRequest;
-import com.sun.fintrack.payment.response.PaymentCategoryListResponse;
 import com.sun.fintrack.payment.response.PaymentListResponse;
 import com.sun.fintrack.payment.response.PaymentStatsResponse;
 
@@ -26,21 +24,7 @@ public class PaymentListService {
   @Value("${cloud.aws.s3.url}")
   private String s3ImageUrl;
 
-  private final CategoryRepository categoryRepository;
   private final PaymentListDao paymentListDao;
-
-  /**
-   * 결제 카테고리 목록 조회
-   *
-   * @return 요청 결과
-   */
-  @Transactional(readOnly = true)
-  public List<PaymentCategoryListResponse> getCategoryList() {
-    return categoryRepository.findAll()
-                             .stream()
-                             .map(c -> new PaymentCategoryListResponse(c.getCategoryId(), c.getName()))
-                             .toList();
-  }
 
   /**
    * 일일 결제 내역 목록 조회

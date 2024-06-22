@@ -1,8 +1,10 @@
 package com.sun.fintrack.category.query.service;
 
 import com.sun.fintrack.category.domain.Category;
+import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.repository.CategoryRepository;
 import com.sun.fintrack.common.exception.ValidationException;
+import com.sun.fintrack.common.utils.MemberUtils;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,14 @@ public class CategoryOneService {
    * @return 결제 엔티티
    */
   @Transactional(readOnly = true)
-  public Category getCategory(Long categoryId) {
-    return categoryRepository.findById(categoryId).orElseThrow(() -> new ValidationException("category.not_found"));
+  public Category getOne(Long categoryId, CategoryType type) {
+    Category category = categoryRepository.findByCategoryIdAndType(categoryId, type)
+                                          .orElseThrow(() -> new ValidationException("category.not_found"));
+
+    if (!category.getMember().getMemberSeq().equals(MemberUtils.getMemberSeq())) {
+      throw new ValidationException("category.not_found");
+    }
+
+    return category;
   }
 }

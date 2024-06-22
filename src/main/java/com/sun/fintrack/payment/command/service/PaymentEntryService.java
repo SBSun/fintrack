@@ -4,6 +4,7 @@ import com.sun.fintrack.asset.domain.Asset;
 import com.sun.fintrack.asset.query.service.AssetOneService;
 import com.sun.fintrack.aws.service.AwsS3Service;
 import com.sun.fintrack.category.domain.Category;
+import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.service.CategoryOneService;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.common.utils.MemberUtils;
@@ -45,7 +46,7 @@ public class PaymentEntryService {
   public void entry(PaymentEntryRequest param, MultipartFile image) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
     Asset asset = assetOneService.getOne(param.getAssetSeq());
-    Category category = categoryOneService.getCategory(param.getCategoryId());
+    Category category = categoryOneService.getOne(param.getCategoryId(), CategoryType.PAYMENT);
     String imagePath =
         Objects.nonNull(image) && !image.isEmpty() ? awsS3Service.upload(MemberUtils.getMemberSeq(), "payment", image) :
             null;

@@ -62,11 +62,9 @@ public class Category extends BaseTimeEntity {
   /**
    * 카테고리 정보 수정
    *
-   * @param name  카테고리명
-   * @param order 순서
+   * @param name 카테고리명
    */
-  public void modify(String name, Integer order) {
+  public void modify(String name) {
     this.name = name;
-    this.order = order;
   }
 }

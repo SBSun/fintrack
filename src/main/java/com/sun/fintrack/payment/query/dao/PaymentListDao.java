@@ -26,6 +26,9 @@ import lombok.RequiredArgsConstructor;
 import static sun.Tables.CATEGORY;
 import static sun.Tables.PAYMENT;
 
+/**
+ * 카테고리 목록 조회 DAO
+ */
 @RequiredArgsConstructor
 @Repository
 public class PaymentListDao {

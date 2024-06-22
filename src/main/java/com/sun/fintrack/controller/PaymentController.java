@@ -70,16 +70,6 @@ public class PaymentController {
   }
 
   /**
-   * 결제 카테고리 목록 조회
-   *
-   * @return 요청 결과
-   */
-  @GetMapping("/categories")
-  public ResponseEntity<?> doGetCategories() {
-    return ResponseEntity.ok(new ListResponse(paymentListService.getCategoryList()));
-  }
-
-  /**
    * 일일 결제 내역 목록 조회
    *
    * @return 요청 결과

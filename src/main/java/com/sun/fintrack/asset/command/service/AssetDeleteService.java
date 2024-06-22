@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 자산 정보 삭제 서비스
+ * 자산 삭제 서비스
  */
 @RequiredArgsConstructor
 @Service
@@ -20,7 +20,7 @@ public class AssetDeleteService {
   private final AssetOneService assetOneService;
 
   /**
-   * v 정보 삭제
+   * 자산 삭제
    *
    * @param assetSeq 자산 일련번호
    */
