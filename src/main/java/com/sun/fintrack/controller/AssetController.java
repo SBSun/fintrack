@@ -3,13 +3,16 @@ package com.sun.fintrack.controller;
 import com.sun.fintrack.asset.command.service.AssetDeleteService;
 import com.sun.fintrack.asset.command.service.AssetEntryService;
 import com.sun.fintrack.asset.command.service.AssetModifyService;
+import com.sun.fintrack.asset.query.service.AssetListService;
 import com.sun.fintrack.asset.request.AssetEntryRequest;
 import com.sun.fintrack.asset.request.AssetModifyRequest;
+import com.sun.fintrack.common.response.ListResponse;
 import com.sun.fintrack.common.response.SuccessResponse;
 import com.sun.fintrack.validation.AssetValidator;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/assets")
 @RestController
 public class AssetController {
+
+  private final AssetListService assetListService;
 
   private final AssetEntryService assetEntryService;
   private final AssetModifyService assetModifyService;
@@ -42,6 +47,16 @@ public class AssetController {
 
     assetDeleteService.delete(assetSeq);
     return ResponseEntity.ok(new SuccessResponse());
+  }
+
+  /**
+   * 자산 목록 조회
+   *
+   * @return 요쳥 결과
+   */
+  @GetMapping
+  public ResponseEntity<?> doGetList() {
+    return ResponseEntity.ok(new ListResponse(assetListService.getList()));
   }
 
   /**
