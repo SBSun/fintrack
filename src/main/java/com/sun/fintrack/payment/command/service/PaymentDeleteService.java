@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 결제 정보 삭제 서비스
+ * 결제 삭제 서비스
  */
 @RequiredArgsConstructor
 @Service
@@ -20,7 +20,7 @@ public class PaymentDeleteService {
   private final PaymentRepository paymentRepository;
 
   /**
-   * 결제 정보 삭제
+   * 결제 삭제
    *
    * @param paymentSeq 결제 일련번호
    */

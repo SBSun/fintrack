@@ -27,7 +27,7 @@ import static sun.Tables.CATEGORY;
 import static sun.Tables.PAYMENT;
 
 /**
- * 카테고리 목록 조회 DAO
+ * 결제 목록 조회 DAO
  */
 @RequiredArgsConstructor
 @Repository
@@ -36,28 +36,11 @@ public class PaymentListDao {
   private final DSLContext dsl;
 
   /**
-   * 일일 결제 내역 목록 조회
-   *
-   * @param date 날짜
-   */
-  public List<PaymentListResponse> getDailyList(String date) {
-    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
-              .from(PAYMENT)
-              .join(CATEGORY)
-              .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
-              .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-              .and(PAYMENT.PM_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
-              .orderBy(PAYMENT.PM_DT.desc())
-              .fetchInto(PaymentListResponse.class);
-  }
-
-  /**
    * 결제 내역 카테고리별 통계 조회
    *
    * @param param 날짜
    */
-  public PaymentStatsResponse getList(PaymentStatsRequest param) {
+  public PaymentStatsResponse select(PaymentStatsRequest param) {
     Result<Record3<Long, String, Long>> result =
         dsl.select(CATEGORY.CTG_SEQ, CATEGORY.CTG_NM, DSL.sum(PAYMENT.PM_PRC).cast(Long.class).as("SUM"))
            .from(PAYMENT)
@@ -79,12 +62,29 @@ public class PaymentListDao {
   }
 
   /**
+   * 일일 결제 내역 목록 조회
+   *
+   * @param date 날짜
+   */
+  public List<PaymentListResponse> selectDailyList(String date) {
+    return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
+              .from(PAYMENT)
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
+              .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
+              .and(PAYMENT.PM_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
+              .orderBy(PAYMENT.PM_DT.desc())
+              .fetchInto(PaymentListResponse.class);
+  }
+
+  /**
    * 월별 결제 내역 목록 조회
    *
    * @param year  년도
    * @param month 월
    */
-  public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
+  public List<PaymentListResponse> selectMonthlyList(Integer year, Integer month) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
                   CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(PAYMENT)
@@ -102,7 +102,7 @@ public class PaymentListDao {
    *
    * @param keyword 검색 키워드
    */
-  public List<PaymentListResponse> getSearchList(String keyword) {
+  public List<PaymentListResponse> selectSearchList(String keyword) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
                   CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(PAYMENT)

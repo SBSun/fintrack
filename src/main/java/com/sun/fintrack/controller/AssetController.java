@@ -37,7 +37,7 @@ public class AssetController {
    * @return 요청 결과
    */
   @DeleteMapping("/{assetSeq}")
-  public ResponseEntity<?> doDelete(@PathVariable("assetSeq") Long assetSeq) {
+  public ResponseEntity<?> doDelete(@PathVariable(value = "assetSeq", required = false) Long assetSeq) {
     AssetValidator.validateSeq(assetSeq);
 
     assetDeleteService.delete(assetSeq);
