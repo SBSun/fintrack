@@ -33,7 +33,7 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getDailyList(String date) {
-    List<PaymentListResponse> list = paymentListDao.getDailyList(date);
+    List<PaymentListResponse> list = paymentListDao.selectDailyList(date);
     setImageUrl(list);
 
     return list;
@@ -46,7 +46,7 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public PaymentStatsResponse getList(PaymentStatsRequest param) {
-    return paymentListDao.getList(param);
+    return paymentListDao.select(param);
   }
 
   /**
@@ -56,7 +56,7 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
-    List<PaymentListResponse> list = paymentListDao.getMonthlyList(year, month);
+    List<PaymentListResponse> list = paymentListDao.selectMonthlyList(year, month);
     setImageUrl(list);
 
     return list;
@@ -69,7 +69,7 @@ public class PaymentListService {
    */
   @Transactional(readOnly = true)
   public List<PaymentListResponse> getSearchList(String keyword) {
-    List<PaymentListResponse> list = paymentListDao.getSearchList(keyword);
+    List<PaymentListResponse> list = paymentListDao.selectSearchList(keyword);
     setImageUrl(list);
 
     return list;

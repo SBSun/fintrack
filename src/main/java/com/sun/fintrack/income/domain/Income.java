@@ -1,4 +1,4 @@
-package com.sun.fintrack.payment.domain;
+package com.sun.fintrack.income.domain;
 
 import com.sun.fintrack.asset.domain.Asset;
 import com.sun.fintrack.category.domain.Category;
@@ -19,41 +19,36 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * 결제 엔티티
+ * 소득 엔티티
  */
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "PAYMENT")
-public class Payment extends BaseTimeEntity {
+@Table(name = "INCOME")
+public class Income extends BaseTimeEntity {
 
   /**
-   * 결제 일련번호
+   * 소득 일련번호
    */
   @Id
-  @Column(name = "PM_SEQ", nullable = false)
+  @Column(name = "IC_SEQ", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long paymentSeq;
+  private Long incomeSeq;
   /**
-   * 결제 내용
+   * 소득 내용
    */
-  @Column(name = "PM_CTT", nullable = false)
+  @Column(name = "IC_CTT", nullable = false)
   private String content;
   /**
-   * 결제 금액
+   * 소득 금액
    */
-  @Column(name = "PM_PRC", nullable = false)
+  @Column(name = "IC_PRC", nullable = false)
   private Long price;
   /**
-   * 결제일시
+   * 소득일시
    */
-  @Column(name = "PM_DT", nullable = false)
-  private LocalDateTime paymentDt;
-  /**
-   * 내용 이미지
-   */
-  @Column(name = "PM_IMG_PATH")
-  private String imagePath;
+  @Column(name = "IC_DT", nullable = false)
+  private LocalDateTime incomeDt;
   /**
    * 회원
    */
@@ -73,30 +68,28 @@ public class Payment extends BaseTimeEntity {
   @JoinColumn(name = "CTG_SEQ", nullable = false)
   private Category category;
 
-  public Payment(String content, Long price, String imagePath, LocalDateTime paymentDt, Member member, Asset asset,
-      Category category) {
+  public Income(String content, Long price, LocalDateTime incomeDt, Member member, Asset asset, Category category) {
     this.content = content;
     this.price = price;
-    this.imagePath = imagePath;
-    this.paymentDt = paymentDt;
+    this.incomeDt = incomeDt;
     this.member = member;
     this.asset = asset;
     this.category = category;
   }
 
   /**
-   * 결제 정보 수정
+   * 소득 정보 수정
    *
-   * @param content   결제 내용
-   * @param price     결제 금액
-   * @param paymentDt 결제일시
-   * @param asset     자산
-   * @param category  카테고리
+   * @param content  소득 내용
+   * @param price    소득 금액
+   * @param incomeDt 소득일시
+   * @param asset    자산
+   * @param category 카테고리
    */
-  public void modify(String content, Long price, LocalDateTime paymentDt, Asset asset, Category category) {
+  public void modify(String content, Long price, LocalDateTime incomeDt, Asset asset, Category category) {
     this.content = content;
     this.price = price;
-    this.paymentDt = paymentDt;
+    this.incomeDt = incomeDt;
     this.asset = asset;
     this.category = category;
   }

@@ -1,27 +1,29 @@
-package com.sun.fintrack.payment.request;
+package com.sun.fintrack.income.request;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
- * 결제 등록 요청
+ * 소득 수정 요청
  */
 @Getter
-@Setter
-public class PaymentEntryRequest {
+public class IncomeModifyRequest {
 
   /**
-   * 결제 내용
+   * 소득 일련번호
+   */
+  private Long incomeSeq;
+  /**
+   * 소득 내용
    */
   private String content;
   /**
-   * 결제 금액
+   * 소득 금액
    */
   private Long price;
   /**
-   * 결제일시
+   * 소득일시
    */
-  private String paymentDt;
+  private String incomeDt;
   /**
    * 자산 일련번호
    */

@@ -44,7 +44,7 @@ public class PaymentController {
   private final PaymentListService paymentListService;
 
   /**
-   * 결제 정보 삭제
+   * 결제 삭제
    *
    * @param paymentSeq 결제 일련번호
    * @return 요청 결과
@@ -117,7 +117,7 @@ public class PaymentController {
   }
 
   /**
-   * 결제 정보 등록
+   * 결제 등록
    *
    * @param param 요청 파라미터
    * @return 요청 결과
@@ -131,7 +131,7 @@ public class PaymentController {
   }
 
   /**
-   * 결제 정보 수정
+   * 결제 수정
    *
    * @param param 요청 파라미터
    * @return 요청 결과
