@@ -28,7 +28,7 @@ public class PaymentDetailResponse {
    */
   private String paymentDt;
   /**
-   * 카테고리 아이디
+   * 카테고리 일련번호
    */
   private Long categorySeq;
   /**
