@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Schema;
@@ -46,9 +47,9 @@ public class Category extends TableImpl<CategoryRecord> {
     }
 
     /**
-     * The column <code>fintrack.CATEGORY.CTG_ID</code>. 카테고리 아이디
+     * The column <code>fintrack.CATEGORY.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public final TableField<CategoryRecord, Long> CTG_ID = createField(DSL.name("CTG_ID"), SQLDataType.BIGINT.nullable(false), this, "카테고리 아이디");
+    public final TableField<CategoryRecord, Long> CTG_SEQ = createField(DSL.name("CTG_SEQ"), SQLDataType.BIGINT.nullable(false).identity(true), this, "카테고리 일련번호");
 
     /**
      * The column <code>fintrack.CATEGORY.CTG_NM</code>. 카테고리명
@@ -116,6 +117,11 @@ public class Category extends TableImpl<CategoryRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Fintrack.FINTRACK;
+    }
+
+    @Override
+    public Identity<CategoryRecord, Long> getIdentity() {
+        return (Identity<CategoryRecord, Long>) super.getIdentity();
     }
 
     @Override

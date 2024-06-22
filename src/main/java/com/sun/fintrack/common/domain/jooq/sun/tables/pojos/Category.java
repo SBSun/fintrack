@@ -16,7 +16,7 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Long ctgId;
+    private final Long ctgSeq;
     private final String ctgNm;
     private final Integer ctgOrd;
     private final String ctgTyp;
@@ -25,7 +25,7 @@ public class Category implements Serializable {
     private final LocalDateTime updDt;
 
     public Category(Category value) {
-        this.ctgId = value.ctgId;
+        this.ctgSeq = value.ctgSeq;
         this.ctgNm = value.ctgNm;
         this.ctgOrd = value.ctgOrd;
         this.ctgTyp = value.ctgTyp;
@@ -35,7 +35,7 @@ public class Category implements Serializable {
     }
 
     public Category(
-        Long ctgId,
+        Long ctgSeq,
         String ctgNm,
         Integer ctgOrd,
         String ctgTyp,
@@ -43,7 +43,7 @@ public class Category implements Serializable {
         LocalDateTime creDt,
         LocalDateTime updDt
     ) {
-        this.ctgId = ctgId;
+        this.ctgSeq = ctgSeq;
         this.ctgNm = ctgNm;
         this.ctgOrd = ctgOrd;
         this.ctgTyp = ctgTyp;
@@ -53,10 +53,10 @@ public class Category implements Serializable {
     }
 
     /**
-     * Getter for <code>fintrack.CATEGORY.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.CATEGORY.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
-        return this.ctgId;
+    public Long getCtgSeq() {
+        return this.ctgSeq;
     }
 
     /**
@@ -110,11 +110,11 @@ public class Category implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Category other = (Category) obj;
-        if (this.ctgId == null) {
-            if (other.ctgId != null)
+        if (this.ctgSeq == null) {
+            if (other.ctgSeq != null)
                 return false;
         }
-        else if (!this.ctgId.equals(other.ctgId))
+        else if (!this.ctgSeq.equals(other.ctgSeq))
             return false;
         if (this.ctgNm == null) {
             if (other.ctgNm != null)
@@ -159,7 +159,7 @@ public class Category implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.ctgId == null) ? 0 : this.ctgId.hashCode());
+        result = prime * result + ((this.ctgSeq == null) ? 0 : this.ctgSeq.hashCode());
         result = prime * result + ((this.ctgNm == null) ? 0 : this.ctgNm.hashCode());
         result = prime * result + ((this.ctgOrd == null) ? 0 : this.ctgOrd.hashCode());
         result = prime * result + ((this.ctgTyp == null) ? 0 : this.ctgTyp.hashCode());
@@ -173,7 +173,7 @@ public class Category implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Category (");
 
-        sb.append(ctgId);
+        sb.append(ctgSeq);
         sb.append(", ").append(ctgNm);
         sb.append(", ").append(ctgOrd);
         sb.append(", ").append(ctgTyp);

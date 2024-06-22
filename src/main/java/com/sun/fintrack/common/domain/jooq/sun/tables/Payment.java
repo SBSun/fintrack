@@ -77,9 +77,9 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, Long> AS_SEQ = createField(DSL.name("AS_SEQ"), SQLDataType.BIGINT.nullable(false), this, "자산 일련번호");
 
     /**
-     * The column <code>fintrack.PAYMENT.CTG_ID</code>. 카테고리 아이디
+     * The column <code>fintrack.PAYMENT.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public final TableField<PaymentRecord, Long> CTG_ID = createField(DSL.name("CTG_ID"), SQLDataType.BIGINT.nullable(false), this, "카테고리 아이디");
+    public final TableField<PaymentRecord, Long> CTG_SEQ = createField(DSL.name("CTG_SEQ"), SQLDataType.BIGINT.nullable(false), this, "카테고리 일련번호");
 
     /**
      * The column <code>fintrack.PAYMENT.PM_IMG_PATH</code>. 이미지 경로

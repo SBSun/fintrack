@@ -11,9 +11,9 @@ import lombok.Setter;
 public class CategoryModifyRequest {
 
   /**
-   * 카테고리 ID
+   * 카테고리 일련번호
    */
-  private Long categoryId;
+  private Long categorySeq;
   /**
    * 카테고리명
    */

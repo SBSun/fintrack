@@ -23,12 +23,12 @@ public class CategoryOneService {
   /**
    * 카테고리 엔티티 단일 조회
    *
-   * @param categoryId 카테고리 ID
+   * @param categorySeq 카테고리 일련번호
    * @return 결제 엔티티
    */
   @Transactional(readOnly = true)
-  public Category getOne(Long categoryId, CategoryType type) {
-    Category category = categoryRepository.findByCategoryIdAndType(categoryId, type)
+  public Category getOne(Long categorySeq, CategoryType type) {
+    Category category = categoryRepository.findByCategorySeqAndType(categorySeq, type)
                                           .orElseThrow(() -> new ValidationException("category.not_found"));
 
     if (!category.getMember().getMemberSeq().equals(MemberUtils.getMemberSeq())) {

@@ -84,8 +84,8 @@ public class PaymentValidator {
     if (Objects.isNull(param.getAssetSeq())) {
       throw new ValidationException("asset.param_seq_empty");
     }
-    // 결제 카테고리 ID
-    if (Objects.isNull(param.getCategoryId())) {
+    // 카테고리 일련번호
+    if (Objects.isNull(param.getCategorySeq())) {
       throw new ValidationException("payment.param_category_empty");
     }
   }
@@ -115,8 +115,8 @@ public class PaymentValidator {
     if (Objects.isNull(param.getAssetSeq())) {
       throw new ValidationException("asset.param_seq_empty");
     }
-    // 결제 카테고리 ID
-    if (Objects.isNull(param.getCategoryId())) {
+    // 카테고리 일련번호
+    if (Objects.isNull(param.getCategorySeq())) {
       throw new ValidationException("payment.param_category_empty");
     }
   }

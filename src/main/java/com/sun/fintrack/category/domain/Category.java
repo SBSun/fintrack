@@ -7,6 +7,8 @@ import com.sun.fintrack.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,11 +26,12 @@ import lombok.NoArgsConstructor;
 public class Category extends BaseTimeEntity {
 
   /**
-   * 카테고리 ID
+   * 카테고리
    */
   @Id
-  @Column(name = "CTG_ID", nullable = false)
-  private Long categoryId;
+  @Column(name = "CTG_SEQ", nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long categorySeq;
   /**
    * 카테고리명
    */

@@ -22,7 +22,7 @@ public class Payment implements Serializable {
     private final Long pmPrc;
     private final LocalDateTime pmDt;
     private final Long asSeq;
-    private final Long ctgId;
+    private final Long ctgSeq;
     private final String pmImgPath;
     private final LocalDateTime creDt;
     private final LocalDateTime updDt;
@@ -34,7 +34,7 @@ public class Payment implements Serializable {
         this.pmPrc = value.pmPrc;
         this.pmDt = value.pmDt;
         this.asSeq = value.asSeq;
-        this.ctgId = value.ctgId;
+        this.ctgSeq = value.ctgSeq;
         this.pmImgPath = value.pmImgPath;
         this.creDt = value.creDt;
         this.updDt = value.updDt;
@@ -47,7 +47,7 @@ public class Payment implements Serializable {
         Long pmPrc,
         LocalDateTime pmDt,
         Long asSeq,
-        Long ctgId,
+        Long ctgSeq,
         String pmImgPath,
         LocalDateTime creDt,
         LocalDateTime updDt
@@ -58,7 +58,7 @@ public class Payment implements Serializable {
         this.pmPrc = pmPrc;
         this.pmDt = pmDt;
         this.asSeq = asSeq;
-        this.ctgId = ctgId;
+        this.ctgSeq = ctgSeq;
         this.pmImgPath = pmImgPath;
         this.creDt = creDt;
         this.updDt = updDt;
@@ -107,10 +107,10 @@ public class Payment implements Serializable {
     }
 
     /**
-     * Getter for <code>fintrack.PAYMENT.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.PAYMENT.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
-        return this.ctgId;
+    public Long getCtgSeq() {
+        return this.ctgSeq;
     }
 
     /**
@@ -179,11 +179,11 @@ public class Payment implements Serializable {
         }
         else if (!this.asSeq.equals(other.asSeq))
             return false;
-        if (this.ctgId == null) {
-            if (other.ctgId != null)
+        if (this.ctgSeq == null) {
+            if (other.ctgSeq != null)
                 return false;
         }
-        else if (!this.ctgId.equals(other.ctgId))
+        else if (!this.ctgSeq.equals(other.ctgSeq))
             return false;
         if (this.pmImgPath == null) {
             if (other.pmImgPath != null)
@@ -216,7 +216,7 @@ public class Payment implements Serializable {
         result = prime * result + ((this.pmPrc == null) ? 0 : this.pmPrc.hashCode());
         result = prime * result + ((this.pmDt == null) ? 0 : this.pmDt.hashCode());
         result = prime * result + ((this.asSeq == null) ? 0 : this.asSeq.hashCode());
-        result = prime * result + ((this.ctgId == null) ? 0 : this.ctgId.hashCode());
+        result = prime * result + ((this.ctgSeq == null) ? 0 : this.ctgSeq.hashCode());
         result = prime * result + ((this.pmImgPath == null) ? 0 : this.pmImgPath.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
         result = prime * result + ((this.updDt == null) ? 0 : this.updDt.hashCode());
@@ -233,7 +233,7 @@ public class Payment implements Serializable {
         sb.append(", ").append(pmPrc);
         sb.append(", ").append(pmDt);
         sb.append(", ").append(asSeq);
-        sb.append(", ").append(ctgId);
+        sb.append(", ").append(ctgSeq);
         sb.append(", ").append(pmImgPath);
         sb.append(", ").append(creDt);
         sb.append(", ").append(updDt);

@@ -20,12 +20,12 @@ public class CategoryValidator {
   /**
    * 카테고리 삭제 요청 유효성 체크
    *
-   * @param categoryId 카테고리 ID
-   * @param type       카테고리 타입
+   * @param categorySeq 카테고리 일련번호
+   * @param type        카테고리 타입
    */
-  public void validate(Long categoryId, String type) {
-    // 카테고리 ID
-    validateId(categoryId);
+  public void validate(Long categorySeq, String type) {
+    // 카테고리 일련번호
+    validateSeq(categorySeq);
     // 카테고리 타입
     validateType(type);
   }
@@ -48,8 +48,8 @@ public class CategoryValidator {
    * @param param 요청 파라미터
    */
   public void validate(CategoryModifyRequest param) {
-    // 카테고리 ID
-    validateId(param.getCategoryId());
+    // 카테고리 일련번호
+    validateSeq(param.getCategorySeq());
     // 카테고리명
     validateEmpty(param.getName(), "category.param_name_empty");
     // 카테고리 타입
@@ -68,13 +68,13 @@ public class CategoryValidator {
   }
 
   /**
-   * 카테고리 ID 유효성 체크
+   * 카테고리 일련번호 유효성 체크
    *
-   * @param categoryId 카테고리 ID
+   * @param categorySeq 카테고리 일련번호
    */
-  public void validateId(Long categoryId) {
-    if (Objects.isNull(categoryId)) {
-      throw new ValidationException("category.param_id_empty");
+  public void validateSeq(Long categorySeq) {
+    if (Objects.isNull(categorySeq)) {
+      throw new ValidationException("category.param_seq_empty");
     }
   }
 

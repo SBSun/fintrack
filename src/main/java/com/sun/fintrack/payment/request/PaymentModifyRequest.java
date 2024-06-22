@@ -31,5 +31,5 @@ public class PaymentModifyRequest {
   /**
    * 카테고리 아이디
    */
-  private Long categoryId;
+  private Long categorySeq;
 }

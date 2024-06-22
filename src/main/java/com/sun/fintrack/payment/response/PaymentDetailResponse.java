@@ -30,7 +30,7 @@ public class PaymentDetailResponse {
   /**
    * 카테고리 아이디
    */
-  private Long categoryId;
+  private Long categorySeq;
   /**
    * 카테고리명
    */
@@ -41,7 +41,7 @@ public class PaymentDetailResponse {
     this.content = payment.getContent();
     this.price = payment.getPrice();
     this.paymentDt = DateTimeUtils.convertToString(payment.getCreatedDt(), DateTimeUtils.DEFAULT_DATETIME);
-    this.categoryId = payment.getCategory().getCategoryId();
+    this.categorySeq = payment.getCategory().getCategorySeq();
     this.categoryName = payment.getCategory().getName();
   }
 }

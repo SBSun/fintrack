@@ -46,7 +46,7 @@ public class PaymentEntryService {
   public void entry(PaymentEntryRequest param, MultipartFile image) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
     Asset asset = assetOneService.getOne(param.getAssetSeq());
-    Category category = categoryOneService.getOne(param.getCategoryId(), CategoryType.PAYMENT);
+    Category category = categoryOneService.getOne(param.getCategorySeq(), CategoryType.PAYMENT);
     String imagePath =
         Objects.nonNull(image) && !image.isEmpty() ? awsS3Service.upload(MemberUtils.getMemberSeq(), "payment", image) :
             null;
