@@ -21,17 +21,17 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>fintrack.CATEGORY.CTG_ID</code>. 카테고리 아이디
+     * Setter for <code>fintrack.CATEGORY.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public CategoryRecord setCtgId(Long value) {
+    public CategoryRecord setCtgSeq(Long value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>fintrack.CATEGORY.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.CATEGORY.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
+    public Long getCtgSeq() {
         return (Long) get(0);
     }
 
@@ -148,10 +148,10 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
     /**
      * Create a detached, initialised CategoryRecord
      */
-    public CategoryRecord(Long ctgId, String ctgNm, Integer ctgOrd, String ctgTyp, Long mbSeq, LocalDateTime creDt, LocalDateTime updDt) {
+    public CategoryRecord(Long ctgSeq, String ctgNm, Integer ctgOrd, String ctgTyp, Long mbSeq, LocalDateTime creDt, LocalDateTime updDt) {
         super(Category.CATEGORY);
 
-        setCtgId(ctgId);
+        setCtgSeq(ctgSeq);
         setCtgNm(ctgNm);
         setCtgOrd(ctgOrd);
         setCtgTyp(ctgTyp);
@@ -168,7 +168,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> {
         super(Category.CATEGORY);
 
         if (value != null) {
-            setCtgId(value.getCtgId());
+            setCtgSeq(value.getCtgSeq());
             setCtgNm(value.getCtgNm());
             setCtgOrd(value.getCtgOrd());
             setCtgTyp(value.getCtgTyp());

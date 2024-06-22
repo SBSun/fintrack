@@ -111,17 +111,17 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
     }
 
     /**
-     * Setter for <code>fintrack.PAYMENT.CTG_ID</code>. 카테고리 아이디
+     * Setter for <code>fintrack.PAYMENT.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public PaymentRecord setCtgId(Long value) {
+    public PaymentRecord setCtgSeq(Long value) {
         set(6, value);
         return this;
     }
 
     /**
-     * Getter for <code>fintrack.PAYMENT.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.PAYMENT.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
+    public Long getCtgSeq() {
         return (Long) get(6);
     }
 
@@ -193,7 +193,7 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
     /**
      * Create a detached, initialised PaymentRecord
      */
-    public PaymentRecord(Long pmSeq, Long mbSeq, String pmCtt, Long pmPrc, LocalDateTime pmDt, Long asSeq, Long ctgId, String pmImgPath, LocalDateTime creDt, LocalDateTime updDt) {
+    public PaymentRecord(Long pmSeq, Long mbSeq, String pmCtt, Long pmPrc, LocalDateTime pmDt, Long asSeq, Long ctgSeq, String pmImgPath, LocalDateTime creDt, LocalDateTime updDt) {
         super(Payment.PAYMENT);
 
         setPmSeq(pmSeq);
@@ -202,7 +202,7 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
         setPmPrc(pmPrc);
         setPmDt(pmDt);
         setAsSeq(asSeq);
-        setCtgId(ctgId);
+        setCtgSeq(ctgSeq);
         setPmImgPath(pmImgPath);
         setCreDt(creDt);
         setUpdDt(updDt);
@@ -222,7 +222,7 @@ public class PaymentRecord extends UpdatableRecordImpl<PaymentRecord> {
             setPmPrc(value.getPmPrc());
             setPmDt(value.getPmDt());
             setAsSeq(value.getAsSeq());
-            setCtgId(value.getCtgId());
+            setCtgSeq(value.getCtgSeq());
             setPmImgPath(value.getPmImgPath());
             setCreDt(value.getCreDt());
             setUpdDt(value.getUpdDt());

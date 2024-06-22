@@ -22,7 +22,7 @@ public class Income implements Serializable {
     private final Long icPrc;
     private final LocalDateTime icDt;
     private final Long asSeq;
-    private final Long ctgId;
+    private final Long ctgSeq;
     private final LocalDateTime creDt;
     private final LocalDateTime updDt;
 
@@ -33,7 +33,7 @@ public class Income implements Serializable {
         this.icPrc = value.icPrc;
         this.icDt = value.icDt;
         this.asSeq = value.asSeq;
-        this.ctgId = value.ctgId;
+        this.ctgSeq = value.ctgSeq;
         this.creDt = value.creDt;
         this.updDt = value.updDt;
     }
@@ -45,7 +45,7 @@ public class Income implements Serializable {
         Long icPrc,
         LocalDateTime icDt,
         Long asSeq,
-        Long ctgId,
+        Long ctgSeq,
         LocalDateTime creDt,
         LocalDateTime updDt
     ) {
@@ -55,7 +55,7 @@ public class Income implements Serializable {
         this.icPrc = icPrc;
         this.icDt = icDt;
         this.asSeq = asSeq;
-        this.ctgId = ctgId;
+        this.ctgSeq = ctgSeq;
         this.creDt = creDt;
         this.updDt = updDt;
     }
@@ -103,10 +103,10 @@ public class Income implements Serializable {
     }
 
     /**
-     * Getter for <code>fintrack.INCOME.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.INCOME.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
-        return this.ctgId;
+    public Long getCtgSeq() {
+        return this.ctgSeq;
     }
 
     /**
@@ -168,11 +168,11 @@ public class Income implements Serializable {
         }
         else if (!this.asSeq.equals(other.asSeq))
             return false;
-        if (this.ctgId == null) {
-            if (other.ctgId != null)
+        if (this.ctgSeq == null) {
+            if (other.ctgSeq != null)
                 return false;
         }
-        else if (!this.ctgId.equals(other.ctgId))
+        else if (!this.ctgSeq.equals(other.ctgSeq))
             return false;
         if (this.creDt == null) {
             if (other.creDt != null)
@@ -199,7 +199,7 @@ public class Income implements Serializable {
         result = prime * result + ((this.icPrc == null) ? 0 : this.icPrc.hashCode());
         result = prime * result + ((this.icDt == null) ? 0 : this.icDt.hashCode());
         result = prime * result + ((this.asSeq == null) ? 0 : this.asSeq.hashCode());
-        result = prime * result + ((this.ctgId == null) ? 0 : this.ctgId.hashCode());
+        result = prime * result + ((this.ctgSeq == null) ? 0 : this.ctgSeq.hashCode());
         result = prime * result + ((this.creDt == null) ? 0 : this.creDt.hashCode());
         result = prime * result + ((this.updDt == null) ? 0 : this.updDt.hashCode());
         return result;
@@ -215,7 +215,7 @@ public class Income implements Serializable {
         sb.append(", ").append(icPrc);
         sb.append(", ").append(icDt);
         sb.append(", ").append(asSeq);
-        sb.append(", ").append(ctgId);
+        sb.append(", ").append(ctgSeq);
         sb.append(", ").append(creDt);
         sb.append(", ").append(updDt);
 

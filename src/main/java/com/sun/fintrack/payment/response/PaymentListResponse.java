@@ -35,20 +35,20 @@ public class PaymentListResponse {
   /**
    * 카테고리 아이디
    */
-  private Long categoryId;
+  private Long categorySeq;
   /**
    * 카테고리명
    */
   private String categoryName;
 
   public PaymentListResponse(Long paymentSeq, String content, Long price, String image, LocalDateTime paymentDt,
-      Long categoryId, String categoryName) {
+      Long categorySeq, String categoryName) {
     this.paymentSeq = paymentSeq;
     this.content = content;
     this.price = price;
     this.image = image;
     this.paymentDt = DateTimeUtils.formatLocalDateTime(paymentDt);
-    this.categoryId = categoryId;
+    this.categorySeq = categorySeq;
     this.categoryName = categoryName;
   }
 

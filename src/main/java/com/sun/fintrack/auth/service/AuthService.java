@@ -4,13 +4,14 @@ import com.sun.fintrack.auth.domain.client.SocialMemberClientComposite;
 import com.sun.fintrack.auth.domain.enums.SocialType;
 import com.sun.fintrack.auth.domain.provider.AuthCodeRequestUrlProviderComposite;
 import com.sun.fintrack.auth.kakao.response.KakaoMemberResponse;
+import com.sun.fintrack.category.command.service.CategoryEntryService;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.repository.MemberRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,8 @@ public class AuthService {
   private final SocialMemberClientComposite socialUserClient;
 
   private final JwtService jwtService;
+
+  private final CategoryEntryService categoryEntryService;
 
   private final MemberRepository memberRepository;
 
@@ -50,11 +53,13 @@ public class AuthService {
   public String login(SocialType socialType, String code) {
     KakaoMemberResponse memberInfo = socialUserClient.fetch(socialType, code);
 
-    Optional<Member> member = memberRepository.findByEmail(memberInfo.email());
-    if (member.isEmpty()) {
-      member = Optional.of(memberRepository.save(new Member(memberInfo)));
+    Member member = memberRepository.findByEmail(memberInfo.email()).orElse(null);
+    if (Objects.isNull(member)) {
+      member = memberRepository.save(new Member(memberInfo));
+      // 기본 카테고리 등록
+      categoryEntryService.entry(member);
     }
 
-    return jwtService.generateToken(member.get());
+    return jwtService.generateToken(member);
   }
 }

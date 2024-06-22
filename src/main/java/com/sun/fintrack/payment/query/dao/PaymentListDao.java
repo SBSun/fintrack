@@ -42,10 +42,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getDailyList(String date) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(PAYMENT)
               .join(CATEGORY)
-              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
+              .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
               .and(PAYMENT.PM_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
               .orderBy(PAYMENT.PM_DT.desc())
@@ -59,12 +59,12 @@ public class PaymentListDao {
    */
   public PaymentStatsResponse getList(PaymentStatsRequest param) {
     Result<Record3<Long, String, Long>> result =
-        dsl.select(CATEGORY.CTG_ID, CATEGORY.CTG_NM, DSL.sum(PAYMENT.PM_PRC).cast(Long.class).as("SUM"))
+        dsl.select(CATEGORY.CTG_SEQ, CATEGORY.CTG_NM, DSL.sum(PAYMENT.PM_PRC).cast(Long.class).as("SUM"))
            .from(PAYMENT)
            .join(CATEGORY)
-           .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
+           .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
            .where(getConditionList(param))
-           .groupBy(PAYMENT.CTG_ID)
+           .groupBy(PAYMENT.CTG_SEQ)
            .orderBy(DSL.field("SUM").desc())
            .fetch();
 
@@ -86,10 +86,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(PAYMENT)
               .join(CATEGORY)
-              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
+              .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
               .and(DSL.year(PAYMENT.PM_DT).eq(year))
               .and(DSL.month(PAYMENT.PM_DT).eq(month))
@@ -104,10 +104,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getSearchList(String keyword) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(PAYMENT)
               .join(CATEGORY)
-              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
+              .on(CATEGORY.CTG_SEQ.eq(PAYMENT.CTG_SEQ))
               .where(getSearchConditionList(keyword))
               .orderBy(PAYMENT.PM_DT.desc())
               .fetchInto(PaymentListResponse.class);

@@ -29,7 +29,7 @@ public class CategoryListDao {
    * @return 요쳥 결과
    */
   public List<CategoryListResponse> select(CategoryType type) {
-    return dsl.select(CATEGORY.CTG_ID, CATEGORY.CTG_NM)
+    return dsl.select(CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(CATEGORY)
               .where(CATEGORY.CTG_TYP.eq(type.getCode()))
               .and(CATEGORY.MB_SEQ.eq(MemberUtils.getMemberSeq()))

@@ -26,7 +26,7 @@ public class CategoryModifyService {
    */
   @Transactional
   public void modify(CategoryModifyRequest param) {
-    Category category = categoryOneService.getOne(param.getCategoryId(), CategoryType.fromCode(param.getType()));
+    Category category = categoryOneService.getOne(param.getCategorySeq(), CategoryType.fromCode(param.getType()));
 
     category.modify(param.getName());
   }

@@ -30,9 +30,9 @@ public class PaymentStatsResponse {
   public static class Stats {
 
     /**
-     * 카테고리 ID
+     * 카테고리 일련번호
      */
-    private Long categoryId;
+    private Long categorySeq;
     /**
      * 카테고리명
      */
@@ -46,8 +46,8 @@ public class PaymentStatsResponse {
      */
     private Double rate;
 
-    public Stats(Long categoryId, String categoryName, Long price, double rate) {
-      this.categoryId = categoryId;
+    public Stats(Long categorySeq, String categoryName, Long price, double rate) {
+      this.categorySeq = categorySeq;
       this.categoryName = categoryName;
       this.price = price;
       this.rate = rate;

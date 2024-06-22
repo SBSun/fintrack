@@ -37,8 +37,8 @@ public class PaymentModifyService {
     Payment payment = paymentOneService.getOne(param.getPaymentSeq());
     Asset asset = assetOneService.getOne(param.getAssetSeq());
     Category category = payment.getCategory();
-    if (!category.getCategoryId().equals(param.getCategoryId())) {
-      category = categoryRepository.findById(param.getCategoryId())
+    if (!category.getCategorySeq().equals(param.getCategorySeq())) {
+      category = categoryRepository.findById(param.getCategorySeq())
                                    .orElseThrow(() -> new ValidationException("payment.category.not_found"));
     }
 

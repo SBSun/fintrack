@@ -70,7 +70,7 @@ public class Payment extends BaseTimeEntity {
    * 카테고리
    */
   @ManyToOne
-  @JoinColumn(name = "CTG_ID", nullable = false)
+  @JoinColumn(name = "CTG_SEQ", nullable = false)
   private Category category;
 
   public Payment(String content, Long price, String imagePath, LocalDateTime paymentDt, Member member, Asset asset,

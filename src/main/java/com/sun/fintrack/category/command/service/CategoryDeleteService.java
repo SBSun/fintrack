@@ -23,11 +23,11 @@ public class CategoryDeleteService {
   /**
    * 카테고리 삭제
    *
-   * @param categoryId 카테고리 ID
+   * @param categorySeq 카테고리 일련번호
    */
   @Transactional
-  public void delete(Long categoryId, String type) {
-    Category category = categoryOneService.getOne(categoryId, CategoryType.fromCode(type));
+  public void delete(Long categorySeq, String type) {
+    Category category = categoryOneService.getOne(categorySeq, CategoryType.fromCode(type));
     categoryRepository.delete(category);
   }
 }

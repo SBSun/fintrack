@@ -111,17 +111,17 @@ public class IncomeRecord extends UpdatableRecordImpl<IncomeRecord> {
     }
 
     /**
-     * Setter for <code>fintrack.INCOME.CTG_ID</code>. 카테고리 아이디
+     * Setter for <code>fintrack.INCOME.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public IncomeRecord setCtgId(Long value) {
+    public IncomeRecord setCtgSeq(Long value) {
         set(6, value);
         return this;
     }
 
     /**
-     * Getter for <code>fintrack.INCOME.CTG_ID</code>. 카테고리 아이디
+     * Getter for <code>fintrack.INCOME.CTG_SEQ</code>. 카테고리 일련번호
      */
-    public Long getCtgId() {
+    public Long getCtgSeq() {
         return (Long) get(6);
     }
 
@@ -178,7 +178,7 @@ public class IncomeRecord extends UpdatableRecordImpl<IncomeRecord> {
     /**
      * Create a detached, initialised IncomeRecord
      */
-    public IncomeRecord(Long icSeq, Long mbSeq, String icCtt, Long icPrc, LocalDateTime icDt, Long asSeq, Long ctgId, LocalDateTime creDt, LocalDateTime updDt) {
+    public IncomeRecord(Long icSeq, Long mbSeq, String icCtt, Long icPrc, LocalDateTime icDt, Long asSeq, Long ctgSeq, LocalDateTime creDt, LocalDateTime updDt) {
         super(Income.INCOME);
 
         setIcSeq(icSeq);
@@ -187,7 +187,7 @@ public class IncomeRecord extends UpdatableRecordImpl<IncomeRecord> {
         setIcPrc(icPrc);
         setIcDt(icDt);
         setAsSeq(asSeq);
-        setCtgId(ctgId);
+        setCtgSeq(ctgSeq);
         setCreDt(creDt);
         setUpdDt(updDt);
         resetChangedOnNotNull();
@@ -206,7 +206,7 @@ public class IncomeRecord extends UpdatableRecordImpl<IncomeRecord> {
             setIcPrc(value.getIcPrc());
             setIcDt(value.getIcDt());
             setAsSeq(value.getAsSeq());
-            setCtgId(value.getCtgId());
+            setCtgSeq(value.getCtgSeq());
             setCreDt(value.getCreDt());
             setUpdDt(value.getUpdDt());
             resetChangedOnNotNull();

@@ -40,15 +40,15 @@ public class CategoryController {
   /**
    * 카테고리 삭제
    *
-   * @param categoryId 카테고리 ID
+   * @param categorySeq 카테고리 일련번호
    * @return 요청 결과
    */
-  @DeleteMapping("/{categoryId}")
-  public ResponseEntity<?> doDelete(@PathVariable("categoryId") Long categoryId,
+  @DeleteMapping("/{categorySeq}")
+  public ResponseEntity<?> doDelete(@PathVariable("categorySeq") Long categorySeq,
       @RequestParam(required = false) String type) {
-    CategoryValidator.validate(categoryId, type);
+    CategoryValidator.validate(categorySeq, type);
 
-    categoryDeleteService.delete(categoryId, type);
+    categoryDeleteService.delete(categorySeq, type);
     return ResponseEntity.ok(new SuccessResponse());
   }
 

@@ -11,14 +11,14 @@ public class CategoryListResponse {
   /**
    * 카테고리 아이디
    */
-  private Long categoryId;
+  private Long categorySeq;
   /**
    * 카테고리명
    */
   private String name;
 
-  public CategoryListResponse(Long categoryId, String name) {
-    this.categoryId = categoryId;
+  public CategoryListResponse(Long categorySeq, String name) {
+    this.categorySeq = categorySeq;
     this.name = name;
   }
 }
