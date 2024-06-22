@@ -23,9 +23,12 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import static sun.Tables.CATEGORY;
 import static sun.Tables.PAYMENT;
-import static sun.Tables.PAYMENT_CATEGORY;
 
+/**
+ * 카테고리 목록 조회 DAO
+ */
 @RequiredArgsConstructor
 @Repository
 public class PaymentListDao {
@@ -39,10 +42,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getDailyList(String date) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  PAYMENT_CATEGORY.PM_CTG_ID, PAYMENT_CATEGORY.PM_CTG_NM)
+                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
               .from(PAYMENT)
-              .join(PAYMENT_CATEGORY)
-              .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
               .and(PAYMENT.PM_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
               .orderBy(PAYMENT.PM_DT.desc())
@@ -55,15 +58,15 @@ public class PaymentListDao {
    * @param param 날짜
    */
   public PaymentStatsResponse getList(PaymentStatsRequest param) {
-    Result<Record3<Long, String, Long>> result = dsl.select(PAYMENT_CATEGORY.PM_CTG_ID, PAYMENT_CATEGORY.PM_CTG_NM,
-                                                        DSL.sum(PAYMENT.PM_PRC).cast(Long.class).as("SUM"))
-                                                    .from(PAYMENT)
-                                                    .join(PAYMENT_CATEGORY)
-                                                    .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
-                                                    .where(getConditionList(param))
-                                                    .groupBy(PAYMENT.PM_CTG_ID)
-                                                    .orderBy(DSL.field("SUM").desc())
-                                                    .fetch();
+    Result<Record3<Long, String, Long>> result =
+        dsl.select(CATEGORY.CTG_ID, CATEGORY.CTG_NM, DSL.sum(PAYMENT.PM_PRC).cast(Long.class).as("SUM"))
+           .from(PAYMENT)
+           .join(CATEGORY)
+           .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
+           .where(getConditionList(param))
+           .groupBy(PAYMENT.CTG_ID)
+           .orderBy(DSL.field("SUM").desc())
+           .fetch();
 
     Long totalPrice = result.stream().mapToLong(Record3::component3).sum();
 
@@ -83,10 +86,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getMonthlyList(Integer year, Integer month) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  PAYMENT_CATEGORY.PM_CTG_ID, PAYMENT_CATEGORY.PM_CTG_NM)
+                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
               .from(PAYMENT)
-              .join(PAYMENT_CATEGORY)
-              .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
               .where(PAYMENT.MB_SEQ.eq(MemberUtils.getMemberSeq()))
               .and(DSL.year(PAYMENT.PM_DT).eq(year))
               .and(DSL.month(PAYMENT.PM_DT).eq(month))
@@ -101,10 +104,10 @@ public class PaymentListDao {
    */
   public List<PaymentListResponse> getSearchList(String keyword) {
     return dsl.select(PAYMENT.PM_SEQ, PAYMENT.PM_CTT, PAYMENT.PM_PRC, PAYMENT.PM_IMG_PATH, PAYMENT.PM_DT,
-                  PAYMENT_CATEGORY.PM_CTG_ID, PAYMENT_CATEGORY.PM_CTG_NM)
+                  CATEGORY.CTG_ID, CATEGORY.CTG_NM)
               .from(PAYMENT)
-              .join(PAYMENT_CATEGORY)
-              .on(PAYMENT_CATEGORY.PM_CTG_ID.eq(PAYMENT.PM_CTG_ID))
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_ID.eq(PAYMENT.CTG_ID))
               .where(getSearchConditionList(keyword))
               .orderBy(PAYMENT.PM_DT.desc())
               .fetchInto(PaymentListResponse.class);

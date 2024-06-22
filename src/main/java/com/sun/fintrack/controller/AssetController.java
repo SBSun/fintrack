@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,7 @@ public class AssetController {
   private final AssetDeleteService assetDeleteService;
 
   /**
-   * 자산 정보 삭제
+   * 자산 삭제
    *
    * @param assetSeq 자산 일련번호
    * @return 요청 결과
@@ -46,13 +45,13 @@ public class AssetController {
   }
 
   /**
-   * 자산 정보 등록
+   * 자산 등록
    *
    * @param param 요청 파라미터
    * @return 요청 결과
    */
   @PostMapping
-  public ResponseEntity<?> doPost(@RequestPart AssetEntryRequest param) {
+  public ResponseEntity<?> doPost(@RequestBody AssetEntryRequest param) {
     AssetValidator.validate(param);
 
     assetEntryService.entry(param);
@@ -60,7 +59,7 @@ public class AssetController {
   }
 
   /**
-   * 자산 정보 수정
+   * 자산 수정
    *
    * @param param 요청 파라미터
    * @return 요청 결과

@@ -12,9 +12,10 @@ import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
 import sun.tables.Asset;
+import sun.tables.Category;
+import sun.tables.Income;
 import sun.tables.Member;
 import sun.tables.Payment;
-import sun.tables.PaymentCategory;
 
 
 /**
@@ -36,6 +37,16 @@ public class Fintrack extends SchemaImpl {
     public final Asset ASSET = Asset.ASSET;
 
     /**
+     * The table <code>fintrack.CATEGORY</code>.
+     */
+    public final Category CATEGORY = Category.CATEGORY;
+
+    /**
+     * 수입 테이블
+     */
+    public final Income INCOME = Income.INCOME;
+
+    /**
      * The table <code>fintrack.MEMBER</code>.
      */
     public final Member MEMBER = Member.MEMBER;
@@ -44,11 +55,6 @@ public class Fintrack extends SchemaImpl {
      * The table <code>fintrack.PAYMENT</code>.
      */
     public final Payment PAYMENT = Payment.PAYMENT;
-
-    /**
-     * The table <code>fintrack.PAYMENT_CATEGORY</code>.
-     */
-    public final PaymentCategory PAYMENT_CATEGORY = PaymentCategory.PAYMENT_CATEGORY;
 
     /**
      * No further instances allowed
@@ -67,9 +73,10 @@ public class Fintrack extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             Asset.ASSET,
+            Category.CATEGORY,
+            Income.INCOME,
             Member.MEMBER,
-            Payment.PAYMENT,
-            PaymentCategory.PAYMENT_CATEGORY
+            Payment.PAYMENT
         );
     }
 }

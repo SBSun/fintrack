@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 자산 등록 요청
+ * 자산 수정 요청
  */
 @Getter
 @Setter

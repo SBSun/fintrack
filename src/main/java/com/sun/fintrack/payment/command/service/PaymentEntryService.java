@@ -3,14 +3,15 @@ package com.sun.fintrack.payment.command.service;
 import com.sun.fintrack.asset.domain.Asset;
 import com.sun.fintrack.asset.query.service.AssetOneService;
 import com.sun.fintrack.aws.service.AwsS3Service;
+import com.sun.fintrack.category.domain.Category;
+import com.sun.fintrack.category.domain.enums.CategoryType;
+import com.sun.fintrack.category.query.service.CategoryOneService;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.service.MemberOneService;
 import com.sun.fintrack.payment.domain.Payment;
-import com.sun.fintrack.payment.domain.PaymentCategory;
 import com.sun.fintrack.payment.query.repository.PaymentRepository;
-import com.sun.fintrack.payment.query.service.PaymentOneService;
 import com.sun.fintrack.payment.request.PaymentEntryRequest;
 
 import org.springframework.stereotype.Service;
@@ -31,10 +32,9 @@ public class PaymentEntryService {
   private final AwsS3Service awsS3Service;
 
   private final PaymentRepository paymentRepository;
-  private final PaymentOneService paymentOneService;
 
+  private final CategoryOneService categoryOneService;
   private final AssetOneService assetOneService;
-
   private final MemberOneService memberOneService;
 
   /**
@@ -46,7 +46,7 @@ public class PaymentEntryService {
   public void entry(PaymentEntryRequest param, MultipartFile image) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
     Asset asset = assetOneService.getOne(param.getAssetSeq());
-    PaymentCategory category = paymentOneService.getCategory(param.getCategoryId());
+    Category category = categoryOneService.getOne(param.getCategoryId(), CategoryType.PAYMENT);
     String imagePath =
         Objects.nonNull(image) && !image.isEmpty() ? awsS3Service.upload(MemberUtils.getMemberSeq(), "payment", image) :
             null;

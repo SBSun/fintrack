@@ -2,8 +2,6 @@ package com.sun.fintrack.payment.query.service;
 
 import com.sun.fintrack.common.exception.ValidationException;
 import com.sun.fintrack.payment.domain.Payment;
-import com.sun.fintrack.payment.domain.PaymentCategory;
-import com.sun.fintrack.payment.query.repository.PaymentCategoryRepository;
 import com.sun.fintrack.payment.query.repository.PaymentRepository;
 import com.sun.fintrack.payment.response.PaymentDetailResponse;
 
@@ -20,19 +18,6 @@ import lombok.RequiredArgsConstructor;
 public class PaymentOneService {
 
   private final PaymentRepository paymentRepository;
-  private final PaymentCategoryRepository paymentCategoryRepository;
-
-  /**
-   * 결제 카테고리 엔티티 단일 조회
-   *
-   * @param categoryId 카테고리 ID
-   * @return 결제 엔티티
-   */
-  @Transactional(readOnly = true)
-  public PaymentCategory getCategory(Long categoryId) {
-    return paymentCategoryRepository.findById(categoryId)
-                                    .orElseThrow(() -> new ValidationException("payment.category.not_found"));
-  }
 
   /**
    * 결제 단일 상세 조회

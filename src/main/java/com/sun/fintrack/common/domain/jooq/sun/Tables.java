@@ -5,9 +5,10 @@ package sun;
 
 
 import sun.tables.Asset;
+import sun.tables.Category;
+import sun.tables.Income;
 import sun.tables.Member;
 import sun.tables.Payment;
-import sun.tables.PaymentCategory;
 
 
 /**
@@ -22,6 +23,16 @@ public class Tables {
     public static final Asset ASSET = Asset.ASSET;
 
     /**
+     * The table <code>fintrack.CATEGORY</code>.
+     */
+    public static final Category CATEGORY = Category.CATEGORY;
+
+    /**
+     * 수입 테이블
+     */
+    public static final Income INCOME = Income.INCOME;
+
+    /**
      * The table <code>fintrack.MEMBER</code>.
      */
     public static final Member MEMBER = Member.MEMBER;
@@ -30,9 +41,4 @@ public class Tables {
      * The table <code>fintrack.PAYMENT</code>.
      */
     public static final Payment PAYMENT = Payment.PAYMENT;
-
-    /**
-     * The table <code>fintrack.PAYMENT_CATEGORY</code>.
-     */
-    public static final PaymentCategory PAYMENT_CATEGORY = PaymentCategory.PAYMENT_CATEGORY;
 }

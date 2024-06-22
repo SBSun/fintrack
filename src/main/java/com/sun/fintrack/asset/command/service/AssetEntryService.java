@@ -24,7 +24,7 @@ public class AssetEntryService {
   private final MemberOneService memberOneService;
 
   /**
-   * 자산 정보 등록
+   * 자산 등록
    *
    * @param param 요청 파라미터
    */

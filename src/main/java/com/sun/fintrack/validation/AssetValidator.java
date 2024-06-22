@@ -22,7 +22,7 @@ public class AssetValidator {
    * @param param 요청 파라미터
    */
   public void validate(AssetEntryRequest param) {
-    // 자산 내용
+    // 자산명
     validateEmpty(param.getName(), "asset.param_name_empty");
     // 자산 금액
     if (Objects.isNull(param.getAmount())) {
@@ -45,7 +45,7 @@ public class AssetValidator {
       throw new ValidationException("asset.param_amount_empty");
     }
   }
-  
+
   /**
    * 문자열 공백 체크
    *
