@@ -130,13 +130,11 @@ public class TradeValidator {
   }
 
   /**
-   * 월별 거래 내역 목록 조회 유효성 체크
+   * 월별 거래 내역 조회 유효성 체크
    *
    * @param param 요청 파라미터
    */
   public void validate(TradeMonthlyRequest param) {
-    // 거래 타입
-    validateType(param.getType());
     // 연도
     if (Objects.isNull(param.getYear())) {
       throw new ValidationException("trade.param_year_empty");
@@ -165,13 +163,11 @@ public class TradeValidator {
   }
 
   /**
-   * 일일 거래 내역 목록 조회 유효성 체크
+   * 일일 거래 내역 조회 유효성 체크
    *
    * @param date 날짜
    */
-  public void validateDaily(String type, String date) {
-    // 거래 타입
-    validateType(type);
+  public void validateDaily(String date) {
     // 날짜
     validateEmpty(date, "trade.param_date_empty");
     if (!DateTimeUtils.validFormat(date, DateTimeUtils.DEFAULT_DATE)) {
