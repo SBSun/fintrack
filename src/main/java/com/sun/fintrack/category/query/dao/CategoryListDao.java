@@ -1,8 +1,8 @@
 package com.sun.fintrack.category.query.dao;
 
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.response.CategoryListResponse;
 import com.sun.fintrack.common.utils.MemberUtils;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -28,7 +28,7 @@ public class CategoryListDao {
    * @param type 카테고리 타입
    * @return 요쳥 결과
    */
-  public List<CategoryListResponse> select(CategoryType type) {
+  public List<CategoryListResponse> select(TradeType type) {
     return dsl.select(CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(CATEGORY)
               .where(CATEGORY.CTG_TYP.eq(type.getCode()))

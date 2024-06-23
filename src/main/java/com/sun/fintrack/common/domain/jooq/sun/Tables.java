@@ -6,9 +6,8 @@ package sun;
 
 import sun.tables.Asset;
 import sun.tables.Category;
-import sun.tables.Income;
 import sun.tables.Member;
-import sun.tables.Payment;
+import sun.tables.Trade;
 
 
 /**
@@ -23,14 +22,9 @@ public class Tables {
     public static final Asset ASSET = Asset.ASSET;
 
     /**
-     * The table <code>fintrack.CATEGORY</code>.
+     * 카테고리 테이블
      */
     public static final Category CATEGORY = Category.CATEGORY;
-
-    /**
-     * 수입 테이블
-     */
-    public static final Income INCOME = Income.INCOME;
 
     /**
      * The table <code>fintrack.MEMBER</code>.
@@ -38,7 +32,7 @@ public class Tables {
     public static final Member MEMBER = Member.MEMBER;
 
     /**
-     * The table <code>fintrack.PAYMENT</code>.
+     * 거래 내역 테이블
      */
-    public static final Payment PAYMENT = Payment.PAYMENT;
+    public static final Trade TRADE = Trade.TRADE;
 }

@@ -1,7 +1,7 @@
 package com.sun.fintrack.category.query.dao;
 
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.common.utils.MemberUtils;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ public class CategoryOneDao {
    * @param type 카테고리 타입
    * @return 요청 결과
    */
-  public int selectTopOrder(CategoryType type) {
+  public int selectTopOrder(TradeType type) {
     return Optional.ofNullable(dsl.select(CATEGORY.CTG_ORD)
                                   .from(CATEGORY)
                                   .where(CATEGORY.MB_SEQ.eq(MemberUtils.getMemberSeq()))

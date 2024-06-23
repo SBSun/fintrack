@@ -1,9 +1,9 @@
 package com.sun.fintrack.category.command.service;
 
 import com.sun.fintrack.category.domain.Category;
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.service.CategoryOneService;
 import com.sun.fintrack.category.request.CategoryModifyRequest;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class CategoryModifyService {
    */
   @Transactional
   public void modify(CategoryModifyRequest param) {
-    Category category = categoryOneService.getOne(param.getCategorySeq(), CategoryType.fromCode(param.getType()));
+    Category category = categoryOneService.getOne(param.getCategorySeq(), TradeType.fromCode(param.getType()));
 
     category.modify(param.getName());
   }

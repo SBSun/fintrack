@@ -11,14 +11,12 @@ import org.jooq.impl.Internal;
 
 import sun.tables.Asset;
 import sun.tables.Category;
-import sun.tables.Income;
 import sun.tables.Member;
-import sun.tables.Payment;
+import sun.tables.Trade;
 import sun.tables.records.AssetRecord;
 import sun.tables.records.CategoryRecord;
-import sun.tables.records.IncomeRecord;
 import sun.tables.records.MemberRecord;
-import sun.tables.records.PaymentRecord;
+import sun.tables.records.TradeRecord;
 
 
 /**
@@ -34,7 +32,6 @@ public class Keys {
 
     public static final UniqueKey<AssetRecord> KEY_ASSET_PRIMARY = Internal.createUniqueKey(Asset.ASSET, DSL.name("KEY_ASSET_PRIMARY"), new TableField[] { Asset.ASSET.AS_SEQ }, true);
     public static final UniqueKey<CategoryRecord> KEY_CATEGORY_PRIMARY = Internal.createUniqueKey(Category.CATEGORY, DSL.name("KEY_CATEGORY_PRIMARY"), new TableField[] { Category.CATEGORY.CTG_SEQ }, true);
-    public static final UniqueKey<IncomeRecord> KEY_INCOME_PRIMARY = Internal.createUniqueKey(Income.INCOME, DSL.name("KEY_INCOME_PRIMARY"), new TableField[] { Income.INCOME.IC_SEQ }, true);
     public static final UniqueKey<MemberRecord> KEY_MEMBER_PRIMARY = Internal.createUniqueKey(Member.MEMBER, DSL.name("KEY_MEMBER_PRIMARY"), new TableField[] { Member.MEMBER.MB_SEQ }, true);
-    public static final UniqueKey<PaymentRecord> KEY_PAYMENT_PRIMARY = Internal.createUniqueKey(Payment.PAYMENT, DSL.name("KEY_PAYMENT_PRIMARY"), new TableField[] { Payment.PAYMENT.PM_SEQ }, true);
+    public static final UniqueKey<TradeRecord> KEY_TRADE_PRIMARY = Internal.createUniqueKey(Trade.TRADE, DSL.name("KEY_TRADE_PRIMARY"), new TableField[] { Trade.TRADE.TRD_SEQ }, true);
 }

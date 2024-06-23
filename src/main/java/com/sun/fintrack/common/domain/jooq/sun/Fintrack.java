@@ -13,9 +13,8 @@ import org.jooq.impl.SchemaImpl;
 
 import sun.tables.Asset;
 import sun.tables.Category;
-import sun.tables.Income;
 import sun.tables.Member;
-import sun.tables.Payment;
+import sun.tables.Trade;
 
 
 /**
@@ -37,14 +36,9 @@ public class Fintrack extends SchemaImpl {
     public final Asset ASSET = Asset.ASSET;
 
     /**
-     * The table <code>fintrack.CATEGORY</code>.
+     * 카테고리 테이블
      */
     public final Category CATEGORY = Category.CATEGORY;
-
-    /**
-     * 수입 테이블
-     */
-    public final Income INCOME = Income.INCOME;
 
     /**
      * The table <code>fintrack.MEMBER</code>.
@@ -52,9 +46,9 @@ public class Fintrack extends SchemaImpl {
     public final Member MEMBER = Member.MEMBER;
 
     /**
-     * The table <code>fintrack.PAYMENT</code>.
+     * 거래 내역 테이블
      */
-    public final Payment PAYMENT = Payment.PAYMENT;
+    public final Trade TRADE = Trade.TRADE;
 
     /**
      * No further instances allowed
@@ -74,9 +68,8 @@ public class Fintrack extends SchemaImpl {
         return Arrays.asList(
             Asset.ASSET,
             Category.CATEGORY,
-            Income.INCOME,
             Member.MEMBER,
-            Payment.PAYMENT
+            Trade.TRADE
         );
     }
 }

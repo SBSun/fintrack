@@ -3,12 +3,12 @@ package com.sun.fintrack.controller;
 import com.sun.fintrack.category.command.service.CategoryDeleteService;
 import com.sun.fintrack.category.command.service.CategoryEntryService;
 import com.sun.fintrack.category.command.service.CategoryModifyService;
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.service.CategoryListService;
 import com.sun.fintrack.category.request.CategoryEntryRequest;
 import com.sun.fintrack.category.request.CategoryModifyRequest;
 import com.sun.fintrack.common.response.ListResponse;
 import com.sun.fintrack.common.response.SuccessResponse;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 import com.sun.fintrack.validation.CategoryValidator;
 
 import org.springframework.http.ResponseEntity;
@@ -61,7 +61,7 @@ public class CategoryController {
   public ResponseEntity<?> doGetList(@RequestParam(required = false) String type) {
     CategoryValidator.validateType(type);
 
-    return ResponseEntity.ok(new ListResponse(categoryListService.getList(CategoryType.fromCode(type))));
+    return ResponseEntity.ok(new ListResponse(categoryListService.getList(TradeType.fromCode(type))));
   }
 
   /**
