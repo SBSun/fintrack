@@ -1,12 +1,10 @@
 package com.sun.fintrack.controller;
 
 import com.sun.fintrack.common.response.DataResponse;
-import com.sun.fintrack.common.response.ListResponse;
 import com.sun.fintrack.common.response.SuccessResponse;
 import com.sun.fintrack.trade.command.service.TradeDeleteService;
 import com.sun.fintrack.trade.command.service.TradeEntryService;
 import com.sun.fintrack.trade.command.service.TradeModifyService;
-import com.sun.fintrack.trade.query.service.TradeListService;
 import com.sun.fintrack.trade.query.service.TradeOneService;
 import com.sun.fintrack.trade.request.TradeEntryRequest;
 import com.sun.fintrack.trade.request.TradeModifyRequest;
@@ -42,7 +40,6 @@ public class TradeController {
   private final TradeDeleteService tradeDeleteService;
 
   private final TradeOneService tradeOneService;
-  private final TradeListService tradeListService;
 
   /**
    * 거래 삭제
@@ -72,20 +69,20 @@ public class TradeController {
   }
 
   /**
-   * 일일 거래 내역 목록 조회
+   * 일일 거래 내역 조회
    *
    * @return 요청 결과
    */
   @GetMapping("/daily")
   public ResponseEntity<?> doGetDaily(@RequestParam(required = false) String type,
       @RequestParam(required = false) String date) {
-    TradeValidator.validateDaily(type, date);
+    TradeValidator.validateDaily(date);
 
-    return ResponseEntity.ok(new ListResponse(tradeListService.getDailyList(type, date)));
+    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(type, date)));
   }
 
   /**
-   * 월별 거래 내역 목록 조회
+   * 월별 거래 내역 조회
    *
    * @return 요청 결과
    */
@@ -93,17 +90,17 @@ public class TradeController {
   public ResponseEntity<?> doGetMonthly(@ModelAttribute TradeMonthlyRequest param) {
     TradeValidator.validate(param);
 
-    return ResponseEntity.ok(new ListResponse(tradeListService.getMonthlyList(param)));
+    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(param)));
   }
 
   /**
-   * 거래 내용 검색 목록 조회
+   * 거래 내용 검색 조회
    *
    * @return 요청 결과
    */
   @GetMapping("/search")
   public ResponseEntity<?> doGetSearch(@RequestParam(required = false) String keyword) {
-    return ResponseEntity.ok(new ListResponse(tradeListService.getSearchList(keyword)));
+    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(keyword)));
   }
 
   /**
@@ -115,7 +112,7 @@ public class TradeController {
   public ResponseEntity<?> doGetStats(@ModelAttribute TradeStatsRequest param) {
     TradeValidator.validate(param);
 
-    return ResponseEntity.ok(new DataResponse(tradeListService.getList(param)));
+    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(param)));
   }
 
   /**

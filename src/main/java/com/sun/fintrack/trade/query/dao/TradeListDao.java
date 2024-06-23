@@ -5,7 +5,7 @@ import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.trade.domain.enums.PeriodType;
 import com.sun.fintrack.trade.request.TradeMonthlyRequest;
 import com.sun.fintrack.trade.request.TradeStatsRequest;
-import com.sun.fintrack.trade.response.TradeListResponse;
+import com.sun.fintrack.trade.response.TradeHistoryResponse;
 import com.sun.fintrack.trade.response.TradeStatsResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -67,17 +67,15 @@ public class TradeListDao {
    *
    * @param date 날짜
    */
-  public List<TradeListResponse> selectDailyList(String type, String date) {
-    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, CATEGORY.CTG_SEQ,
-                  CATEGORY.CTG_NM)
+  public List<TradeHistoryResponse.History> selectDailyList(String type, String date) {
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, TRADE.TRD_TYP,
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(TRADE)
               .join(CATEGORY)
               .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-              .where(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-              .and(TRADE.TRD_TYP.eq(type))
-              .and(TRADE.TRD_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
+              .where(getConditionList(type, date))
               .orderBy(TRADE.TRD_DT.desc())
-              .fetchInto(TradeListResponse.class);
+              .fetchInto(TradeHistoryResponse.History.class);
   }
 
   /**
@@ -85,15 +83,15 @@ public class TradeListDao {
    *
    * @param param 요청 파라미터
    */
-  public List<TradeListResponse> selectMonthlyList(TradeMonthlyRequest param) {
-    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, CATEGORY.CTG_SEQ,
-                  CATEGORY.CTG_NM)
+  public List<TradeHistoryResponse.History> selectMonthlyList(TradeMonthlyRequest param) {
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, TRADE.TRD_TYP,
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(TRADE)
               .join(CATEGORY)
               .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
               .where(getConditionList(param))
               .orderBy(TRADE.TRD_DT.desc())
-              .fetchInto(TradeListResponse.class);
+              .fetchInto(TradeHistoryResponse.History.class);
   }
 
   /**
@@ -101,15 +99,15 @@ public class TradeListDao {
    *
    * @param keyword 검색 키워드
    */
-  public List<TradeListResponse> selectSearchList(String keyword) {
-    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, CATEGORY.CTG_SEQ,
-                  CATEGORY.CTG_NM)
+  public List<TradeHistoryResponse.History> selectSearchList(String keyword) {
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, TRADE.TRD_TYP,
+                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
               .from(TRADE)
               .join(CATEGORY)
               .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
               .where(getSearchConditionList(keyword))
               .orderBy(TRADE.TRD_DT.desc())
-              .fetchInto(TradeListResponse.class);
+              .fetchInto(TradeHistoryResponse.History.class);
   }
 
   /**
@@ -120,11 +118,30 @@ public class TradeListDao {
 
     conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
     // 거래 타입
-    conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(param.getType())));
+    if (StringUtils.isNotBlank(param.getType())) {
+      conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(param.getType())));
+    }
     // 연도
     conditionList.add(DSL.condition(DSL.year(TRADE.TRD_DT).eq(param.getYear())));
     // 월
     conditionList.add(DSL.condition(DSL.month(TRADE.TRD_DT).eq(param.getMonth())));
+
+    return conditionList;
+  }
+
+  /**
+   * 일일 거래 내역 목록 조회 조건
+   */
+  private List<Condition> getConditionList(String type, String date) {
+    List<Condition> conditionList = new ArrayList<>();
+
+    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+    // 거래 타입
+    if (StringUtils.isNotBlank(type)) {
+      conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(type)));
+    }
+    // 날짜
+    conditionList.add(DSL.condition(TRADE.TRD_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))));
 
     return conditionList;
   }
