@@ -1,8 +1,8 @@
 package com.sun.fintrack.category.domain;
 
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.common.domain.BaseTimeEntity;
 import com.sun.fintrack.member.domain.Member;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -45,9 +45,9 @@ public class Category extends BaseTimeEntity {
   /**
    * 카테고리 타입
    */
-  @Convert(converter = CategoryType.TypeCodeConverter.class)
+  @Convert(converter = TradeType.TypeCodeConverter.class)
   @Column(name = "CTG_TYP", nullable = false)
-  private CategoryType type;
+  private TradeType type;
   /**
    * 회원
    */
@@ -55,7 +55,7 @@ public class Category extends BaseTimeEntity {
   @JoinColumn(name = "MB_SEQ", nullable = false)
   private Member member;
 
-  public Category(String name, Integer order, CategoryType type, Member member) {
+  public Category(String name, Integer order, TradeType type, Member member) {
     this.name = name;
     this.order = order;
     this.type = type;

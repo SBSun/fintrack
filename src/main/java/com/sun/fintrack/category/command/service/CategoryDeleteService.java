@@ -1,9 +1,9 @@
 package com.sun.fintrack.category.command.service;
 
 import com.sun.fintrack.category.domain.Category;
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.repository.CategoryRepository;
 import com.sun.fintrack.category.query.service.CategoryOneService;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ public class CategoryDeleteService {
    */
   @Transactional
   public void delete(Long categorySeq, String type) {
-    Category category = categoryOneService.getOne(categorySeq, CategoryType.fromCode(type));
+    Category category = categoryOneService.getOne(categorySeq, TradeType.fromCode(type));
     categoryRepository.delete(category);
   }
 }

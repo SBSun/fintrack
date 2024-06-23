@@ -1,7 +1,6 @@
 package com.sun.fintrack.category.command.service;
 
 import com.sun.fintrack.category.domain.Category;
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.query.dao.CategoryOneDao;
 import com.sun.fintrack.category.query.repository.CategoryRepository;
 import com.sun.fintrack.category.request.CategoryEntryRequest;
@@ -9,6 +8,7 @@ import com.sun.fintrack.common.utils.CsvReadUtils;
 import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.service.MemberOneService;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +39,7 @@ public class CategoryEntryService {
   public void entry(CategoryEntryRequest param) {
     Member member = memberOneService.getReferenceOne(MemberUtils.getMemberSeq());
 
-    CategoryType type = CategoryType.fromCode(param.getType());
+    TradeType type = TradeType.fromCode(param.getType());
     int order = categoryOneDao.selectTopOrder(type) + 1;
 
     categoryRepository.save(new Category(param.getName(), order, type, member));
@@ -56,7 +56,7 @@ public class CategoryEntryService {
     lines.forEach(line -> {
       String name = line[0];
       Integer order = Integer.parseInt(line[1]);
-      CategoryType type = CategoryType.fromCode(line[2]);
+      TradeType type = TradeType.fromCode(line[2]);
 
       categoryList.add(new Category(name, order, type, member));
     });

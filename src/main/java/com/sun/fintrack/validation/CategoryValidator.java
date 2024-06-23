@@ -1,9 +1,9 @@
 package com.sun.fintrack.validation;
 
-import com.sun.fintrack.category.domain.enums.CategoryType;
 import com.sun.fintrack.category.request.CategoryEntryRequest;
 import com.sun.fintrack.category.request.CategoryModifyRequest;
 import com.sun.fintrack.common.exception.ValidationException;
+import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -85,7 +85,7 @@ public class CategoryValidator {
    */
   public void validateType(String type) {
     validateEmpty(type, "category.param_type_empty");
-    if (!CategoryType.containCode(type)) {
+    if (!TradeType.containCode(type)) {
       throw new ValidationException("category.param_type_invalid");
     }
   }
