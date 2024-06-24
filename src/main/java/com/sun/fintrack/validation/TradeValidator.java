@@ -73,8 +73,6 @@ public class TradeValidator {
    * @param param 요청 파라미터
    */
   public void validate(TradeEntryRequest param) {
-    // 거래 내용
-    validateEmpty(param.getContent(), "trade.param_content_empty");
     // 거래 금액
     if (Objects.isNull(param.getPrice())) {
       throw new ValidationException("trade.param_price_empty");
@@ -88,7 +86,7 @@ public class TradeValidator {
     validateType(param.getType());
     // 자산 일련변호
     if (Objects.isNull(param.getAssetSeq())) {
-      throw new ValidationException("asset.param_seq_empty");
+      throw new ValidationException("trade.param_asset_empty");
     }
     // 카테고리 일련번호
     if (Objects.isNull(param.getCategorySeq())) {
@@ -106,8 +104,6 @@ public class TradeValidator {
     if (Objects.isNull(param.getTradeSeq())) {
       throw new ValidationException("trade.param_seq_empty");
     }
-    // 거래 내용
-    validateEmpty(param.getContent(), "trade.param_content_empty");
     // 거래 금액
     if (Objects.isNull(param.getPrice())) {
       throw new ValidationException("trade.param_price_empty");
@@ -121,7 +117,7 @@ public class TradeValidator {
     validateType(param.getType());
     // 자산 일련변호
     if (Objects.isNull(param.getAssetSeq())) {
-      throw new ValidationException("asset.param_seq_empty");
+      throw new ValidationException("trade.param_asset_empty");
     }
     // 카테고리 일련번호
     if (Objects.isNull(param.getCategorySeq())) {
