@@ -69,12 +69,12 @@ public class Asset extends TableImpl<AssetRecord> {
     /**
      * The column <code>fintrack.ASSET.CRE_DT</code>. 등록일시
      */
-    public final TableField<AssetRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "등록일시");
+    public final TableField<AssetRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "등록일시");
 
     /**
      * The column <code>fintrack.ASSET.UPD_DT</code>. 수정일시
      */
-    public final TableField<AssetRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+    public final TableField<AssetRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
     private Asset(Name alias, Table<AssetRecord> aliased) {
         this(alias, aliased, null);

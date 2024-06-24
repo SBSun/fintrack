@@ -15,6 +15,7 @@ import sun.tables.Asset;
 import sun.tables.Category;
 import sun.tables.Member;
 import sun.tables.Trade;
+import sun.tables.Transfer;
 
 
 /**
@@ -51,6 +52,11 @@ public class Fintrack extends SchemaImpl {
     public final Trade TRADE = Trade.TRADE;
 
     /**
+     * 이체 내역 테이블
+     */
+    public final Transfer TRANSFER = Transfer.TRANSFER;
+
+    /**
      * No further instances allowed
      */
     private Fintrack() {
@@ -69,7 +75,8 @@ public class Fintrack extends SchemaImpl {
             Asset.ASSET,
             Category.CATEGORY,
             Member.MEMBER,
-            Trade.TRADE
+            Trade.TRADE,
+            Transfer.TRANSFER
         );
     }
 }

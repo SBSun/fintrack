@@ -74,12 +74,12 @@ public class Category extends TableImpl<CategoryRecord> {
     /**
      * The column <code>fintrack.CATEGORY.CRE_DT</code>. 등록일시
      */
-    public final TableField<CategoryRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "등록일시");
+    public final TableField<CategoryRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "등록일시");
 
     /**
      * The column <code>fintrack.CATEGORY.UPD_DT</code>. 수정일시
      */
-    public final TableField<CategoryRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+    public final TableField<CategoryRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
     private Category(Name alias, Table<CategoryRecord> aliased) {
         this(alias, aliased, null);

@@ -59,7 +59,7 @@ public class Trade extends TableImpl<TradeRecord> {
     /**
      * The column <code>fintrack.TRADE.TRD_CTT</code>. 거래 내용
      */
-    public final TableField<TradeRecord, String> TRD_CTT = createField(DSL.name("TRD_CTT"), SQLDataType.VARCHAR(255).nullable(false), this, "거래 내용");
+    public final TableField<TradeRecord, String> TRD_CTT = createField(DSL.name("TRD_CTT"), SQLDataType.VARCHAR(255), this, "거래 내용");
 
     /**
      * The column <code>fintrack.TRADE.TRD_PRC</code>. 거래 금액
@@ -69,7 +69,7 @@ public class Trade extends TableImpl<TradeRecord> {
     /**
      * The column <code>fintrack.TRADE.TRD_DT</code>. 거래일시
      */
-    public final TableField<TradeRecord, LocalDateTime> TRD_DT = createField(DSL.name("TRD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "거래일시");
+    public final TableField<TradeRecord, LocalDateTime> TRD_DT = createField(DSL.name("TRD_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "거래일시");
 
     /**
      * The column <code>fintrack.TRADE.TRD_TYP</code>. 거래 타입
@@ -94,12 +94,12 @@ public class Trade extends TableImpl<TradeRecord> {
     /**
      * The column <code>fintrack.TRADE.CRE_DT</code>. 등록일시
      */
-    public final TableField<TradeRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "등록일시");
+    public final TableField<TradeRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "등록일시");
 
     /**
      * The column <code>fintrack.TRADE.UPD_DT</code>. 수정일시
      */
-    public final TableField<TradeRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+    public final TableField<TradeRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
     private Trade(Name alias, Table<TradeRecord> aliased) {
         this(alias, aliased, null);

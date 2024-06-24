@@ -13,10 +13,12 @@ import sun.tables.Asset;
 import sun.tables.Category;
 import sun.tables.Member;
 import sun.tables.Trade;
+import sun.tables.Transfer;
 import sun.tables.records.AssetRecord;
 import sun.tables.records.CategoryRecord;
 import sun.tables.records.MemberRecord;
 import sun.tables.records.TradeRecord;
+import sun.tables.records.TransferRecord;
 
 
 /**
@@ -34,4 +36,5 @@ public class Keys {
     public static final UniqueKey<CategoryRecord> KEY_CATEGORY_PRIMARY = Internal.createUniqueKey(Category.CATEGORY, DSL.name("KEY_CATEGORY_PRIMARY"), new TableField[] { Category.CATEGORY.CTG_SEQ }, true);
     public static final UniqueKey<MemberRecord> KEY_MEMBER_PRIMARY = Internal.createUniqueKey(Member.MEMBER, DSL.name("KEY_MEMBER_PRIMARY"), new TableField[] { Member.MEMBER.MB_SEQ }, true);
     public static final UniqueKey<TradeRecord> KEY_TRADE_PRIMARY = Internal.createUniqueKey(Trade.TRADE, DSL.name("KEY_TRADE_PRIMARY"), new TableField[] { Trade.TRADE.TRD_SEQ }, true);
+    public static final UniqueKey<TransferRecord> KEY_TRANSFER_PRIMARY = Internal.createUniqueKey(Transfer.TRANSFER, DSL.name("KEY_TRANSFER_PRIMARY"), new TableField[] { Transfer.TRANSFER.TRF_SEQ }, true);
 }
