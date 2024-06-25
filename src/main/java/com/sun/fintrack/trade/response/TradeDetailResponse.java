@@ -40,7 +40,7 @@ public class TradeDetailResponse {
     this.tradeSeq = trade.getTradeSeq();
     this.content = trade.getContent();
     this.price = trade.getPrice();
-    this.tradeDt = DateTimeUtils.convertToString(trade.getCreatedDt(), DateTimeUtils.DEFAULT_DATETIME);
+    this.tradeDt = DateTimeUtils.convertToString(trade.getTradeDt(), DateTimeUtils.DEFAULT_DATETIME);
     this.categorySeq = trade.getCategory().getCategorySeq();
     this.categoryName = trade.getCategory().getName();
   }

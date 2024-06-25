@@ -8,6 +8,7 @@ import sun.tables.Asset;
 import sun.tables.Category;
 import sun.tables.Member;
 import sun.tables.Trade;
+import sun.tables.Transfer;
 
 
 /**
@@ -35,4 +36,9 @@ public class Tables {
      * 거래 내역 테이블
      */
     public static final Trade TRADE = Trade.TRADE;
+
+    /**
+     * 이체 내역 테이블
+     */
+    public static final Transfer TRANSFER = Transfer.TRANSFER;
 }

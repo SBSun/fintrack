@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * 거래 엔티티
+ * 거래 내역 엔티티
  */
 @Entity
 @Getter
@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 public class Trade extends BaseTimeEntity {
 
   /**
-   * 거래 일련번호
+   * 거래 내역 일련번호
    */
   @Id
   @Column(name = "TRD_SEQ", nullable = false)
@@ -94,7 +94,7 @@ public class Trade extends BaseTimeEntity {
   }
 
   /**
-   * 거래 정보 수정
+   * 거래 내역 수정
    *
    * @param content  거래 내용
    * @param price    거래 금액

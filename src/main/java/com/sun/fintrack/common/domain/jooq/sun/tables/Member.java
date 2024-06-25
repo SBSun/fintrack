@@ -74,12 +74,12 @@ public class Member extends TableImpl<MemberRecord> {
     /**
      * The column <code>fintrack.MEMBER.CRE_DT</code>. 등록일시
      */
-    public final TableField<MemberRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "등록일시");
+    public final TableField<MemberRecord, LocalDateTime> CRE_DT = createField(DSL.name("CRE_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "등록일시");
 
     /**
      * The column <code>fintrack.MEMBER.UPD_DT</code>. 수정일시
      */
-    public final TableField<MemberRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "수정일시");
+    public final TableField<MemberRecord, LocalDateTime> UPD_DT = createField(DSL.name("UPD_DT"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "수정일시");
 
     private Member(Name alias, Table<MemberRecord> aliased) {
         this(alias, aliased, null);
