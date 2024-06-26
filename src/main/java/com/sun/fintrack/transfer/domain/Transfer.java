@@ -1,6 +1,7 @@
 package com.sun.fintrack.transfer.domain;
 
 import com.sun.fintrack.asset.domain.Asset;
+import com.sun.fintrack.common.domain.BaseTimeEntity;
 import com.sun.fintrack.member.domain.Member;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Table(name = "TRANSFER")
-public class Transfer {
+public class Transfer extends BaseTimeEntity {
 
   /**
    * 이체 내역 일련번호

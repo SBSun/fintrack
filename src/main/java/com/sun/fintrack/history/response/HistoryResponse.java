@@ -1,6 +1,7 @@
-package com.sun.fintrack.trade.response;
+package com.sun.fintrack.history.response;
 
 import com.sun.fintrack.common.utils.DateTimeUtils;
+import com.sun.fintrack.history.enums.HistoryType;
 import com.sun.fintrack.trade.domain.enums.TradeType;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import lombok.Setter;
  * 거래 내역 조회 반환 형식
  */
 @Getter
-public class TradeHistoryResponse {
+public class HistoryResponse {
 
   /**
    * 내역 목록
@@ -33,8 +34,12 @@ public class TradeHistoryResponse {
    * 출금 내역 통계
    */
   private final Stats withdraw;
+  /**
+   * 이체 내역 통계
+   */
+  private final Stats transfer;
 
-  public TradeHistoryResponse(List<History> list) {
+  public HistoryResponse(List<History> list) {
     this.list = list;
 
     // 타입별 통계 계산
@@ -47,12 +52,10 @@ public class TradeHistoryResponse {
     this.deposit = statsMap.getOrDefault(TradeType.DEPOSIT.getCode(), new Stats(0L, 0L));
     // 출금 내역 통계
     this.withdraw = statsMap.getOrDefault(TradeType.WITHDRAW.getCode(), new Stats(0L, 0L));
+    // 이체 내역 통계
+    this.transfer = statsMap.getOrDefault(HistoryType.TRANSFER.getCode(), new Stats(0L, 0L));
     // 전체 통계 (모든 항목 포함)
-    this.all = new Stats(deposit.count + withdraw.count, deposit.totalAmount - withdraw.totalAmount);
-  }
-
-  public void setImageUrl(String s3Url) {
-    list.forEach(h -> h.setImage(s3Url + h.getImage()));
+    this.all = new Stats(deposit.count + withdraw.count + transfer.count, deposit.totalAmount - withdraw.totalAmount);
   }
 
   private Stats calculateStats(List<History> list) {
@@ -78,10 +81,6 @@ public class TradeHistoryResponse {
      */
     private Long price;
     /**
-     * 내역 이미지
-     */
-    private String image;
-    /**
      * 거래일시
      */
     private String tradeDt;
@@ -90,23 +89,22 @@ public class TradeHistoryResponse {
      */
     private String type;
     /**
-     * 카테고리 일련번호
+     * 자산명
      */
-    private Long categorySeq;
+    private String assetName;
     /**
      * 카테고리명
      */
     private String categoryName;
 
-    public History(Long tradeSeq, String content, Long price, String image, LocalDateTime tradeDt, String type,
-        Long categorySeq, String categoryName) {
+    public History(Long tradeSeq, String content, Long price, LocalDateTime tradeDt, String type, String assetName,
+        String categoryName) {
       this.tradeSeq = tradeSeq;
       this.content = content;
       this.price = price;
-      this.image = image;
       this.tradeDt = DateTimeUtils.formatLocalDateTime(tradeDt);
       this.type = type;
-      this.categorySeq = categorySeq;
+      this.assetName = assetName;
       this.categoryName = categoryName;
     }
   }

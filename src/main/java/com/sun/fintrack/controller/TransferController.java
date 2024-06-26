@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 이체 api
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/transfers")
@@ -69,7 +71,7 @@ public class TransferController {
    * @return 요청 결과
    */
   @PostMapping
-  public ResponseEntity<?> doPost(@RequestPart TransferEntryRequest param) {
+  public ResponseEntity<?> doPost(@RequestBody TransferEntryRequest param) {
     TransferValidator.validate(param);
 
     transferEntryService.entry(param);

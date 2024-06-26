@@ -6,7 +6,6 @@ import com.sun.fintrack.trade.domain.enums.PeriodType;
 import com.sun.fintrack.trade.domain.enums.TradeType;
 import com.sun.fintrack.trade.request.TradeEntryRequest;
 import com.sun.fintrack.trade.request.TradeModifyRequest;
-import com.sun.fintrack.trade.request.TradeMonthlyRequest;
 import com.sun.fintrack.trade.request.TradeStatsRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -126,26 +125,6 @@ public class TradeValidator {
   }
 
   /**
-   * 월별 거래 내역 조회 유효성 체크
-   *
-   * @param param 요청 파라미터
-   */
-  public void validate(TradeMonthlyRequest param) {
-    // 연도
-    if (Objects.isNull(param.getYear())) {
-      throw new ValidationException("trade.param_year_empty");
-    }
-    // 월
-    Integer month = param.getMonth();
-    if (Objects.isNull(month)) {
-      throw new ValidationException("trade.param_month_empty");
-    }
-    if (month < 1 || month > 12) {
-      throw new ValidationException("trade.param_month_invalid");
-    }
-  }
-
-  /**
    * 거래 일련번호 & 거래 타입 유효성 체크
    *
    * @param tradeSeq 거래 일련번호
@@ -156,19 +135,6 @@ public class TradeValidator {
     validateSeq(tradeSeq);
     // 거래 타입
     validateType(type);
-  }
-
-  /**
-   * 일일 거래 내역 조회 유효성 체크
-   *
-   * @param date 날짜
-   */
-  public void validateDaily(String date) {
-    // 날짜
-    validateEmpty(date, "trade.param_date_empty");
-    if (!DateTimeUtils.validFormat(date, DateTimeUtils.DEFAULT_DATE)) {
-      throw new ValidationException("date.param_date_invalid");
-    }
   }
 
   /**
