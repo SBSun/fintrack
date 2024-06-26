@@ -8,7 +8,6 @@ import com.sun.fintrack.trade.command.service.TradeModifyService;
 import com.sun.fintrack.trade.query.service.TradeOneService;
 import com.sun.fintrack.trade.request.TradeEntryRequest;
 import com.sun.fintrack.trade.request.TradeModifyRequest;
-import com.sun.fintrack.trade.request.TradeMonthlyRequest;
 import com.sun.fintrack.trade.request.TradeStatsRequest;
 import com.sun.fintrack.validation.TradeValidator;
 
@@ -29,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 거래 내역 api
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/trades")
@@ -66,41 +68,6 @@ public class TradeController {
     TradeValidator.validate(tradeSeq, type);
 
     return ResponseEntity.ok(new DataResponse(tradeOneService.getDetail(tradeSeq, type)));
-  }
-
-  /**
-   * 일일 거래 내역 조회
-   *
-   * @return 요청 결과
-   */
-  @GetMapping("/daily")
-  public ResponseEntity<?> doGetDaily(@RequestParam(required = false) String type,
-      @RequestParam(required = false) String date) {
-    TradeValidator.validateDaily(date);
-
-    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(type, date)));
-  }
-
-  /**
-   * 월별 거래 내역 조회
-   *
-   * @return 요청 결과
-   */
-  @GetMapping("/monthly")
-  public ResponseEntity<?> doGetMonthly(@ModelAttribute TradeMonthlyRequest param) {
-    TradeValidator.validate(param);
-
-    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(param)));
-  }
-
-  /**
-   * 거래 내용 검색 조회
-   *
-   * @return 요청 결과
-   */
-  @GetMapping("/search")
-  public ResponseEntity<?> doGetSearch(@RequestParam(required = false) String keyword) {
-    return ResponseEntity.ok(new DataResponse(tradeOneService.getOne(keyword)));
   }
 
   /**

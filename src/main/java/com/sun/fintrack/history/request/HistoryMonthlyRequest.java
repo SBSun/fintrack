@@ -1,14 +1,14 @@
-package com.sun.fintrack.trade.request;
+package com.sun.fintrack.history.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 월별 거래 내역 목록 조회 요청
+ * 월별 내역 목록 조회 요청
  */
 @Getter
 @Setter
-public class TradeMonthlyRequest {
+public class HistoryMonthlyRequest {
 
   /**
    * 거래 타입
