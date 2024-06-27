@@ -11,7 +11,7 @@ import lombok.Setter;
 public class HistoryMonthlyRequest {
 
   /**
-   * 거래 타입
+   * 내역 타입
    */
   private String type;
   /**
