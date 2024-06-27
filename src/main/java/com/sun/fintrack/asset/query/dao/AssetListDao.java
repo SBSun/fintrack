@@ -30,7 +30,7 @@ public class AssetListDao {
     return dsl.select(ASSET.AS_SEQ, ASSET.AS_NM, ASSET.AS_AMT)
               .from(ASSET)
               .where(ASSET.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-              .orderBy(ASSET.CRE_DT.desc())
+              .orderBy(ASSET.AS_SEQ.asc())
               .fetchInto(AssetListResponse.class);
   }
 }

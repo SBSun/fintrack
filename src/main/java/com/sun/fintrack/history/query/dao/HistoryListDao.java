@@ -42,54 +42,12 @@ public class HistoryListDao {
   public List<HistoryResponse.History> selectDailyList(String type, String date) {
     if (StringUtils.isNotBlank(type)) {
       if (StringUtils.equals(type, HistoryType.TRANSFER.getCode())) {
-        Asset depositAsset = ASSET.as("depositAsset");
-        return dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
-                      DSL.val(HistoryType.TRANSFER.getCode()), DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
-                      DSL.val(HistoryType.TRANSFER.getName()))
-                  .from(TRANSFER)
-                  .join(ASSET)
-                  .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
-                  .join(depositAsset)
-                  .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
-                  .where(TRANSFER.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-                  .and(TRANSFER.TRF_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date)))
-                  .orderBy(TRANSFER.TRF_DT.desc())
-                  .fetchInto(HistoryResponse.History.class);
+        return selectTransferList(getDailyTransferConditionList(date));
       } else {
-        return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
-                      CATEGORY.CTG_NM)
-                  .from(TRADE)
-                  .join(ASSET)
-                  .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
-                  .join(CATEGORY)
-                  .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-                  .where(getConditionList(type, date))
-                  .orderBy(TRADE.TRD_DT.desc())
-                  .fetchInto(HistoryResponse.History.class);
+        return selectTradeList(getDailyTradeConditionList(type, date));
       }
     } else {
-      Asset depositAsset = ASSET.as("depositAsset");
-      return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
-                    CATEGORY.CTG_NM)
-                .from(TRADE)
-                .join(ASSET)
-                .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
-                .join(CATEGORY)
-                .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-                .where(getConditionList(type, date))
-                .unionAll(dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
-                                 DSL.val(HistoryType.TRANSFER.getCode()),
-                                 DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
-                                 DSL.val(HistoryType.TRANSFER.getName()))
-                             .from(TRANSFER)
-                             .join(ASSET)
-                             .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
-                             .join(depositAsset)
-                             .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
-                             .where(TRANSFER.MB_SEQ.eq(MemberUtils.getMemberSeq()))
-                             .and(TRANSFER.TRF_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))))
-                .orderBy(TRADE.TRD_DT.desc())
-                .fetchInto(HistoryResponse.History.class);
+      return select(getDailyTradeConditionList(type, date), getDailyTransferConditionList(date));
     }
   }
 
@@ -101,67 +59,43 @@ public class HistoryListDao {
   public List<HistoryResponse.History> selectMonthlyList(HistoryMonthlyRequest param) {
     if (StringUtils.isNotBlank(param.getType())) {
       if (StringUtils.equals(param.getType(), HistoryType.TRANSFER.getCode())) {
-        Asset depositAsset = ASSET.as("depositAsset");
-        return dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
-                      DSL.val(HistoryType.TRANSFER.getCode()), DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
-                      DSL.val(HistoryType.TRANSFER.getName()))
-                  .from(TRANSFER)
-                  .join(ASSET)
-                  .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
-                  .join(depositAsset)
-                  .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
-                  .where(getTransferConditionList(param))
-                  .orderBy(TRANSFER.TRF_DT.desc())
-                  .fetchInto(HistoryResponse.History.class);
+        return selectTransferList(getMonthlyTransferConditionList(param));
       } else {
-        return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
-                      CATEGORY.CTG_NM)
-                  .from(TRADE)
-                  .join(ASSET)
-                  .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
-                  .join(CATEGORY)
-                  .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-                  .where(getTradeConditionList(param))
-                  .orderBy(TRADE.TRD_DT.desc())
-                  .fetchInto(HistoryResponse.History.class);
+        return selectTradeList(getMonthlyTradeConditionList(param));
       }
     } else {
-      Asset depositAsset = ASSET.as("depositAsset");
-      return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
-                    CATEGORY.CTG_NM)
-                .from(TRADE)
-                .join(ASSET)
-                .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
-                .join(CATEGORY)
-                .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-                .where(getTradeConditionList(param))
-                .unionAll(dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
-                                 DSL.val(HistoryType.TRANSFER.getCode()),
-                                 DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
-                                 DSL.val(HistoryType.TRANSFER.getName()))
-                             .from(TRANSFER)
-                             .join(ASSET)
-                             .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
-                             .join(depositAsset)
-                             .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
-                             .where(getTransferConditionList(param)))
-                .orderBy(TRADE.TRD_DT.desc())
-                .fetchInto(HistoryResponse.History.class);
+      return select(getMonthlyTradeConditionList(param), getMonthlyTransferConditionList(param));
     }
   }
 
   /**
-   * 거래 내용 검색 목록 조회
+   * 내역 내용 검색 목록 조회
    *
    * @param keyword 검색 키워드
    */
   public List<HistoryResponse.History> selectSearchList(String keyword) {
-    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_IMG_PATH, TRADE.TRD_DT, TRADE.TRD_TYP,
-                  CATEGORY.CTG_SEQ, CATEGORY.CTG_NM)
+    Long memberSeq = MemberUtils.getMemberSeq();
+    Asset depositAsset = ASSET.as("depositAsset");
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
+                  CATEGORY.CTG_NM)
               .from(TRADE)
+              .join(ASSET)
+              .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
               .join(CATEGORY)
               .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
-              .where(getSearchConditionList(keyword))
+              .where(TRADE.MB_SEQ.eq(memberSeq))
+              .and(TRADE.TRD_CTT.like("%" + keyword + "%"))
+              .unionAll(dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
+                               DSL.val(HistoryType.TRANSFER.getCode()),
+                               DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
+                               DSL.val(HistoryType.TRANSFER.getName()))
+                           .from(TRANSFER)
+                           .join(ASSET)
+                           .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
+                           .join(depositAsset)
+                           .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
+                           .where(TRANSFER.MB_SEQ.eq(memberSeq))
+                           .and(TRANSFER.TRF_CTT.like("%" + keyword + "%")))
               .orderBy(TRADE.TRD_DT.desc())
               .fetchInto(HistoryResponse.History.class);
   }
@@ -169,7 +103,7 @@ public class HistoryListDao {
   /**
    * 일일 거래 내역 목록 조회 조건
    */
-  private List<Condition> getConditionList(String type, String date) {
+  private List<Condition> getDailyTradeConditionList(String type, String date) {
     List<Condition> conditionList = new ArrayList<>();
 
     conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
@@ -179,6 +113,55 @@ public class HistoryListDao {
     }
     // 날짜
     conditionList.add(DSL.condition(TRADE.TRD_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))));
+
+    return conditionList;
+  }
+
+  /**
+   * 일일 이체 내역 목록 조회 조건
+   */
+  private List<Condition> getDailyTransferConditionList(String date) {
+    List<Condition> conditionList = new ArrayList<>();
+
+    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+
+    // 날짜
+    conditionList.add(DSL.condition(TRADE.TRD_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))));
+
+    return conditionList;
+  }
+
+  /**
+   * 월별 거래 내역 목록 조회 조건
+   */
+  private List<Condition> getMonthlyTradeConditionList(HistoryMonthlyRequest param) {
+    List<Condition> conditionList = new ArrayList<>();
+
+    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+    // 거래 타입
+    if (StringUtils.isNotBlank(param.getType())) {
+      conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(param.getType())));
+    }
+    // 연도
+    conditionList.add(DSL.condition(DSL.year(TRADE.TRD_DT).eq(param.getYear())));
+    // 월
+    conditionList.add(DSL.condition(DSL.month(TRADE.TRD_DT).eq(param.getMonth())));
+
+    return conditionList;
+  }
+
+  /**
+   * 월별 이체 내역 목록 조회 조건
+   */
+  private List<Condition> getMonthlyTransferConditionList(HistoryMonthlyRequest param) {
+    List<Condition> conditionList = new ArrayList<>();
+
+    conditionList.add(DSL.condition(TRANSFER.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+
+    // 연도
+    conditionList.add(DSL.condition(DSL.year(TRANSFER.TRF_DT).eq(param.getYear())));
+    // 월
+    conditionList.add(DSL.condition(DSL.month(TRANSFER.TRF_DT).eq(param.getMonth())));
 
     return conditionList;
   }
@@ -200,37 +183,74 @@ public class HistoryListDao {
   }
 
   /**
-   * 월별 거래 내역 목록 조회 조건
+   * 거래 & 이체 내역 목록 조회
+   *
+   * @param tradeConditionList    거래 내역 조회 조건 목록
+   * @param transferConditionList 이체 내역 조회 조건 목록
+   * @return 요청 결과
    */
-  private List<Condition> getTradeConditionList(HistoryMonthlyRequest param) {
-    List<Condition> conditionList = new ArrayList<>();
-
-    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
-    // 거래 타입
-    if (StringUtils.isNotBlank(param.getType())) {
-      conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(param.getType())));
-    }
-    // 연도
-    conditionList.add(DSL.condition(DSL.year(TRADE.TRD_DT).eq(param.getYear())));
-    // 월
-    conditionList.add(DSL.condition(DSL.month(TRADE.TRD_DT).eq(param.getMonth())));
-
-    return conditionList;
+  private List<HistoryResponse.History> select(List<Condition> tradeConditionList,
+      List<Condition> transferConditionList) {
+    Asset depositAsset = ASSET.as("depositAsset");
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
+                  CATEGORY.CTG_NM)
+              .from(TRADE)
+              .join(ASSET)
+              .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
+              .where(tradeConditionList)
+              .unionAll(dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
+                               DSL.val(HistoryType.TRANSFER.getCode()),
+                               DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
+                               DSL.val(HistoryType.TRANSFER.getName()))
+                           .from(TRANSFER)
+                           .join(ASSET)
+                           .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
+                           .join(depositAsset)
+                           .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
+                           .where(transferConditionList))
+              .orderBy(TRADE.TRD_DT.desc())
+              .fetchInto(HistoryResponse.History.class);
   }
 
   /**
-   * 월별 이체 내역 목록 조회 조건
+   * 거래 내역 목록 조회
+   *
+   * @param conditionList 조건 목록
+   * @return 요청 결과
    */
-  private List<Condition> getTransferConditionList(HistoryMonthlyRequest param) {
-    List<Condition> conditionList = new ArrayList<>();
+  private List<HistoryResponse.History> selectTradeList(List<Condition> conditionList) {
+    return dsl.select(TRADE.TRD_SEQ, TRADE.TRD_CTT, TRADE.TRD_PRC, TRADE.TRD_DT, TRADE.TRD_TYP, ASSET.AS_NM,
+                  CATEGORY.CTG_NM)
+              .from(TRADE)
+              .join(ASSET)
+              .on(ASSET.AS_SEQ.eq(TRADE.AS_SEQ))
+              .join(CATEGORY)
+              .on(CATEGORY.CTG_SEQ.eq(TRADE.CTG_SEQ))
+              .where(conditionList)
+              .orderBy(TRADE.TRD_DT.desc())
+              .fetchInto(HistoryResponse.History.class);
+  }
 
-    conditionList.add(DSL.condition(TRANSFER.MB_SEQ.eq(MemberUtils.getMemberSeq())));
-
-    // 연도
-    conditionList.add(DSL.condition(DSL.year(TRANSFER.TRF_DT).eq(param.getYear())));
-    // 월
-    conditionList.add(DSL.condition(DSL.month(TRANSFER.TRF_DT).eq(param.getMonth())));
-
-    return conditionList;
+  /**
+   * 이체 내역 목록 조회
+   *
+   * @param conditionList 조건 목록
+   * @return 요청 결과
+   */
+  private List<HistoryResponse.History> selectTransferList(List<Condition> conditionList) {
+    Asset depositAsset = ASSET.as("depositAsset");
+    return dsl.select(TRANSFER.TRF_SEQ, TRANSFER.TRF_CTT, TRANSFER.TRF_PRC, TRANSFER.TRF_DT,
+                  DSL.val(HistoryType.TRANSFER.getCode()), DSL.concat(ASSET.AS_NM).concat(" -> ").concat(depositAsset.AS_NM),
+                  DSL.val(HistoryType.TRANSFER.getName()))
+              .from(TRANSFER)
+              .join(ASSET)
+              .on(ASSET.AS_SEQ.eq(TRANSFER.WTHDR_AS_SEQ))
+              .join(depositAsset)
+              .on(depositAsset.AS_SEQ.eq(TRANSFER.DPST_AS_SEQ))
+              .where(conditionList)
+              .orderBy(TRANSFER.TRF_DT.desc())
+              .fetchInto(HistoryResponse.History.class);
   }
 }
