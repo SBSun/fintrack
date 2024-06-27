@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.4'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:3.3.1'
 	implementation 'org.springframework.boot:spring-boot-configuration-processor:3.2.4'
 
 	jooqGenerator 'com.mysql:mysql-connector-j'
@@ -46,6 +47,9 @@ dependencies {
 
 	// AWS
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// Jackson
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
 
 	// Utils
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'

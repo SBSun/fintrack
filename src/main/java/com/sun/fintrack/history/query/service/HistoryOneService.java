@@ -25,7 +25,6 @@ public class HistoryOneService {
    */
   @Transactional(readOnly = true)
   public HistoryResponse getOne(String type, String date) {
-
     return new HistoryResponse(historyListDao.selectDailyList(type, date));
   }
 
