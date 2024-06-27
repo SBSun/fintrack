@@ -34,7 +34,7 @@ public class HistoryController {
   @GetMapping("/daily")
   public ResponseEntity<?> doGetDaily(@RequestParam(required = false) String type,
       @RequestParam(required = false) String date) {
-    HistoryValidator.validateDaily(date);
+    HistoryValidator.validateDaily(type, date);
 
     return ResponseEntity.ok(new DataResponse(historyOneService.getOne(type, date)));
   }

@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 거래 내역 조회 반환 형식
+ * 내역 조회 반환 형식
  */
 @Getter
 public class HistoryResponse {
@@ -85,7 +85,7 @@ public class HistoryResponse {
      */
     private String tradeDt;
     /**
-     * 거래 타입
+     * 이력 타입
      */
     private String type;
     /**

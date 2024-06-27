@@ -82,6 +82,7 @@ jooq {
 			generateSchemaSourceOnCompilation = false  // default (can be omitted)
 
 			generationTool {
+				logging = org.jooq.meta.jaxb.Logging.DEBUG
 				jdbc {
 					driver = 'com.mysql.jdbc.Driver'
 					url = 'jdbc:mysql://localhost:3306/fintrack'
