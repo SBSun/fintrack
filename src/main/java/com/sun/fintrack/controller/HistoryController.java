@@ -1,6 +1,7 @@
 package com.sun.fintrack.controller;
 
 import com.sun.fintrack.common.response.DataResponse;
+import com.sun.fintrack.common.utils.MemberUtils;
 import com.sun.fintrack.history.query.service.HistoryOneService;
 import com.sun.fintrack.history.request.HistoryMonthlyRequest;
 import com.sun.fintrack.validation.HistoryValidator;
@@ -36,7 +37,7 @@ public class HistoryController {
       @RequestParam(required = false) String date) {
     HistoryValidator.validateDaily(type, date);
 
-    return ResponseEntity.ok(new DataResponse(historyOneService.getOne(type, date)));
+    return ResponseEntity.ok(new DataResponse(historyOneService.getOne(type, date, MemberUtils.getMemberSeq())));
   }
 
   /**
