@@ -24,9 +24,8 @@ public class HistoryOneService {
    * @return 요청 결과
    */
   @Transactional(readOnly = true)
-  public HistoryResponse getOne(String type, String date) {
-
-    return new HistoryResponse(historyListDao.selectDailyList(type, date));
+  public HistoryResponse getOne(String type, String date, Long memberSeq) {
+    return new HistoryResponse(historyListDao.selectDailyList(type, date, memberSeq));
   }
 
   /**

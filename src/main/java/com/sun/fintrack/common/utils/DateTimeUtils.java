@@ -50,6 +50,14 @@ public class DateTimeUtils {
   }
 
   /**
+   * LocalDate -> yyyy-MM-dd 문자열 변환
+   */
+  public String convertToString(LocalDate date, String pattern) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, Locale.KOREA);
+    return date.format(formatter);
+  }
+
+  /**
    * LocalDateTime -> 24. 6. 17. (월) 23:51 형식의 문자열 반환
    */
   public String formatLocalDateTime(LocalDateTime dateTime) {

@@ -39,15 +39,15 @@ public class HistoryListDao {
    *
    * @param date 날짜
    */
-  public List<HistoryResponse.History> selectDailyList(String type, String date) {
+  public List<HistoryResponse.History> selectDailyList(String type, String date, Long memberSeq) {
     if (StringUtils.isNotBlank(type)) {
       if (StringUtils.equals(type, HistoryType.TRANSFER.getCode())) {
-        return selectTransferList(getDailyTransferConditionList(date));
+        return selectTransferList(getDailyTransferConditionList(date, memberSeq));
       } else {
-        return selectTradeList(getDailyTradeConditionList(type, date));
+        return selectTradeList(getDailyTradeConditionList(type, date, memberSeq));
       }
     } else {
-      return select(getDailyTradeConditionList(type, date), getDailyTransferConditionList(date));
+      return select(getDailyTradeConditionList(type, date, memberSeq), getDailyTransferConditionList(date, memberSeq));
     }
   }
 
@@ -103,10 +103,10 @@ public class HistoryListDao {
   /**
    * 일일 거래 내역 목록 조회 조건
    */
-  private List<Condition> getDailyTradeConditionList(String type, String date) {
+  private List<Condition> getDailyTradeConditionList(String type, String date, Long memberSeq) {
     List<Condition> conditionList = new ArrayList<>();
 
-    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(memberSeq)));
     // 거래 타입
     if (StringUtils.isNotBlank(type)) {
       conditionList.add(DSL.condition(TRADE.TRD_TYP.eq(type)));
@@ -120,13 +120,13 @@ public class HistoryListDao {
   /**
    * 일일 이체 내역 목록 조회 조건
    */
-  private List<Condition> getDailyTransferConditionList(String date) {
+  private List<Condition> getDailyTransferConditionList(String date, Long memberSeq) {
     List<Condition> conditionList = new ArrayList<>();
 
-    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
+    conditionList.add(DSL.condition(TRANSFER.MB_SEQ.eq(memberSeq)));
 
     // 날짜
-    conditionList.add(DSL.condition(TRADE.TRD_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))));
+    conditionList.add(DSL.condition(TRANSFER.TRF_DT.cast(LocalDate.class).eq(DateTimeUtils.convertToDate(date))));
 
     return conditionList;
   }
@@ -163,22 +163,6 @@ public class HistoryListDao {
     // 월
     conditionList.add(DSL.condition(DSL.month(TRANSFER.TRF_DT).eq(param.getMonth())));
 
-    return conditionList;
-  }
-
-  /**
-   * 거래 내용 검색 목록 조회 조건
-   *
-   * @param keyword 검색 키워드
-   */
-  private List<Condition> getSearchConditionList(String keyword) {
-    List<Condition> conditionList = new ArrayList<>();
-
-    conditionList.add(DSL.condition(TRADE.MB_SEQ.eq(MemberUtils.getMemberSeq())));
-
-    if (StringUtils.isNotBlank(keyword)) {
-      conditionList.add(TRADE.TRD_CTT.like("%" + keyword + "%"));
-    }
     return conditionList;
   }
 
