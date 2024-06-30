@@ -3,8 +3,11 @@ package com.sun.fintrack.common.utils;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
-import java.io.FileReader;
+import org.springframework.core.io.ClassPathResource;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import lombok.experimental.UtilityClass;
@@ -19,7 +22,10 @@ public class CsvReadUtils {
 
   public List<String[]> readCSVFile(String fileName) {
     try {
-      CSVReader reader = new CSVReader(new FileReader("src/main/resources/" + fileName));
+      ClassPathResource classPathResource = new ClassPathResource(fileName);
+      InputStream inputStream = classPathResource.getInputStream();
+      InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+      CSVReader reader = new CSVReader(inputStreamReader);
       List<String[]> lines = reader.readAll();
       reader.close();
       return lines;
