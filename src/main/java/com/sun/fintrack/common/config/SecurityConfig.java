@@ -44,7 +44,7 @@ public class SecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
             (authorize) -> authorize.requestMatchers("/images/**", "/static/**", "/error", "/health", "/test",
-                                        "/auth/status")
+                                        "/auth/status", "/monitoring/**")
                                     .permitAll()
                                     .requestMatchers("/", "/auth/kakao", "/auth/login/url")
                                     .anonymous()
