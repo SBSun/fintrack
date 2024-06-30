@@ -1,8 +1,10 @@
 package com.sun.fintrack;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
@@ -15,4 +17,8 @@ public class FintrackApplication {
     SpringApplication.run(FintrackApplication.class, args);
   }
 
+  @Bean
+  public InMemoryHttpExchangeRepository httpExchangeRepository() {
+    return new InMemoryHttpExchangeRepository();
+  }
 }
