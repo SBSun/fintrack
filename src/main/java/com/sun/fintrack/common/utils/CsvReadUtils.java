@@ -25,7 +25,7 @@ public class CsvReadUtils {
       return lines;
     } catch (IOException | CsvException e) {
       log.info(e.getMessage());
-      throw new IllegalArgumentException("CSV 파일을 읽는 도중 예외가 발생했습니다.");
+      throw new IllegalArgumentException("CSV 파일을 읽는 도중 예외가 발생했습니다. - " + e.getMessage());
     }
   }
 }

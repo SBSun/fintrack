@@ -49,7 +49,7 @@ public class SlackLogAppender {
     String xffHeader = request.getHeader("X-FORWARDED-FOR");
     StringWriter sw = new StringWriter();
     e.printStackTrace(new PrintWriter(sw));
-    String message = sw.toString().substring(0, 1500);
+    String message = sw.toString().substring(0, 2000);
     return Attachment.builder()
                      .serviceName("에러 알리미")
                      .color("ff0000")
