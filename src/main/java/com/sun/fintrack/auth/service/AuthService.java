@@ -5,6 +5,7 @@ import com.sun.fintrack.auth.domain.enums.SocialType;
 import com.sun.fintrack.auth.domain.provider.AuthCodeRequestUrlProviderComposite;
 import com.sun.fintrack.auth.kakao.response.KakaoMemberResponse;
 import com.sun.fintrack.category.command.service.CategoryEntryService;
+import com.sun.fintrack.common.domain.enums.Valid;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.repository.MemberRepository;
 
@@ -53,7 +54,7 @@ public class AuthService {
   public String login(SocialType socialType, String code) {
     KakaoMemberResponse memberInfo = socialUserClient.fetch(socialType, code);
 
-    Member member = memberRepository.findByEmail(memberInfo.email()).orElse(null);
+    Member member = memberRepository.findByEmailAndValid(memberInfo.email(), Valid.TRUE).orElse(null);
     if (Objects.isNull(member)) {
       member = memberRepository.save(new Member(memberInfo));
       // 기본 카테고리 등록

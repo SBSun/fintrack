@@ -2,6 +2,7 @@ package com.sun.fintrack.member.domain;
 
 import com.sun.fintrack.auth.kakao.response.KakaoMemberResponse;
 import com.sun.fintrack.common.domain.BaseTimeEntity;
+import com.sun.fintrack.common.domain.enums.Valid;
 import com.sun.fintrack.member.domain.enums.RoleType;
 
 import jakarta.persistence.Column;
@@ -49,8 +50,9 @@ public class Member extends BaseTimeEntity {
   /**
    * 유효여부
    */
+  @Convert(converter = Valid.TypeCodeConverter.class)
   @Column(name = "MB_VALID", nullable = false)
-  private String valid = "Y";
+  private Valid valid = Valid.TRUE;
 
   public Member(KakaoMemberResponse memberInfo) {
     this.email = memberInfo.email();
