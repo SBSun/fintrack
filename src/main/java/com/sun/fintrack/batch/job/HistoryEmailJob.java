@@ -1,5 +1,6 @@
 package com.sun.fintrack.batch.job;
 
+import com.sun.fintrack.common.domain.enums.Valid;
 import com.sun.fintrack.common.utils.DateTimeUtils;
 import com.sun.fintrack.common.utils.JacksonUtils;
 import com.sun.fintrack.common.utils.MailUtils;
@@ -8,7 +9,6 @@ import com.sun.fintrack.history.response.HistoryResponse;
 import com.sun.fintrack.member.domain.Member;
 import com.sun.fintrack.member.repository.MemberRepository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class HistoryEmailJob {
   @Scheduled(cron = "0 0 6 * * ?", zone = "Asia/Seoul")
   public void execute() {
     List<Member> memberList =
-        memberRepository.findAll().stream().filter(member -> StringUtils.equals(member.getValid(), "Y")).toList();
+        memberRepository.findAll().stream().filter(member -> member.getValid().equals(Valid.TRUE)).toList();
 
     String date = DateTimeUtils.convertToString(LocalDate.now().minusDays(1), DateTimeUtils.DEFAULT_DATE);
 
